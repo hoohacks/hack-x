@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, getAuth, sendSignInLinkToEmail } from "firebase/auth";
 import { useState } from "react";
 import { ActivityIndicator, Button, KeyboardAvoidingView, StyleSheet, TextInput, Text, View } from "react-native";
 import { FIREBASE_AUTH } from "../../FirebaseConfig";
@@ -29,6 +29,10 @@ const SignUp = () => {
             const response = await createUserWithEmailAndPassword(auth, email, password);
             // await FIREBASE_ADMIN_AUTH.setCustomUserClaims(response.user.uid, {admin: true});
             // await sendEmailVerification(response.user);
+            
+            // sends email verification to user
+            await sendEmailVerification(response.user);
+
             console.log(response);
         } catch (error) {
             console.log(error);
