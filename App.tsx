@@ -13,6 +13,7 @@ import { FIREBASE_AUTH } from "./FirebaseConfig";
 import Login from "./app/screens/Login";
 import Details from "./app/screens/Details";
 import SignUp from "./app/screens/SignUp";
+import PasswordReset from "./app/screens/PasswordReset";
 
 const Stack = createNativeStackNavigator();
 const UserStack = createNativeStackNavigator();
@@ -45,6 +46,7 @@ export default function App() {
           <Stack.Screen name="Login" component={Login} options={{ headerShown:false }}/>
         )}
         <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown:false }}/>
+        <Stack.Screen name="PasswordReset" component={PasswordReset} options={{ headerShown:false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

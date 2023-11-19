@@ -56,6 +56,7 @@ const Login = ({ navigation }: RouterProps) => {
                     </>
                 )}
                 <Button title="SignUp" onPress={() => navigation.navigate('SignUp')} />
+                <Button title="Forgot password?" onPress={() => navigation.navigate('PasswordReset')} />
             </KeyboardAvoidingView>
 
         </View>
