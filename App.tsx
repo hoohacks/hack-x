@@ -7,12 +7,15 @@ import { useEffect, useState } from "react";
 
 // firebase
 import { User, onAuthStateChanged } from "firebase/auth";
-import { FIREBASE_AUTH } from "./FirebaseConfig";
+import { FIREBASE_AUTH } from "./firebase/FirebaseConfig";
 
 // views
-import Login from "./app/screens/Login";
+import Login from "./app/screens/auth/Login";
 import Details from "./app/screens/Details";
-import SignUp from "./app/screens/SignUp";
+import SignUp from "./app/screens/auth/SignUp";
+
+// styles
+import "./styles.css";
 
 const Stack = createNativeStackNavigator();
 const UserStack = createNativeStackNavigator();
