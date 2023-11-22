@@ -14,9 +14,6 @@ import Login from "./app/screens/auth/Login";
 import Details from "./app/screens/Details";
 import SignUp from "./app/screens/auth/SignUp";
 
-// styles
-import "./styles.css";
-
 const Stack = createNativeStackNavigator();
 const UserStack = createNativeStackNavigator();
 
@@ -27,8 +24,7 @@ function UserLayout() {
     </UserStack.Navigator>
   );
 };
-
-export default function App() {
+const App = () => {
 
   const [user, setUser] = useState<User | null>(null);
 
@@ -50,8 +46,10 @@ export default function App() {
         <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown:false }}/>
       </Stack.Navigator>
     </NavigationContainer>
-  );
+  )
 }
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {

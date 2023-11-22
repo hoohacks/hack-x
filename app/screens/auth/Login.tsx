@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { View, Button, TextInput, Text, ActivityIndicator, KeyboardAvoidingView, Pressable } from "react-native"
+import {  StyleSheet, View, Button, TextInput, Text, ActivityIndicator, KeyboardAvoidingView, Pressable } from "react-native"
 import { FIREBASE_AUTH } from "../../../firebase/FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { NavigationProp } from "@react-navigation/native";
@@ -36,47 +36,72 @@ const Login = ({ navigation }: RouterProps) => {
 
     return (
         <View 
-            // style={styles.container}
+            style={styles.container}
         >
             <KeyboardAvoidingView behavior="padding">
                 <Logo 
-                    // style={styles.logo} 
+                    style={{
+                        alignSelf: "center",
+                        marginBottom: 56,
+                    }} 
                     width={126} 
                     height={110} 
                 />
                 <TextInput
-                    // style={styles.input}
+                    style={styles.input}
                     placeholder="Email"
+                    placeholderTextColor="#fff"
                     autoCapitalize="none"
                     onChangeText={(text) => setEmail(text)}
                 />
                 <TextInput
-                    // style={styles.input}
+                    style={styles.input}
                     secureTextEntry={true}
                     placeholder="Password"
+                    placeholderTextColor="#fff"
                     autoCapitalize="none"
                     onChangeText={(text) => setPassword(text)}
                 />
+                <Text
+                    style={{
+                        textDecorationLine: "underline",
+                        color: "#fff",
+                        alignSelf: "flex-end",
+                        fontSize: 12,
+                    }}
+                    onPress={() => navigation.navigate("SignUp")}
+                >
+                    Forgot Password?
+                </Text>
 
                 {loading ? (
                     <ActivityIndicator size="large" color="#0000ff" />
                 ) : (
                     <>
                         <Pressable 
-                            // style={styles.button} 
+                            style={styles.button} 
                             onPress={() => signIn()}
                         >
                             <Text 
-                            // style={styles.button_text}
-                            >Log In</Text>
+                            style={styles.button_text}
+                            >Sign In</Text>
                         </Pressable>
-                        <View style={{ alignSelf: "center" }}>
+                        <View 
+                            style={{ 
+                                alignSelf: "center",
+                                padding: 15, 
+                            }}
+                        >
                             <Text 
-                            // style={styles.button_text}
+                                style={{
+                                    fontSize: 12,
+                                    color: "#fff",
+                                }}
                             >
                                 Don't have an account?
+                                <Text>{' '}</Text>
                                 <Text
-                                    // style={styles.link_text}
+                                    style={{textDecorationLine: "underline"}}
                                     onPress={() => navigation.navigate("SignUp")}
                                 >
                                     Create one now!
@@ -93,46 +118,50 @@ const Login = ({ navigation }: RouterProps) => {
 
 export default Login;
 
-// const styles = StyleSheet.create({
-//     container: {
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         backgroundColor: 'black',
-//         flex: 1,
-//     },
-//     input: {
-//         alignSelf: 'center',
-//         marginVertical: 8,
-//         height: 56,
-//         width: 316,
-//         borderWidth: 1,
-//         borderRadius: 4,
-//         padding: 10,
-//         backgroundColor: '#fff'
-//     },
-//     button: {
-//         alignSelf: 'center',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//         width: 138,
-//         paddingVertical: 12,
-//         paddingHorizontal: 32,
-//         marginVertical: 8,
-//         borderRadius: 28,
-//         borderColor: 'white',
-//         borderWidth: 4,
-//         elevation: 3,
-//         backgroundColor: 'black',
-//     },
-//     button_text: {
-//         color: 'white',
-//     },
-//     link_text: {
-//         color: 'white',
-//         textDecorationLine: 'underline',
-//     },
-//     logo: {
-//         alignSelf: 'center',
-//     },
-// });
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#121A6A',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+    },
+    input: {
+        alignSelf: 'center',
+        color: '#fff',
+        fontSize: 16,
+        marginVertical: 8,
+        height: 56,
+        width: 316,
+        borderWidth: 1,
+        borderRadius: 4,
+        borderColor: "#fff",
+        backfaceVisibility: "hidden",
+        padding: 10,
+        backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    },
+    button: {
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 138,
+        paddingVertical: 8,
+        paddingHorizontal: 32,
+        marginTop: 76,
+        borderRadius: 28,
+        borderColor: 'white',
+        borderWidth: 4,
+        elevation: 3,
+    },
+    button_text: {
+        color: 'white',
+        fontSize: 20,
+    },
+    link_text: {
+        color: 'white',
+        textDecorationLine: 'underline',
+    },
+    logo: {
+        alignSelf: 'center',
+    },
+});
 

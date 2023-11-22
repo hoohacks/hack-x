@@ -1,15 +1,13 @@
-import { withExpoSnack } from "nativewind/dist/expo-snack";
 import { createUserWithEmailAndPassword, sendEmailVerification, getAuth, sendSignInLinkToEmail } from "firebase/auth";
 import { useState } from "react";
 import { ActivityIndicator, Button, KeyboardAvoidingView, TextInput, Text, View, Pressable } from "react-native";
 import { FIREBASE_AUTH } from "../../../firebase/FirebaseConfig";
 import { NavigationProp } from "@react-navigation/native";
 
-// import { styles } from "../../../assets/style/SignUpStyle";
+import { styles } from "../../../assets/style/SignUpStyle";
 
 // Logo 
 import Logo from "../../../assets/svg/Logo.svg";
-import { styled } from "nativewind";
 // import { FIREBASE_ADMIN_AUTH, ADMIN_PASSWORD } from "../../FirebaseAdminConfig";
 
 interface RouterProps {
@@ -18,15 +16,14 @@ interface RouterProps {
 
 const SignUp = ({ navigation }: RouterProps) => {
 
-    // StyleSheet
-    // const StyledView = styled(View)
-
     // email format 
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     const [email, setEmail] = useState('');
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [password, setPassword] = useState('');
+    const [passwordCheck, setPasswordCheck] = useState('');
+    const [samePassword, setSamePassword] = useState(true);
     const [adminPassword, setAdminPassword] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -59,72 +56,89 @@ const SignUp = ({ navigation }: RouterProps) => {
 
     return (
         <View
-            // style={styles.container}
-            
-            className="relative w-full max-w-lg flex 
-            items-center justify-center"   
-            style={{backgroundColor:"black"}} 
+            style={styles.container}
         >
-            <View
-                className="bg-pink-300 min-h-screen flex
-                items-center justify-center"
-            >
-
-            </View>
             <KeyboardAvoidingView behavior="padding">
-                <Logo 
-                    // style={styles.logo} 
-                    width={126} 
-                    height={110} 
+                <Logo
+                    style={styles.logo}
+                    width={126}
+                    height={110}
                 />
                 <TextInput
-                    // style={styles.input}
+                    style={styles.input}
                     placeholder="Email"
+                    placeholderTextColor="#fff"
                     autoCapitalize="none"
-                    onChangeText={(text) => { setEmail(text); setIsValidEmail(mailformat.test(email)) }}
+                    onChangeText={(text) => setEmail(text)}
+                    onEndEditing={() => setIsValidEmail(mailformat.test(email))}
                 />
-                {/* {!isValidEmail ? (
-                    <Text>This is not valid</Text>
+                {!isValidEmail ? (
+                    <Text
+                        style={{
+                            color: "red",
+                        }}
+                    >Invalid E-mail format</Text>
                 ) : (
                     <></>
-                )}; */}
+                )}
                 <TextInput
-                    // style={styles.input}
+                    style={styles.input}
                     secureTextEntry={true}
                     placeholder="Password"
+                    placeholderTextColor="#fff"
                     autoCapitalize="none"
                     onChangeText={(text) => setPassword(text)}
                 />
                 <TextInput
-                    // style={styles.input}
+                    style={styles.input}
                     secureTextEntry={true}
                     placeholder="Confirm Password"
+                    placeholderTextColor="#fff"
                     autoCapitalize="none"
-                    onChangeText={(text) => setAdminPassword(text)}
+                    onChangeText={(text) => setPasswordCheck(text)}
+                    onEndEditing={() => setSamePassword(password === passwordCheck)}
                 />
+                {!samePassword ? (
+                    <Text
+                        style={{
+                            color: "red"
+                        }}
+                    >Passwords do not match</Text>
+                ) : (
+                    <></>
+                )}
 
                 {loading ? (
                     <ActivityIndicator size="large" color="#0000ff" />
                 ) : (
                     <>
                         <Pressable
-                            // style={styles.button} 
+                            style={styles.button}
                             onPress={() => signUp()}
                         >
-                            <Text 
-                            // style={styles.button_text}
-                            >Sign Up</Text>
+                            <Text
+                                style={styles.button_text}
+                            >Create Account</Text>
                         </Pressable>
-                        <View style={{ alignSelf: "center" }}>
-                            <Text 
-                            // style={styles.button_text}
+                        <View
+                            style={{
+                                alignSelf: "center",
+                                padding: 15,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    color: "#fff",
+                                }}
                             >
-                                Don't have an account?
+                                Already have an account?
+                                <Text>{' '}</Text>
                                 <Text
-                                    // style={styles.link_text}
+                                    style={styles.link_text}
                                     onPress={() => navigation.navigate("Login")}
                                 >
-                                    Create one now!
+                                    Sign in!
                                 </Text>
                             </Text>
                         </View>
