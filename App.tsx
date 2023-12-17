@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet} from 'react-native';
 
 // react components
@@ -10,19 +11,27 @@ import { User, onAuthStateChanged } from "firebase/auth";
 import { FIREBASE_AUTH } from "./FirebaseConfig";
 
 // views
-import Login from "./app/screens/Login";
-import Details from "./app/screens/Details";
-import SignUp from "./app/screens/SignUp";
+import Login from "./app/screens/auth/Login";
+import Home from "./app/screens/pages/Home";
+import SignUp from "./app/screens/auth/SignUp";
+import Leaderboard from "./app/screens/pages/Leaderboard";
+import Schedule from "./app/screens/pages/Schedule";
+import Profile from "./app/screens/pages/Profile";
+import Navbar from "./components/Navbar";
 
 const Stack = createNativeStackNavigator();
 const UserStack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function UserLayout() {
-  return (
-    <UserStack.Navigator>
-      <UserStack.Screen name="Detail" component={Details} />
-    </UserStack.Navigator>
-  );
+    return (
+        <Tab.Navigator tabBar={(props) => <Navbar {...props} />}>
+            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Schedule" component={Schedule} />
+            <Tab.Screen name="Leaderboard" component={Leaderboard} />
+            <Tab.Screen name="Profile" component={Profile} />
+        </Tab.Navigator>
+    );
 };
 
 export default function App() {

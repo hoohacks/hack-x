@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { View, Button, TextInput, StyleSheet, ActivityIndicator, KeyboardAvoidingView } from "react-native"
-import { FIREBASE_AUTH } from "../../FirebaseConfig";
+import { FIREBASE_AUTH } from "../../../FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { NavigationProp } from "@react-navigation/native";
 

@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, sendEmailVerification, getAuth, sendSignInLinkToEmail } from "firebase/auth";
 import { useState } from "react";
 import { ActivityIndicator, Button, KeyboardAvoidingView, StyleSheet, TextInput, Text, View } from "react-native";
-import { FIREBASE_AUTH } from "../../FirebaseConfig";
+import { FIREBASE_AUTH } from "../../../FirebaseConfig";
 // import { FIREBASE_ADMIN_AUTH, ADMIN_PASSWORD } from "../../FirebaseAdminConfig";
 
 const SignUp = () => {
