@@ -1,12 +1,460 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import Navbar from '../../../components/Navbar';
+import * as React from "react";
+import { Image, StyleSheet, View, Text } from "react-native";
+import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
 
 const Home = () => {
-    return (
-        <View>
+  return (
+    <View style={styles.homescreenParticipants}>
+      
+      <View style={[styles.rectangleParent, styles.groupChildLayout]}>
+        <View style={[styles.groupChild, styles.childPosition]} />
+        <Text
+          style={[styles.deadlineToRegister, styles.loremIpsumDolorFlexBox]}
+        >
+          Deadline to Register:
+        </Text>
+        <Text style={[styles.checkRegistration, styles.march12024Typo]}>
+          Check Registration
+        </Text>
+        <Text style={[styles.march12024, styles.march12024Typo]}>
+          March 1, 2024
+        </Text>
+        <Text
+          style={[styles.loremIpsumDolor, styles.incomplete1Typo]}
+        >{`Lorem ipsum dolor sit amet consectetur. Tellus ultrices tellus gravida blandit sociis integer a sed mauris. Ac nisi morbi donec donec nunc. Nunc ac quam integer in eget adipiscing. Quam metus nisi eget dolor vitae pharetra. `}</Text>
+        <View style={[styles.incomplete, styles.incompleteLayout]}>
+          <View style={[styles.incompleteChild, styles.incompleteLayout]} />
+          <Text style={[styles.incomplete1, styles.incomplete1Typo]}>
+            INCOMPLETE
+          </Text>
         </View>
-    );
+      </View>
+      <View style={styles.heading}>
+        <Text style={styles.welcomeToHoohacks}>Welcome to HooHacks!</Text>
+        <Text style={[styles.timeTillHackathon, styles.incomplete1Typo]}>
+          Time till hackathon:
+        </Text>
+        <View style={styles.timer}>
+          <View style={[styles.timerChild, styles.timerChildLayout]} />
+          <View style={[styles.timerItem, styles.timerChildLayout]} />
+          <View style={[styles.timerInner, styles.timerChildLayout]} />
+          <View style={[styles.rectangleView, styles.timerChildLayout]} />
+          <Text style={[styles.text, styles.textTypo1]}>:</Text>
+          <View style={[styles.timerChild1, styles.timerChildLayout]} />
+          <View style={[styles.timerChild2, styles.timerChildLayout]} />
+          <Text style={[styles.text1, styles.textTypo1]}>:</Text>
+          <Text style={[styles.text2, styles.textTypo]}>0</Text>
+          <Text style={[styles.text3, styles.textTypo]}>0</Text>
+          <Text style={[styles.text4, styles.textTypo]}>0</Text>
+          <Text style={[styles.text5, styles.textTypo]}>0</Text>
+          <Text style={[styles.text6, styles.textTypo]}>0</Text>
+          <Text style={[styles.text7, styles.textTypo]}>0</Text>
+        </View>
+      </View>
+      <View style={[styles.referAFriend, styles.referLayout]}>
+        <View style={[styles.referAFriendChild, styles.referLayout]} />
+        <Text style={[styles.referAFriend1, styles.referAFriend1Clr]}>
+          Refer a Friend!
+        </Text>
+        <Text style={[styles.getAdditionalHoocoins, styles.referAFriend1Clr]}>
+          Get additional HooCoins!
+        </Text>
+        {/* <Image
+          style={[styles.vectorIcon, styles.iconLayout]}
+          resizeMode="cover"
+          source={require("../assets/vector.png")}
+        /> */}
+      </View>
+    </View>
+  );
 };
+
+const styles = StyleSheet.create({
+  groupChildLayout: {
+    height: 201,
+    width: 353,
+    position: "absolute",
+  },
+  childPosition: {
+    backgroundColor: Color.colorLavender,
+    borderRadius: Border.br_3xs,
+    top: 0,
+    left: 0,
+  },
+  loremIpsumDolorFlexBox: {
+    textAlign: "left",
+    left: 21,
+  },
+  march12024Typo: {
+    fontFamily: FontFamily.chakraPetchSemiBold,
+    textAlign: "center",
+    fontWeight: "600",
+  },
+  incomplete1Typo: {
+    fontSize: FontSize.size_sm,
+    lineHeight: 22,
+    position: "absolute",
+  },
+  incompleteLayout: {
+    height: 30,
+    width: 123,
+    top: 0,
+    position: "absolute",
+  },
+  timerChildLayout: {
+    width: 28,
+    borderColor: Color.colorLightskyblue,
+    borderWidth: 1,
+    borderStyle: "solid",
+    height: 36,
+    borderRadius: Border.br_3xs,
+    top: 0,
+    position: "absolute",
+  },
+  textTypo1: {
+    top: 7,
+    fontSize: FontSize.size_5xl,
+    textAlign: "center",
+    color: Color.colorBlack,
+    fontFamily: FontFamily.chakraPetchRegular,
+    lineHeight: 22,
+    position: "absolute",
+  },
+  textTypo: {
+    top: 5,
+    textAlign: "center",
+    fontFamily: FontFamily.chakraPetchSemiBold,
+    fontWeight: "600",
+    fontSize: FontSize.size_xl,
+    color: Color.colorBlack,
+    position: "absolute",
+  },
+  timePosition: {
+    top: "50%",
+    width: "35.75%",
+    marginTop: -27,
+    height: 54,
+    position: "absolute",
+  },
+  batteryPosition: {
+    position: "absolute",
+    left: "50%",
+  },
+  iconLayout: {
+    maxHeight: "100%",
+    position: "absolute",
+  },
+  referLayout: {
+    height: 123,
+    width: 353,
+    position: "absolute",
+  },
+  referAFriend1Clr: {
+    color: Color.colorMidnightblue,
+    lineHeight: 22,
+    position: "absolute",
+  },
+  navBarIcon: {
+    objectFit: "contain",
+    top: -4,
+    transform: [
+      {
+        scale: 1.075,
+      },
+    ],
+    height: "100%",
+    left: 0,
+    position: "absolute",
+    width: "100%",
+  },
+  wrapperNavBar: {
+    top: 745,
+    height: 107,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 393,
+    left: 0,
+    position: "absolute",
+  },
+  groupChild: {
+    height: 201,
+    width: 353,
+    position: "absolute",
+  },
+  deadlineToRegister: {
+    width: 165,
+    color: Color.colorBlack,
+    fontFamily: FontFamily.chakraPetchRegular,
+    lineHeight: 22,
+    position: "absolute",
+    fontSize: FontSize.size_base,
+    top: 46,
+  },
+  checkRegistration: {
+    top: 15,
+    textAlign: "center",
+    fontSize: FontSize.size_xl,
+    fontFamily: FontFamily.chakraPetchSemiBold,
+    color: Color.colorBlack,
+    lineHeight: 22,
+    position: "absolute",
+    left: 21,
+  },
+  march12024: {
+    left: 187,
+    textAlign: "center",
+    color: Color.colorBlack,
+    lineHeight: 22,
+    position: "absolute",
+    fontSize: FontSize.size_base,
+    top: 46,
+  },
+  loremIpsumDolor: {
+    top: 76,
+    fontFamily: FontFamily.robotoRegular,
+    width: 311,
+    textAlign: "left",
+    left: 21,
+    color: Color.colorBlack,
+  },
+  incompleteChild: {
+    borderTopRightRadius: Border.br_3xs,
+    borderBottomLeftRadius: Border.br_3xs,
+    backgroundColor: "#c60000",
+    left: 0,
+  },
+  incomplete1: {
+    top: 4,
+    left: 19,
+    color: Color.colorWhite,
+    textAlign: "center",
+    fontFamily: FontFamily.chakraPetchSemiBold,
+    fontWeight: "600",
+  },
+  incomplete: {
+    left: 230,
+  },
+  rectangleParent: {
+    top: 175,
+    shadowOpacity: 1,
+    elevation: 5,
+    shadowRadius: 5,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowColor: "rgba(0, 0, 0, 0.25)",
+    left: 20,
+  },
+  welcomeToHoohacks: {
+    fontWeight: "700",
+    fontFamily: FontFamily.chakraPetchBold,
+    fontSize: FontSize.size_5xl,
+    textAlign: "center",
+    color: Color.colorBlack,
+    lineHeight: 22,
+    top: 0,
+    left: 0,
+    position: "absolute",
+  },
+  timeTillHackathon: {
+    textAlign: "center",
+    color: Color.colorBlack,
+    fontFamily: FontFamily.chakraPetchRegular,
+    top: 46,
+    left: 0,
+  },
+  timerChild: {
+    left: 0,
+  },
+  timerItem: {
+    left: 32,
+  },
+  timerInner: {
+    left: 73,
+  },
+  rectangleView: {
+    left: 105,
+  },
+  text: {
+    left: 64,
+  },
+  timerChild1: {
+    left: 146,
+  },
+  timerChild2: {
+    left: 178,
+  },
+  text1: {
+    left: 137,
+  },
+  text2: {
+    left: 7,
+  },
+  text3: {
+    left: 39,
+  },
+  text4: {
+    left: 154,
+  },
+  text5: {
+    left: 185,
+  },
+  text6: {
+    left: 80,
+  },
+  text7: {
+    left: 112,
+  },
+  timer: {
+    top: 39,
+    left: 147,
+    width: 206,
+    height: 36,
+    position: "absolute",
+  },
+  heading: {
+    top: 78,
+    height: 75,
+    width: 353,
+    left: 20,
+    position: "absolute",
+  },
+  time1: {
+    top: "33.96%",
+    left: "36.96%",
+    fontSize: FontSize.size_mid,
+    fontFamily: FontFamily.sFPro,
+    textAlign: "center",
+    fontWeight: "600",
+    color: Color.colorBlack,
+    lineHeight: 22,
+    position: "absolute",
+  },
+  time: {
+    right: "64.25%",
+    left: "0%",
+  },
+  border: {
+    marginLeft: -13.66,
+    top: "0%",
+    bottom: "0%",
+    borderRadius: Border.br_8xs_3,
+    borderColor: Color.colorBlack,
+    width: 25,
+    opacity: 0.35,
+    left: "50%",
+    borderWidth: 1,
+    borderStyle: "solid",
+    height: "100%",
+    position: "absolute",
+  },
+  capIcon: {
+    height: "31.35%",
+    marginLeft: 12.34,
+    top: "36.78%",
+    bottom: "31.87%",
+    width: 1,
+    opacity: 0.4,
+    left: "50%",
+  },
+  capacity: {
+    height: "69.23%",
+    marginLeft: -11.66,
+    top: "15.38%",
+    bottom: "15.38%",
+    borderRadius: Border.br_10xs_5,
+    backgroundColor: Color.colorBlack,
+    width: 21,
+    left: "50%",
+  },
+  battery: {
+    height: "24.07%",
+    marginLeft: 10.75,
+    top: "42.59%",
+    bottom: "33.33%",
+    width: 27,
+    left: "50%",
+  },
+  wifiIcon: {
+    height: "22.83%",
+    marginLeft: -13.55,
+    top: "43.77%",
+    bottom: "33.4%",
+    width: 17,
+    left: "50%",
+  },
+  cellularConnectionIcon: {
+    height: "22.64%",
+    marginLeft: -40.25,
+    top: "43.58%",
+    bottom: "33.77%",
+    width: 19,
+    left: "50%",
+  },
+  levels: {
+    right: "0%",
+    left: "64.25%",
+  },
+  statusBar: {
+    height: 54,
+    top: 0,
+    width: 393,
+    left: 0,
+    position: "absolute",
+  },
+  referAFriendChild: {
+    backgroundColor: Color.colorLavender,
+    borderRadius: Border.br_3xs,
+    top: 0,
+    left: 0,
+  },
+  referAFriend1: {
+    top: 31,
+    left: 22,
+    textAlign: "center",
+    fontFamily: FontFamily.chakraPetchSemiBold,
+    fontWeight: "600",
+    fontSize: FontSize.size_xl,
+  },
+  getAdditionalHoocoins: {
+    top: 69,
+    width: 181,
+    textAlign: "left",
+    left: 21,
+    fontFamily: FontFamily.chakraPetchRegular,
+    fontSize: FontSize.size_base,
+  },
+  vectorIcon: {
+    height: "65.85%",
+    width: "28.9%",
+    top: "17.07%",
+    right: "5.67%",
+    bottom: "17.07%",
+    left: "65.44%",
+    maxWidth: "100%",
+    overflow: "hidden",
+  },
+  referAFriend: {
+    top: 392,
+    shadowOpacity: 1,
+    elevation: 5,
+    shadowRadius: 5,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowColor: "rgba(0, 0, 0, 0.25)",
+    left: 20,
+  },
+  homescreenParticipants: {
+    backgroundColor: Color.colorWhite,
+    flex: 1,
+    height: 852,
+    overflow: "hidden",
+    width: "100%",
+  },
+});
 
 export default Home;
