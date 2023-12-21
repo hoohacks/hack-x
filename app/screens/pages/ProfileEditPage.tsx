@@ -23,8 +23,8 @@ const ProfileEditPage: React.FC<Props> = () => {
         const loadFonts = async () => {
         try {
             await Font.loadAsync({
-            'ChakraPetch-Bold': require('../../assets/Chakra_Petch/ChakraPetch-Bold.ttf'),
-            'ChakraPetch-Light': require('../../assets/Chakra_Petch/ChakraPetch-Light.ttf'),
+            'ChakraPetch-Bold': require('../../../assets/Chakra_Petch/ChakraPetch-Bold.ttf'),
+            'ChakraPetch-Light': require('../../../assets/Chakra_Petch/ChakraPetch-Light.ttf'),
             'ChakraPetch-Regular': require('../../assets/Chakra_Petch/ChakraPetch-Regular.ttf'),
             });
     
