@@ -18,7 +18,7 @@ import Leaderboard from "./app/screens/pages/Leaderboard";
 import Schedule from "./app/screens/pages/Schedule";
 import Profile from "./app/screens/pages/Profile";
 import Navbar from "./components/Navbar";
-
+import ProfileEditPage from "./app/screens/pages/ProfileEditPage";
 const Stack = createNativeStackNavigator();
 const UserStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,6 +30,7 @@ function UserLayout() {
             <Tab.Screen name="Schedule" component={Schedule} />
             <Tab.Screen name="Leaderboard" component={Leaderboard} />
             <Tab.Screen name="Profile" component={Profile} />
+            <Tab.Screen name="ProfileEditPage" component={ProfileEditPage} />
         </Tab.Navigator>
     );
 };
