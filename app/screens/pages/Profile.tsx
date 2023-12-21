@@ -60,12 +60,7 @@ const ProfilePage: React.FC<Props> = () => {
 
    return (
        <View style={styles.container}>
-           <TouchableOpacity style={styles.backButton} onPress={handleEditProfilePress}>
-               <Image
-                   source={arrow}
-                   style={styles.backArrow}
-               />
-           </TouchableOpacity>
+           
            <View style={styles.header}>
                <Image
                    source={pfp}
