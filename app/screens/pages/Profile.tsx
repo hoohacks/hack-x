@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import pfp from '../../assets/Profile.png'; // Importing the profile picture
-import arrow from '../../assets/arrow_back_ios_new.png'; // Importing the back arrow
+import pfp from '../../../assets/Profile.png'; // Importing the profile picture
+import arrow from '../../../assets/arrow_back_ios_new.png'; // Importing the back arrow
 
 import ProfileEditPage from './ProfileEditPage'; // Update the path accordingly
 
