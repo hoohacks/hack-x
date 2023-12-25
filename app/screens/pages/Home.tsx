@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Image, StyleSheet, View, Text } from "react-native";
-import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
+import { StyleSheet, Text, View } from "react-native";
+import { Border, Color, FontFamily, FontSize } from "./GlobalStyles";
 
 const Home = () => {
   return (
