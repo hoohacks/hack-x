@@ -6,12 +6,12 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
+        gap: 8,
     },
     input: {
         alignSelf: 'center',
         color: '#fff',
         fontSize: 16,
-        marginVertical: 8,
         height: 56,
         width: 316,
         borderWidth: 1,
@@ -25,7 +25,6 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 207,
         paddingVertical: 8,
         paddingHorizontal: 16,
         marginTop: 76,
@@ -44,6 +43,5 @@ export const styles = StyleSheet.create({
     },
     logo: {
         alignSelf: "center",
-        marginBottom: 56,
     },
 });

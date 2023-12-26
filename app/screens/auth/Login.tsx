@@ -1,5 +1,5 @@
-import { useState } from "react"
-import {  StyleSheet, View, Button, TextInput, Text, ActivityIndicator, KeyboardAvoidingView, Pressable } from "react-native"
+import { useEffect, useRef, useState } from "react"
+import { StyleSheet, View, Button, TextInput, Text, ActivityIndicator, KeyboardAvoidingView, Pressable, Animated } from "react-native"
 import { FIREBASE_AUTH } from "../../../firebase/FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { NavigationProp } from "@react-navigation/native";
@@ -10,6 +10,36 @@ import Logo from "../../../assets/svg/Logo.svg";
 interface RouterProps {
     navigation: NavigationProp<any, any>;
 }
+
+// const MovingCircle () => {
+//     const moveAnim = useRef(new Animated.Value(0)).current;
+
+//     useEffect(() => {
+//         Animated.timing(moveAnim, {
+//             toValue: 1,
+//             duration: 1000,
+//             useNativeDriver: true,
+//         }).start();
+//     }, [moveAnim]);
+
+//     const xVal = moveAnim.interpolate({
+//         inputRange: [0, 1],
+//         outputRange: [0, 250],
+//     });
+
+//     const yVal = moveAnim.interpolate({
+//         inputRange: [0, 1],
+//         outputRange: [0, 350],
+//     });
+
+//     return (
+//         <Animated.View
+//             style={{
+
+//             }}>
+//         </Animated.View>
+//     )
+// }
 
 const Login = ({ navigation }: RouterProps) => {
 
@@ -34,18 +64,48 @@ const Login = ({ navigation }: RouterProps) => {
         }
     }
 
+    // const moveAnim = useRef(new Animated.Value(0)).current;
+
+    // useEffect(() => {
+    //     Animated.timing(moveAnim, {
+    //         toValue: 1,
+    //         duration: 1000,
+    //         useNativeDriver: true,
+    //     }).start();
+    // }, [moveAnim]);
+
+    // const xVal = moveAnim.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 250],
+    // });
+
+    // const yVal = moveAnim.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 350],
+    // });
+
+    // const animStyle = {
+    //     transform: [
+    //       {
+    //         translateY: yVal,
+    //         translateX: xVal,
+    //       },
+    //     ],
+    //   };
+
     return (
-        <View 
+        <View
             style={styles.container}
         >
+            {/* <Animated.View style={[styles.circle, animStyle]} /> */}
             <KeyboardAvoidingView behavior="padding">
-                <Logo 
+                <Logo
                     style={{
                         alignSelf: "center",
                         marginBottom: 56,
-                    }} 
-                    width={126} 
-                    height={110} 
+                    }}
+                    width={126}
+                    height={110}
                 />
                 <TextInput
                     style={styles.input}
@@ -78,21 +138,21 @@ const Login = ({ navigation }: RouterProps) => {
                     <ActivityIndicator size="large" color="#0000ff" />
                 ) : (
                     <>
-                        <Pressable 
-                            style={styles.button} 
+                        <Pressable
+                            style={styles.button}
                             onPress={() => signIn()}
                         >
-                            <Text 
-                            style={styles.button_text}
+                            <Text
+                                style={styles.button_text}
                             >Sign In</Text>
                         </Pressable>
-                        <View 
-                            style={{ 
+                        <View
+                            style={{
                                 alignSelf: "center",
-                                padding: 15, 
+                                padding: 15,
                             }}
                         >
-                            <Text 
+                            <Text
                                 style={{
                                     fontSize: 12,
                                     color: "#fff",
@@ -101,7 +161,7 @@ const Login = ({ navigation }: RouterProps) => {
                                 Don't have an account?
                                 <Text>{' '}</Text>
                                 <Text
-                                    style={{textDecorationLine: "underline"}}
+                                    style={{ textDecorationLine: "underline" }}
                                     onPress={() => navigation.navigate("SignUp")}
                                 >
                                     Create one now!
@@ -124,6 +184,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
+    },
+    circle: {
+        display: 'flex',
+        width: 100,
+        height: 100,
+        position: 'absolute',
+        backgroundColor: '#E5EEFF',
+        opacity: 0.8,
+        borderRadius: 50,
     },
     input: {
         alignSelf: 'center',
