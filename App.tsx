@@ -18,7 +18,7 @@ import Leaderboard from "./app/screens/pages/Leaderboard";
 import Schedule from "./app/screens/pages/Schedule";
 import Profile from "./app/screens/pages/Profile";
 import Navbar from "./components/Navbar";
-
+import ReferFriend from "./app/screens/pages/ReferFriend";
 const Stack = createNativeStackNavigator();
 const UserStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -55,6 +55,7 @@ export default function App() {
         )}
         <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown:false }}/>
       </Stack.Navigator>
+      <Stack.Screen name="ReferFriend" component={ReferFriend} options={{headerShown:false}}/>
     </NavigationContainer>
   );
 }

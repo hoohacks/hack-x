@@ -13,6 +13,9 @@ const Home = () => {
   
   }
 const sec = calculateTime();
+const NavReferFriend = () = {
+  navigation.navigate("ReferFriend");
+}
   return (
     <View style={styles.homescreenParticipants}>
       
@@ -59,7 +62,7 @@ const sec = calculateTime();
       />
         </View>
       </View>
-      <View style={[styles.referAFriend, styles.referLayout]}>
+      <View style={[styles.referAFriend, styles.referLayout]}  onPress={() => NavReferFriend()} >
         <View style={[styles.referAFriendChild, styles.referLayout]} />
         <Text style={[styles.referAFriend1, styles.referAFriend1Clr]}>
           Refer a Friend!
@@ -67,11 +70,11 @@ const sec = calculateTime();
         <Text style={[styles.getAdditionalHoocoins, styles.referAFriend1Clr]}>
           Get additional HooCoins!
         </Text>
-        {/* <Image
+        <Image
           style={[styles.vectorIcon, styles.iconLayout]}
           resizeMode="cover"
-          source={require("../assets/vector.png")}
-        /> */}
+          source={require("../../../assets/Vector.jpg")}
+        />
       </View>
     </View>
   );
