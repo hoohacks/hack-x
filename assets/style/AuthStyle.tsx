@@ -19,6 +19,7 @@ export const styles = StyleSheet.create({
         borderColor: "#fff",
         backfaceVisibility: "hidden",
         padding: 10,
+        marginVertical: 8,
         backgroundColor: 'rgba(255, 255, 255, 0.3)',
     },
     button: {
