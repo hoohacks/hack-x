@@ -2,8 +2,9 @@ import * as React from "react";
 import { Image, StyleSheet, View, Text } from "react-native";
 import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
 import CountDown from 'react-native-countdown-component';
-
+import { useNavigation } from "@react-navigation/native";
 const Home = () => {
+  const navigation = useNavigation();
   const calculateTime = ()=>{
     const today = new Date();
     var endDate = new Date('2024-03-23T09:00:00');
@@ -62,7 +63,8 @@ const NavReferFriend = () = {
       />
         </View>
       </View>
-      <View style={[styles.referAFriend, styles.referLayout]}  onPress={() => NavReferFriend()} >
+      <TouchableOpacity style={styles.editButton} onPress={NavReferFriend}>
+      <View style={[styles.referAFriend, styles.referLayout]}>
         <View style={[styles.referAFriendChild, styles.referLayout]} />
         <Text style={[styles.referAFriend1, styles.referAFriend1Clr]}>
           Refer a Friend!
@@ -76,6 +78,7 @@ const NavReferFriend = () = {
           source={require("../../../assets/Vector.jpg")}
         />
       </View>
+      </TouchableOpacity>
     </View>
   );
 };
