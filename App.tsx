@@ -30,6 +30,8 @@ function UserLayout() {
             <Tab.Screen name="Schedule" component={Schedule} />
             <Tab.Screen name="Leaderboard" component={Leaderboard} />
             <Tab.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="ReferFriend" component={ReferFriend} options={{headerShown:false}}/>
+
         </Tab.Navigator>
     );
 };
@@ -55,7 +57,6 @@ export default function App() {
         )}
         <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown:false }}/>
       </Stack.Navigator>
-      <Stack.Screen name="ReferFriend" component={ReferFriend} options={{headerShown:false}}/>
     </NavigationContainer>
   );
 }

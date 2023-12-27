@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, StyleSheet, View, Text } from "react-native";
+import { Image, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
 import CountDown from 'react-native-countdown-component';
 import { useNavigation } from "@react-navigation/native";
@@ -14,7 +14,7 @@ const Home = () => {
   
   }
 const sec = calculateTime();
-const NavReferFriend = () = {
+const NavReferFriend = () => {
   navigation.navigate("ReferFriend");
 }
   return (
@@ -63,7 +63,7 @@ const NavReferFriend = () = {
       />
         </View>
       </View>
-      <TouchableOpacity style={styles.editButton} onPress={NavReferFriend}>
+      <TouchableOpacity onPress={NavReferFriend}>
       <View style={[styles.referAFriend, styles.referLayout]}>
         <View style={[styles.referAFriendChild, styles.referLayout]} />
         <Text style={[styles.referAFriend1, styles.referAFriend1Clr]}>

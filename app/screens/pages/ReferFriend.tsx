@@ -5,7 +5,6 @@ import Navbar from '../../../components/Navbar';
 const ReferFriend = () => {
     return (
         <View>
-            <Text>This is Refer Friend page</Text>
         </View>
     );
 };
