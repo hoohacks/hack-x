@@ -19,6 +19,7 @@ import Schedule from "./app/screens/pages/Schedule";
 import Profile from "./app/screens/pages/Profile";
 import Navbar from "./components/Navbar";
 import ProfileEditPage from "./app/screens/pages/ProfileEditPage";
+import ReferFriend from "./app/screens/pages/ReferFriend";
 const Stack = createNativeStackNavigator();
 const UserStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,6 +32,8 @@ function UserLayout() {
             <Tab.Screen name="Leaderboard" component={Leaderboard} />
             <Tab.Screen name="Profile" component={Profile} />
             <Tab.Screen name="ProfileEditPage" component={ProfileEditPage} />
+            <Stack.Screen name="ReferFriend" component={ReferFriend} options={{headerShown:false}}/>
+
         </Tab.Navigator>
     );
 };

@@ -1,8 +1,22 @@
 import * as React from "react";
-import { Image, StyleSheet, View, Text } from "react-native";
+import { Image, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
-
+import CountDown from 'react-native-countdown-component';
+import { useNavigation } from "@react-navigation/native";
 const Home = () => {
+  const navigation = useNavigation();
+  const calculateTime = ()=>{
+    const today = new Date();
+    var endDate = new Date('2024-03-23T09:00:00');
+    const num = Number(Math.round(Math.abs((today.getTime() - endDate.getTime()))/1000));
+    console.log(typeof(num))
+    return num;
+  
+  }
+const sec = calculateTime();
+const NavReferFriend = () => {
+  navigation.navigate("ReferFriend");
+}
   return (
     <View style={styles.homescreenParticipants}>
       
@@ -35,22 +49,21 @@ const Home = () => {
           Time till hackathon:
         </Text>
         <View style={styles.timer}>
-          <View style={[styles.timerChild, styles.timerChildLayout]} />
-          <View style={[styles.timerItem, styles.timerChildLayout]} />
-          <View style={[styles.timerInner, styles.timerChildLayout]} />
-          <View style={[styles.rectangleView, styles.timerChildLayout]} />
-          <Text style={[styles.text, styles.textTypo1]}>:</Text>
-          <View style={[styles.timerChild1, styles.timerChildLayout]} />
-          <View style={[styles.timerChild2, styles.timerChildLayout]} />
-          <Text style={[styles.text1, styles.textTypo1]}>:</Text>
-          <Text style={[styles.text2, styles.textTypo]}>0</Text>
-          <Text style={[styles.text3, styles.textTypo]}>0</Text>
-          <Text style={[styles.text4, styles.textTypo]}>0</Text>
-          <Text style={[styles.text5, styles.textTypo]}>0</Text>
-          <Text style={[styles.text6, styles.textTypo]}>0</Text>
-          <Text style={[styles.text7, styles.textTypo]}>0</Text>
+        <CountDown
+        size={16}
+        until={sec}
+        onFinish={() => alert('Finished')}
+        digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: '#B1CCFF'}}
+        digitTxtStyle={{color: '#000000'}}
+        timeLabelStyle={{color: 'black', fontWeight: 'bold'}}
+        separatorStyle={{color: '#B1CCFF'}}
+        timeToShow={['D','H', 'M', 'S']}
+        timeLabels={{d: 'Days', h: 'Hours', m: 'Minutes', s: 'Seconds'}}
+        showSeparator
+      />
         </View>
       </View>
+      <TouchableOpacity onPress={NavReferFriend}>
       <View style={[styles.referAFriend, styles.referLayout]}>
         <View style={[styles.referAFriendChild, styles.referLayout]} />
         <Text style={[styles.referAFriend1, styles.referAFriend1Clr]}>
@@ -59,12 +72,13 @@ const Home = () => {
         <Text style={[styles.getAdditionalHoocoins, styles.referAFriend1Clr]}>
           Get additional HooCoins!
         </Text>
-        {/* <Image
+        <Image
           style={[styles.vectorIcon, styles.iconLayout]}
           resizeMode="cover"
-          source={require("../assets/vector.png")}
-        /> */}
+          source={require("../../../assets/Vector.jpg")}
+        />
       </View>
+      </TouchableOpacity>
     </View>
   );
 };
