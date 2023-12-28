@@ -1,7 +1,6 @@
+// navigation
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-import { StyleSheet} from 'react-native';
 
 // react components
 import { useEffect, useState } from "react";
@@ -11,9 +10,10 @@ import { User, onAuthStateChanged } from "firebase/auth";
 import { FIREBASE_AUTH } from "./firebase/FirebaseConfig";
 
 // views
-import Login from "./app/screens/auth/Login";
 import Details from "./app/screens/Details";
+import Login from "./app/screens/auth/Login";
 import SignUp from "./app/screens/auth/SignUp";
+import PasswordReset from "./app/screens/auth/PasswordReset.web";
 
 const Stack = createNativeStackNavigator();
 const MenuStack = createNativeStackNavigator();
@@ -21,6 +21,7 @@ const AuthStack = createNativeStackNavigator();
 
 function MenuLayout() {
   return (
+    // add your own screen here in same format 
     <MenuStack.Navigator>
       <MenuStack.Screen 
         name="Detail" 
@@ -36,7 +37,9 @@ function MenuLayout() {
 
 function AuthLayout() {
   return (
-    <AuthStack.Navigator>
+    <AuthStack.Navigator
+      initialRouteName="login"
+    >
       <AuthStack.Screen 
         name="signup" 
         component={SignUp} 
@@ -53,16 +56,24 @@ function AuthLayout() {
           title: "HackX - Login"
         }}
       />
+      <AuthStack.Screen
+        name="reset-password"
+        component={PasswordReset}
+        options={{
+          headerShown:false, 
+          title: "HackX - Password Reset"
+        }}
+      />
     </AuthStack.Navigator>
   )
 }
+
 const App = () => {
 
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      console.log('user', user);
       setUser(user);
     });
   }, []);
@@ -75,7 +86,7 @@ const App = () => {
         Search: 'search',
         Login: '/login',
         SignUp: '/sign-up',
-        Detail: '/nicole-is-crazy',
+        Detail: '/detail',
         NotFound: '/404'
       },
     },
