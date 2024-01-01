@@ -1,7 +1,7 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 // react components
 import { useEffect, useState } from "react";
@@ -12,11 +12,11 @@ import { FIREBASE_AUTH } from "./FirebaseConfig";
 
 // views
 import Login from "./app/screens/auth/Login";
-import Home from "./app/screens/pages/Home";
 import SignUp from "./app/screens/auth/SignUp";
+import Home from "./app/screens/pages/Home";
 import Leaderboard from "./app/screens/pages/Leaderboard";
-import Schedule from "./app/screens/pages/Schedule";
 import Profile from "./app/screens/pages/Profile";
+import Schedule from "./app/screens/pages/Schedule";
 import Navbar from "./components/Navbar";
 import ProfileEditPage from "./app/screens/pages/ProfileEditPage";
 import ReferFriend from "./app/screens/pages/ReferFriend";
