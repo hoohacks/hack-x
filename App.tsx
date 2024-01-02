@@ -8,11 +8,8 @@ import { useEffect, useState } from "react";
 
 // firebase
 import { User, onAuthStateChanged } from "firebase/auth";
-import { FIREBASE_AUTH } from "./FirebaseConfig";
+import { FIREBASE_AUTH } from "./firebase/FirebaseConfig";
 
-// views
-import Login from "./app/screens/auth/Login";
-import SignUp from "./app/screens/auth/SignUp";
 import Home from "./app/screens/pages/Home";
 import Leaderboard from "./app/screens/pages/Leaderboard";
 import Profile from "./app/screens/pages/Profile";
@@ -20,54 +17,129 @@ import Schedule from "./app/screens/pages/Schedule";
 import Navbar from "./components/Navbar";
 import ProfileEditPage from "./app/screens/pages/ProfileEditPage";
 import ReferFriend from "./app/screens/pages/ReferFriend";
-const Stack = createNativeStackNavigator();
-const UserStack = createNativeStackNavigator();
+
 const Tab = createBottomTabNavigator();
-
 function UserLayout() {
-    return (
-        <Tab.Navigator tabBar={(props) => <Navbar {...props} />}>
-            <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Schedule" component={Schedule} />
-            <Tab.Screen name="Leaderboard" component={Leaderboard} />
-            <Tab.Screen name="Profile" component={Profile} />
-            <Tab.Screen name="ProfileEditPage" component={ProfileEditPage} />
-            <Stack.Screen name="ReferFriend" component={ReferFriend} options={{headerShown:false}}/>
+  return (
+      <Tab.Navigator tabBar={(props) => <Navbar {...props} />}>
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Schedule" component={Schedule} />
+          <Tab.Screen name="Leaderboard" component={Leaderboard} />
+          <Tab.Screen name="Profile" component={Profile} />
+          <Tab.Screen name="ProfileEditPage" component={ProfileEditPage} />
+          <Stack.Screen name="ReferFriend" component={ReferFriend} options={{headerShown:false}}/>
 
-        </Tab.Navigator>
-    );
+      </Tab.Navigator>
+  );
+}
+// views
+import Details from "./app/screens/Details";
+import Login from "./app/screens/auth/Login";
+import SignUp from "./app/screens/auth/SignUp";
+import PasswordReset from "./app/screens/auth/PasswordReset.web";
+
+const Stack = createNativeStackNavigator();
+const MenuStack = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator();
+
+function MenuLayout() {
+  return (
+    // add your own screen here in same format 
+    <MenuStack.Navigator>
+      <MenuStack.Screen 
+        name="Detail" 
+        component={Details} 
+      />
+      {/* <UserStack.Screen
+        name="Application"
+        component={Application}
+      /> */}
+    </MenuStack.Navigator>
+  );
 };
 
-export default function App() {
+function AuthLayout() {
+  return (
+    <AuthStack.Navigator
+      initialRouteName="login"
+    >
+      <AuthStack.Screen 
+        name="signup" 
+        component={SignUp} 
+        options={{ 
+          headerShown:false, 
+          title: "HackX - Sign Up"
+        }}
+      />
+      <AuthStack.Screen 
+        name="login" 
+        component={Login} 
+        options={{ 
+          headerShown:false, 
+          title: "HackX - Login"
+        }}
+      />
+      <AuthStack.Screen
+        name="reset-password"
+        component={PasswordReset}
+        options={{
+          headerShown:false, 
+          title: "HackX - Password Reset"
+        }}
+      />
+    </AuthStack.Navigator>
+  )
+}
+
+const App = () => {
 
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      console.log('user', user);
       setUser(user);
     });
   }, []);
 
+  const linking = {
+    prefixes: ['http://localhost:19006', 'project://'],
+    config: {
+      screens: {
+        Test: '/test',
+        Search: 'search',
+        Login: '/login',
+        SignUp: '/sign-up',
+        Detail: '/detail',
+        NotFound: '/404'
+      },
+    },
+  };
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+    <NavigationContainer 
+      linking={linking}
+    >
+      <Stack.Navigator>
         {user ? (
-          <Stack.Screen name="UserInfo" component={UserLayout} options={{ headerShown: false}}/>
+          <Stack.Screen 
+            name="menu" 
+            component={MenuLayout} 
+            options={{ 
+              headerShown: false
+            }}
+          />
         ) : (
-          <Stack.Screen name="Login" component={Login} options={{ headerShown:false }}/>
-        )}
-        <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown:false }}/>
+          <Stack.Screen 
+            name="auth" 
+            component={AuthLayout} 
+            options={{ 
+              headerShown:false 
+            }}
+          />
+        )} 
       </Stack.Navigator>
     </NavigationContainer>
-  );
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
