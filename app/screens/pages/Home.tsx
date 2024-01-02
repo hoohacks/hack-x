@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, View, Text, TouchableOpacity, Button } from "react-native";
 import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
 import CountDown from 'react-native-countdown-component';
 import { useNavigation } from "@react-navigation/native";
@@ -16,6 +16,9 @@ const Home = () => {
 const sec = calculateTime();
 const NavReferFriend = () => {
   navigation.navigate("ReferFriend");
+}
+const NavViewPart = () => {
+  navigation.navigate("ViewParticipants");
 }
   return (
     <View style={styles.homescreenParticipants}>
@@ -79,6 +82,9 @@ const NavReferFriend = () => {
         />
       </View>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.editButton} onPress={NavViewPart}>
+               <Text style={styles.editButtonText}>View Participants</Text>
+           </TouchableOpacity>
     </View>
   );
 };
@@ -99,6 +105,28 @@ const styles = StyleSheet.create({
     textAlign: "left",
     left: 21,
   },
+  editButton: {
+    width: '90%',
+    alignSelf: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 3 },
+    shadowOpacity: 0.6,
+    shadowRadius: 2.5,
+    elevation: 3,
+},
+editButtonText: {
+    textAlign: 'center',
+    color: '#121A6A',
+    fontSize: 16,
+    fontWeight: 'bold',
+    fontFamily: 'ChakraPetch-Bold',
+
+},
   march12024Typo: {
     fontFamily: FontFamily.chakraPetchSemiBold,
     textAlign: "center",

@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 // react components
 import { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ import Schedule from "./app/screens/pages/Schedule";
 import Navbar from "./components/Navbar";
 import ProfileEditPage from "./app/screens/pages/ProfileEditPage";
 import ReferFriend from "./app/screens/pages/ReferFriend";
-
+import ViewParticipants from "./app/screens/pages/ViewParticipants";
 const Tab = createBottomTabNavigator();
 function UserLayout() {
   return (
@@ -28,7 +28,7 @@ function UserLayout() {
           <Tab.Screen name="Profile" component={Profile} />
           <Tab.Screen name="ProfileEditPage" component={ProfileEditPage} />
           <Stack.Screen name="ReferFriend" component={ReferFriend} options={{headerShown:false}}/>
-
+          <Stack.Screen name="ViewParticipants" component={ViewParticipants} options={{headerShown:false}}/>
       </Tab.Navigator>
   );
 }
