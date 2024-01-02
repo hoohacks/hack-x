@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Button, Image, TouchableOpacity } from 'react-native';
 import pfp from '../../../assets/Profile.png'; // Importing the profile picture
 import arrow from '../../../assets/arrow_back_ios_new.png'; // Importing the back arrow
 
@@ -7,7 +7,7 @@ import ProfileEditPage from './ProfileEditPage'; // Update the path accordingly
 
 
 import { useNavigation } from '@react-navigation/native';
-
+import { getAuth, signOut } from 'firebase/auth';
 
 import * as Font from 'expo-font';
 
@@ -16,7 +16,7 @@ type Props = {};
 
 
 const ProfilePage: React.FC<Props> = () => {
-
+    const auth = getAuth();
     const navigation = useNavigation();
     
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -76,6 +76,13 @@ const ProfilePage: React.FC<Props> = () => {
            <TouchableOpacity style={styles.editButton} onPress={handleEditProfilePress}>
                <Text style={styles.editButtonText}>EDIT ACCOUNT</Text>
            </TouchableOpacity>
+
+           <Button 
+        title="SignOut"
+        onPress={
+          () => signOut(auth)
+        }
+      />
        </View>
    );
 };

@@ -39,24 +39,24 @@ import SignUp from "./app/screens/auth/SignUp";
 import PasswordReset from "./app/screens/auth/PasswordReset.web";
 
 const Stack = createNativeStackNavigator();
-const MenuStack = createNativeStackNavigator();
+// const MenuStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 
-function MenuLayout() {
-  return (
-    // add your own screen here in same format 
-    <MenuStack.Navigator>
-      <MenuStack.Screen 
-        name="Detail" 
-        component={Details} 
-      />
-      {/* <UserStack.Screen
-        name="Application"
-        component={Application}
-      /> */}
-    </MenuStack.Navigator>
-  );
-};
+// function MenuLayout() {
+//   return (
+    // // add your own screen here in same format 
+    // <MenuStack.Navigator>
+    //   <MenuStack.Screen 
+    //     name="Detail" 
+    //     component={Details} 
+    //   />
+    //   {/* <UserStack.Screen
+    //     name="Application"
+    //     component={Application}
+    //   /> */}
+    // </MenuStack.Navigator>
+  // );
+// };
 
 function AuthLayout() {
   return (
@@ -122,8 +122,8 @@ const App = () => {
       <Stack.Navigator>
         {user ? (
           <Stack.Screen 
-            name="menu" 
-            component={MenuLayout} 
+            name="user" 
+            component={UserLayout} 
             options={{ 
               headerShown: false
             }}
