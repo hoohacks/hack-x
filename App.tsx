@@ -43,16 +43,20 @@ const WebLayout = () => {
     );
 };
 
-const UserLayout = () => {
+function UserLayout() {
     return isWeb ? <WebLayout /> : (
         <Tab.Navigator tabBar={(props) => <Navbar {...props} />}>
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Schedule" component={Schedule} />
             <Tab.Screen name="Leaderboard" component={Leaderboard} />
             <Tab.Screen name="Profile" component={Profile} />
+            <Tab.Screen name="ProfileEditPage" component={ProfileEditPage} />
+            <Stack.Screen name="ReferFriend" component={ReferFriend} options={{headerShown:false}}/>
+            <Stack.Screen name="ViewParticipants" component={ViewParticipants} />
+
         </Tab.Navigator>
     );
-};
+}
 
 // views
 import Details from "./app/screens/Details";
