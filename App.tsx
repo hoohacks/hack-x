@@ -34,6 +34,9 @@ const WebLayout = () => {
                     <Stack.Screen name="Schedule" component={Schedule} />
                     <Stack.Screen name="Leaderboard" component={Leaderboard} />
                     <Stack.Screen name="Profile" component={Profile} />
+                    <Stack.Screen name="ProfileEditPage" component={ProfileEditPage} />
+                    <Stack.Screen name="ViewParticipants" component={ViewParticipants} />
+                    <Stack.Screen name="ReferFriend" component={ReferFriend} />
                 </Stack.Navigator>
             </View>
         </View>
@@ -56,6 +59,9 @@ import Details from "./app/screens/Details";
 import Login from "./app/screens/auth/Login";
 import SignUp from "./app/screens/auth/SignUp";
 import PasswordReset from "./app/screens/auth/PasswordReset.web";
+import ProfileEditPage from "./app/screens/pages/ProfileEditPage";
+import ViewParticipants from "./app/screens/pages/ViewParticipants";
+import ReferFriend from "./app/screens/pages/ReferFriend";
 
 // const MenuStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
