@@ -1,37 +1,40 @@
-import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Image, Dimensions } from 'react-native';
-import { SvgXml } from 'react-native-svg';
+import React, {useState} from 'react';
+import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 
-// Import your icons
 import homeIcon from '../assets/svg/home.svg';
 import scheduleIcon from '../assets/svg/schedule.svg';
 import leaderboardIcon from '../assets/svg/leaderboard.svg';
 import profileIcon from '../assets/svg/profile.svg';
 import QrCodeIcon from '../assets/svg/qr_code.svg';
+import NavBarBackground from '../assets/svg/navbar.svg';
 
 const { width } = Dimensions.get('window');
-const qrButtonSize = 60; // Adjust as needed
-const divotSize = 70; // The size of the circular divot, adjust as needed
+const qrButtonSize = 70; // Adjust as needed
 
 const Navbar = ({ navigation }) => {
+    const [activeTab, setActiveTab] = useState('Home'); // Default active tab
+
     const navigateToScreen = (screenName) => {
+        setActiveTab(screenName); // Update active tab state
         navigation.navigate(screenName);
     };
 
     const Tab = ({ IconComponent, screenName }) => {
+        const isActive = activeTab === screenName;
+        const fillColor = isActive ? "#87A2FC" : "#FFFFFF"; // Active color or white
         return (
             <TouchableOpacity
                 style={styles.tab}
                 onPress={() => navigateToScreen(screenName)}
             >
-                <IconComponent width={20} height={20} />
+                <IconComponent width={20} height={20} fill={fillColor} />
             </TouchableOpacity>
         );
     };
 
     return (
         <View style={styles.container}>
-            <View style={styles.divot} />
+            <NavBarBackground width={393} height={80} style={styles.svgBackground} />
             <View style={styles.navbar}>
                 <Tab IconComponent={homeIcon} screenName="Home" />
                 <Tab IconComponent={scheduleIcon} screenName="Schedule" />
@@ -51,32 +54,26 @@ const Navbar = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: divotSize / 2, // Push content down so divot is half inside the container
-        backgroundColor: '#121A6A',
         alignItems: 'center', // Center children horizontally
+        backgroundColor: 'transparent',
+    },
+    svgBackground: {
+        position: 'absolute', // Position it behind all other content
+        top: 0, // Align to the top of the container
+        width: '100%', // Set the width to fill the container
     },
     navbar: {
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        alignItems: 'center',
-        paddingVertical: 10,
-        paddingBottom: 45, // Adjusted to create space for divot
-        height: divotSize / 2, // Adjust height to come up to center of QR button
-    },
-    divot: {
-        position: 'absolute',
-        top: '10%', // Adjust this value as needed to reduce the depth of the divot
-        left: width / 2 - divotSize / 2,
-        width: divotSize,
-        height: divotSize,
-        borderRadius: divotSize / 2,
-        backgroundColor: '#FFFFFF',
-        transform: [{ translateY: -divotSize / 2 }],
+        alignItems: 'flex-end', // Align items to the bottom
+        paddingVertical: 40,
+        paddingBottom: 35,
+        height: 80, // Adjust as needed
     },
     qrButton: {
         position: 'absolute',
-        top: '5%', // Adjust this value to raise the QR code button
+        top: '-3%', // Adjust this value to raise the QR code button
         left: width / 2 - qrButtonSize / 2,
         width: qrButtonSize,
         height: qrButtonSize,

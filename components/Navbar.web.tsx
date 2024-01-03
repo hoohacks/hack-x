@@ -1,22 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import homeIcon from '../assets/svg/home.web.svg';
-import scheduleIcon from '../assets/svg/schedule.web.svg';
-import leaderboardIcon from '../assets/svg/leaderboard.web.svg';
-import profileIcon from '../assets/svg/profile.web.svg';
-import owlIcon from '../assets/svg/hoohacks-owl-logo.svg'; // Replace with the actual path to your owl icon image
-import { useNavigation } from '@react-navigation/native';
+import HomeIcon from '../assets/svg/home.web.svg';
+import ScheduleIcon from '../assets/svg/schedule.web.svg';
+import LeaderBoardIcon from '../assets/svg/leaderboard.web.svg';
+import ProfileIcon from '../assets/svg/profile.web.svg';
+import OwlIcon from '../assets/svg/hoohacks-owl-logo.svg'; // Replace with the actual path to your owl icon image
+import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Font from 'expo-font';
+import Schedule from "../app/screens/pages/Schedule";
 
 interface NavItemProps {
-    icon: any; // Use the appropriate type for your icons
+    icon: any;
     label: string;
     onPress: () => void;
-    iconWidth?: number; // Optional width for the icon
-    iconHeight?: number; // Optional height for the icon
+    iconWidth?: number;
+    iconHeight?: number;
+    isActive: boolean;
 }
 
-const NavItem: React.FC<NavItemProps> = ({ icon, label, onPress, iconWidth, iconHeight }) => {
+const NavItem: React.FC<NavItemProps> = ({ icon, label, onPress, iconWidth, iconHeight, isActive }) => {
 
     const navigation = useNavigation();
 
@@ -31,6 +33,7 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, onPress, iconWidth, icon
     // Define a consistent icon container size
     const iconContainerSize = Math.max(iconWidth ?? 0, iconHeight ?? 0, 30); // Use 30 or your largest icon size as a fallback
 
+    const iconColor = isActive ? '#87A2FC' : '#121A6A'; // Active screen color vs inactive
     return (
         <TouchableOpacity style={styles.navItem} onPress={handlePress}>
             <View style={{ width: iconContainerSize, height: iconContainerSize, justifyContent: 'center', alignItems: 'center' }}>
@@ -38,6 +41,7 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, onPress, iconWidth, icon
                     source={icon}
                     style={[
                         styles.icon,
+                        { tintColor: iconColor }, // Set the icon color based on active status
                         iconWidth && { width: iconWidth },
                         iconHeight && { height: iconHeight }
                     ]}
@@ -50,8 +54,8 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, onPress, iconWidth, icon
 
 const NavBar: React.FC = () => {
     const navigation = useNavigation();
-
     const [fontsLoaded, setFontsLoaded] = useState(false);
+
 
     useEffect(() => {
         const loadFonts = async () => {
@@ -76,14 +80,16 @@ const NavBar: React.FC = () => {
         return null;
     }
 
+    const route = useRoute();
+
     return (
-        <View style={styles.sidebarContainer}> {/* New container for sidebar with drop shadow */}
+        <View style={styles.sidebarContainer}>
             <View style={styles.navBarContainer}>
-                <Image source={owlIcon} style={styles.owlIcon} /> {/* This line adds the owl icon */}
-                <NavItem icon={homeIcon} label="Home" onPress={() => navigation.navigate('Home')}  iconWidth={20} iconHeight={20}/>
-                <NavItem icon={scheduleIcon} label="Schedule" onPress={() => navigation.navigate('Schedule')}  iconWidth={20} iconHeight={20} />
-                <NavItem icon={leaderboardIcon} label="HooCoins" onPress={() => navigation.navigate('Leaderboard')} iconWidth={16} iconHeight={20} />
-                <NavItem icon={profileIcon} label="Profile" onPress={() => navigation.navigate('Profile')}  iconWidth={20} iconHeight={20}/>
+                <Image source={OwlIcon} style={styles.owlIcon} />
+                <NavItem icon={HomeIcon} label="Home" onPress={() => navigation.navigate('Home')} isActive={route.name === 'Home'} iconWidth={20} iconHeight={20}/>
+                <NavItem icon={ScheduleIcon} label="Schedule" onPress={() => navigation.navigate('Schedule')} isActive={route.name === 'Schedule'} iconWidth={20} iconHeight={20}/>
+                <NavItem icon={LeaderBoardIcon} label="Leaderboard" onPress={() => navigation.navigate('Leaderboard')} isActive={route.name === 'Leaderboard'} iconWidth={20} iconHeight={20}/>
+                <NavItem icon={ProfileIcon} label="Profile" onPress={() => navigation.navigate('Profile')} isActive={route.name === 'Profile'} iconWidth={20} iconHeight={20}/>
             </View>
         </View>
     );
