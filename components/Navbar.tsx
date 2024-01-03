@@ -1,70 +1,49 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Image, Dimensions } from 'react-native';
+import { SvgXml } from 'react-native-svg';
 
 // Import your icons
-import homeIcon from '../assets/home-icon.png';
-import scheduleIcon from '../assets/schedule-icon.png';
-import leaderboardIcon from '../assets/leaderboard-icon.png';
-import profileIcon from '../assets/profile-icon.png';
-import qrCodeIcon from '../assets/qr-code-icon.png'; // Make sure you have a QR code icon asset
+import homeIcon from '../assets/svg/home.svg';
+import scheduleIcon from '../assets/svg/schedule.svg';
+import leaderboardIcon from '../assets/svg/leaderboard.svg';
+import profileIcon from '../assets/svg/profile.svg';
+import QrCodeIcon from '../assets/svg/qr_code.svg';
 
 const { width } = Dimensions.get('window');
-const qrButtonSize = 50; // Adjust as needed
-const divotSize = 65; // The size of the circular divot, adjust as needed
+const qrButtonSize = 60; // Adjust as needed
+const divotSize = 70; // The size of the circular divot, adjust as needed
 
 const Navbar = ({ navigation }) => {
-
     const navigateToScreen = (screenName) => {
         navigation.navigate(screenName);
     };
 
-    const Tab = ({ name, screenName }) => {
+    const Tab = ({ IconComponent, screenName }) => {
         return (
             <TouchableOpacity
                 style={styles.tab}
                 onPress={() => navigateToScreen(screenName)}
             >
-                <Image
-                    source={getIconSource(name)}
-                    style={styles.icon}
-                />
+                <IconComponent width={20} height={20} />
             </TouchableOpacity>
         );
-    };
-
-    const getIconSource = (name) => {
-        switch (name) {
-            case 'home':
-                return homeIcon;
-            case 'schedule':
-                return scheduleIcon;
-            case 'leaderboard':
-                return leaderboardIcon;
-            case 'profile':
-                return profileIcon;
-            default:
-                return homeIcon;
-        };
     };
 
     return (
         <View style={styles.container}>
             <View style={styles.divot} />
             <View style={styles.navbar}>
-                <Tab name="home" screenName="Home" />
-                <Tab name="schedule" screenName="Schedule" />
+                <Tab IconComponent={homeIcon} screenName="Home" />
+                <Tab IconComponent={scheduleIcon} screenName="Schedule" />
                 <View style={{ width: qrButtonSize }} />
-                <Tab name="leaderboard" screenName="Leaderboard" />
-                <Tab name="profile" screenName="Profile" />
+                <Tab IconComponent={leaderboardIcon} screenName="Leaderboard" />
+                <Tab IconComponent={profileIcon} screenName="Profile" />
             </View>
             <TouchableOpacity
                 style={styles.qrButton}
                 onPress={() => {}} // Implement your QR code button action
             >
-                <Image
-                    source={qrCodeIcon}
-                    style={styles.qrIcon}
-                />
+                <QrCodeIcon width={25} height={25} />
             </TouchableOpacity>
         </View>
     );
@@ -82,22 +61,22 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         paddingVertical: 10,
-        paddingBottom: 50, // Adjusted to create space for divot
+        paddingBottom: 45, // Adjusted to create space for divot
         height: divotSize / 2, // Adjust height to come up to center of QR button
     },
     divot: {
         position: 'absolute',
-        top: '50%', // Centered vertically in navbar
-        left: width / 2 - divotSize / 2, // Centered horizontally in navbar
+        top: '10%', // Adjust this value as needed to reduce the depth of the divot
+        left: width / 2 - divotSize / 2,
         width: divotSize,
         height: divotSize,
         borderRadius: divotSize / 2,
-        backgroundColor: '#FFFFFF', // Same as navbar to appear as a cut-out
-        transform: [{ translateY: -divotSize / 2 }], // Adjust to align with navbar
+        backgroundColor: '#FFFFFF',
+        transform: [{ translateY: -divotSize / 2 }],
     },
     qrButton: {
         position: 'absolute',
-        top: '50%',
+        top: '5%', // Adjust this value to raise the QR code button
         left: width / 2 - qrButtonSize / 2,
         width: qrButtonSize,
         height: qrButtonSize,
@@ -107,9 +86,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         elevation: 3,
         shadowOffset: { width: 0, height: 2 },
-        transform: [{ translateY: -qrButtonSize / 2 }], // Adjust to align properly
-        borderWidth: 1, // Adjust as needed for border thickness
-        borderColor: '#121A6A', // Border color set to #121A6A
+        transform: [{ translateY: -qrButtonSize / 2 }],
+        borderWidth: 1,
+        borderColor: '#121A6A',
     },
     tab: {
         flex: 1,
