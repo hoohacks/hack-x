@@ -8,7 +8,8 @@ import OwlIcon from '../assets/svg/hoohacks-owl-logo.svg'; // Replace with the a
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Font from 'expo-font';
 import Schedule from "../app/screens/pages/Schedule";
-
+import QRCode from '../app/screens/pages/QRCode';
+import QRCodeIcon from '../assets/svg/qr_code.svg'
 interface NavItemProps {
     icon: any;
     label: string;
@@ -90,6 +91,7 @@ const NavBar: React.FC = () => {
                 <NavItem icon={ScheduleIcon} label="Schedule" onPress={() => navigation.navigate('Schedule')} isActive={route.name === 'Schedule'} iconWidth={20} iconHeight={20}/>
                 <NavItem icon={LeaderBoardIcon} label="Leaderboard" onPress={() => navigation.navigate('Leaderboard')} isActive={route.name === 'Leaderboard'} iconWidth={20} iconHeight={20}/>
                 <NavItem icon={ProfileIcon} label="Profile" onPress={() => navigation.navigate('Profile')} isActive={route.name === 'Profile'} iconWidth={20} iconHeight={20}/>
+                <NavItem icon={QRCodeIcon} label="QRcode" onPress={() => navigation.navigate('QRCode')} isActive={route.name === 'QRCode'} iconWidth={20} iconHeight={20}/>
             </View>
         </View>
     );

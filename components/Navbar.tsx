@@ -7,7 +7,6 @@ import leaderboardIcon from '../assets/svg/leaderboard.svg';
 import profileIcon from '../assets/svg/profile.svg';
 import QrCodeIcon from '../assets/svg/qr_code.svg';
 import NavBarBackground from '../assets/svg/navbar.svg';
-
 const { width } = Dimensions.get('window');
 const qrButtonSize = 70; // Adjust as needed
 
@@ -41,6 +40,7 @@ const Navbar = ({ navigation }) => {
                 <View style={{ width: qrButtonSize }} />
                 <Tab IconComponent={leaderboardIcon} screenName="Leaderboard" />
                 <Tab IconComponent={profileIcon} screenName="Profile" />
+                <Tab IconComponent={QrCodeIcon} screenName="QRCode" />
             </View>
             <TouchableOpacity
                 style={styles.qrButton}

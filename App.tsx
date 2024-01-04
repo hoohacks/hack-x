@@ -18,6 +18,7 @@ import Schedule from "./app/screens/pages/Schedule";
 import Navbar from "./components/Navbar";
 import NavbarWeb from "./components/Navbar.web";
 import ProfileEditPage from './app/screens/pages/ProfileEditPage';
+import QRCode from './app/screens/pages/QRCode';
 const isWeb = Platform.OS === 'web';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -37,6 +38,7 @@ const WebLayout = () => {
                     <Stack.Screen name="ProfileEditPage" component={ProfileEditPage} />
                     <Stack.Screen name="ViewParticipants" component={ViewParticipants} />
                     <Stack.Screen name="ReferFriend" component={ReferFriend} />
+                    <Stack.Screen name="QRCode" component={QRCode} />
                 </Stack.Navigator>
             </View>
         </View>
@@ -50,6 +52,7 @@ function UserLayout() {
             <Tab.Screen name="Schedule" component={Schedule} />
             <Tab.Screen name="Leaderboard" component={Leaderboard} />
             <Tab.Screen name="Profile" component={Profile} />
+            <Tab.Screen name="QRCode" component={QRCode} />
             <Tab.Screen name="ProfileEditPage" component={ProfileEditPage} />
             <Stack.Screen name="ReferFriend" component={ReferFriend} options={{headerShown:false}}/>
             <Stack.Screen name="ViewParticipants" component={ViewParticipants} />
