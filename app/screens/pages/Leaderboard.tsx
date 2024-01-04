@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
+import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
 
 interface User {
     name: string;
@@ -65,11 +66,13 @@ const Leaderboard: React.FC = () => {
     }
 
     return (
-        <ScrollView style={styles.container}>
-            {users.map((user, index) => (
-                <Card key={index} rank={index + 1} name={user.name} hoocoins={user.hoocoins} />
-            ))}
-        </ScrollView>
+        <Text style={styles.comingSoon}>Coming Soon...</Text>
+
+        // <ScrollView style={styles.container}>
+        //     {users.map((user, index) => (
+        //         <Card key={index} rank={index + 1} name={user.name} hoocoins={user.hoocoins} />
+        //     ))}
+        // </ScrollView>
     );
 };
 
@@ -78,7 +81,18 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         backgroundColor: '#f5f5f5',
-    },
+    }, 
+    comingSoon: {
+        fontWeight: "700",
+        fontFamily: FontFamily.chakraPetchBold,
+        fontSize: FontSize.size_5xl,
+        textAlign: "center",
+        color: Color.colorBlack,
+        lineHeight: 22,
+        top: 0,
+        left: 0,
+        position: "absolute",
+      },
     card: {
         backgroundColor: 'white',
         borderRadius: 10,

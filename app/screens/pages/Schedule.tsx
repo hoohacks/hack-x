@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Box from './Box';
+import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
 
 const Schedule = () => {
   const [starredEvents, setStarredEvents] = useState({});
@@ -40,7 +41,8 @@ const renderEventsForDay = () => (
 
   return (
     <View style={styles.container}>
-      <View style={styles.dayTabs}>
+        <Text style={styles.comingSoon}>Coming Soon...</Text>
+       {/* <View style={styles.dayTabs}>
         <TouchableOpacity
           style={[styles.dayTab, selectedDay === 'Saturday' && styles.dayTabActive]}
           onPress={() => setSelectedDay('Saturday')}
@@ -56,7 +58,7 @@ const renderEventsForDay = () => (
       </View>
       <ScrollView>
         {renderEventsForDay()}
-      </ScrollView>
+      </ScrollView>  */}
     </View>
   );
 };
@@ -67,6 +69,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5F5F5',
+  },
+  comingSoon: {
+    fontWeight: "700",
+    fontFamily: FontFamily.chakraPetchBold,
+    fontSize: FontSize.size_5xl,
+    textAlign: "center",
+    color: Color.colorBlack,
+    lineHeight: 22,
+    top: 0,
+    left: 0,
+    position: "absolute",
   },
   dayTabs: {
     flexDirection: 'row',
