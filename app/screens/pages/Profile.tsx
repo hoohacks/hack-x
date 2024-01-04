@@ -24,7 +24,7 @@ const ProfilePage: React.FC<Props> = () => {
    const userData = {
        name: "Varizzy Rizzy",
        email: "vrizz@gmail.com",
-       hoocoins: "12",
+    //    hoocoins: "12",
        foodWave: "A",
    };
 
@@ -69,7 +69,7 @@ const ProfilePage: React.FC<Props> = () => {
                <View style={styles.userInfo}>
                    <View style={{flexDirection: 'row'}}><Text style={styles.title}>Name: </Text><Text style={styles.name}>{userData.name}</Text></View>
                    <View style={{flexDirection: 'row'}}><Text style={styles.title}>Email: </Text><Text style={styles.email}>{userData.email}</Text></View>
-                   <View style={{flexDirection: 'row'}}><Text style={styles.title}>Hoocoins: </Text><Text style={styles.hoocoins}>{userData.hoocoins}</Text></View>
+                   {/* <View style={{flexDirection: 'row'}}><Text style={styles.title}>Hoocoins: </Text><Text style={styles.hoocoins}>{userData.hoocoins}</Text></View> */}
                    <View style={{flexDirection: 'row'}}><Text style={styles.title}>Food Wave: </Text><Text style={styles.foodWave}>{userData.foodWave}</Text></View>
                </View>
            </View>

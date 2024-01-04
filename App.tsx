@@ -17,7 +17,7 @@ import Profile from "./app/screens/pages/Profile";
 import Schedule from "./app/screens/pages/Schedule";
 import Navbar from "./components/Navbar";
 import NavbarWeb from "./components/Navbar.web";
-
+import ProfileEditPage from './app/screens/pages/ProfileEditPage';
 const isWeb = Platform.OS === 'web';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -63,7 +63,6 @@ import Details from "./app/screens/Details";
 import Login from "./app/screens/auth/Login";
 import SignUp from "./app/screens/auth/SignUp";
 import PasswordReset from "./app/screens/auth/PasswordReset.web";
-import ProfileEditPage from "./app/screens/pages/ProfileEditPage";
 import ViewParticipants from "./app/screens/pages/ViewParticipants";
 import ReferFriend from "./app/screens/pages/ReferFriend";
 

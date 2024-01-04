@@ -82,9 +82,9 @@ const NavViewPart = () => {
         />
       </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.editButton} onPress={NavViewPart}>
+      {/* <TouchableOpacity style={styles.editButton} onPress={NavViewPart}>
                <Text style={styles.editButtonText}>View Participants</Text>
-           </TouchableOpacity>
+           </TouchableOpacity> */}
     </View>
   );
 };
