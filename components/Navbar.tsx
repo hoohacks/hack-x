@@ -9,6 +9,7 @@ import QrCodeIcon from '../assets/svg/qr_code.svg';
 import NavBarBackground from '../assets/svg/navbar.svg';
 const { width } = Dimensions.get('window');
 const qrButtonSize = 70; // Adjust as needed
+import QRCode from '../app/screens/pages/QRCode';
 
 const Navbar = ({ navigation }) => {
     const [activeTab, setActiveTab] = useState('Home'); // Default active tab
@@ -37,14 +38,12 @@ const Navbar = ({ navigation }) => {
             <View style={styles.navbar}>
                 <Tab IconComponent={homeIcon} screenName="Home" />
                 <Tab IconComponent={scheduleIcon} screenName="Schedule" />
-                <View style={{ width: qrButtonSize }} />
                 <Tab IconComponent={leaderboardIcon} screenName="Leaderboard" />
                 <Tab IconComponent={profileIcon} screenName="Profile" />
-                <Tab IconComponent={QrCodeIcon} screenName="QRCode" />
             </View>
             <TouchableOpacity
                 style={styles.qrButton}
-                onPress={() => {}} // Implement your QR code button action
+                onPress={() => {navigation.navigate(QRCode)}} // Implement your QR code button action
             >
                 <QrCodeIcon width={25} height={25} />
             </TouchableOpacity>
