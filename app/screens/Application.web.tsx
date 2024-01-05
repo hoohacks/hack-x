@@ -33,7 +33,9 @@ const Application = ({ navigation }: RouterProps) => {
   const [birthdate, setBirthdate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [gender, setGender] = useState("");
+  const [otherGender,setOtherGender] = useState("");
   const [race, setRace] = useState("");
+  const [otherRace,setOtherRace] = useState("");
   const [school, setSchool] = useState("");
   const [otherSchool,setOtherSchool] = useState("");
   const [describe, setDescribe] = useState("");
@@ -44,6 +46,7 @@ const Application = ({ navigation }: RouterProps) => {
     useState(false);
   const [mlhCodeofConduct, setMlhCodeofConduct] = useState(false);
   const [mlhAdvertisement, setMlhAdvertisement] = useState(false);
+
 
   const schoolNames: string[] = [
     "Select",
@@ -1266,13 +1269,14 @@ const Application = ({ navigation }: RouterProps) => {
     const [loading, setLoading] = useState(false);
 
     // dietary restrictions
-    const [dietaryRestriction, setDietaryRestriction] = useState<string[]>([]);
+    const [dietary, setDietary] = useState("");
+    const [otherDietary,setOtherDietary] = useState("");
     const [otherDietaryRestriction, setOtherDietaryRestriction] = useState('');
     const [otherDietaryRestrictionCheck, setOtherDietaryRestrictionCheck] = useState(false);
 
   // year
   const [selectYear, setSelectYear] = useState("Select");
-  const [otherSelectYear, setOtherSelectYear] = useState("");
+  const [otherYear, setOtherYear] = useState("");
   const [otherSelectYearCheck, setOtherSelectYearCheck] = useState("");
 
   // school
@@ -1330,7 +1334,8 @@ const areRequiredFieldsFilled = () => {
 
   };
 
-    // add multiple dietary restrictions
+    // add multiple restrictions
+    /*
     const selectRestrictions = (event: any) => {
 
         if (dietaryRestriction.includes(event.target.value)) {
@@ -1340,21 +1345,26 @@ const areRequiredFieldsFilled = () => {
             setDietaryRestriction(current => [...current, event.target.value]);
         }
 
-    };
+    };*/
 
 
-    const apply = async () => {
+    const apply = async () => { 
         const finalSchool = school === 'Other' ? otherSchool : school;
+        const finalGender = gender === 'Other' ? otherGender : gender;
+        const finalRace = race === 'Other' ? otherRace : race;
+        const finalYear = selectYear === 'Other' ? otherYear : selectYear;
+        const finalDietary = dietary === 'Other' ? otherDietary : dietary;
 
         if (user == null) {
             return;
         }
 
+        /*
         // update dietary restrictions with other value
         var dietRestriction = dietaryRestriction;
         if (otherDietaryRestriction !== '') {
             dietRestriction.push(otherDietaryRestriction);
-        }
+        }*/
 
         // check if refferal id is correct or not
         if (coinsID !== "") {
@@ -1372,11 +1382,11 @@ const areRequiredFieldsFilled = () => {
             
             await setDoc(doc(FIRESTORE_DB, "applications", user.uid), {
                 birthdate: birthdate,
-                gender: gender,
-                race: race,
+                gender: finalGender,
+                race: finalRace,
                 school: finalSchool,
                 describe: describe,
-                dietaryRestriction: dietaryRestriction,
+                dietary: finalDietary,
                 major: major,
                 resume: url,
                 numHackathons: numHackathons,
@@ -1391,11 +1401,11 @@ const areRequiredFieldsFilled = () => {
         } else {
             await setDoc(doc(FIRESTORE_DB, "applications", user.uid), {
                 birthdate: birthdate,
-                gender: gender,
-                race: race,
+                gender: finalGender,
+                race: finalRace,
                 school: finalSchool,
                 describe: describe,
-                dietaryRestriction: dietaryRestriction,
+                dietary: finalDietary,
                 major: major,
                 resume: "none",
                 numHackathons: numHackathons,
@@ -1467,9 +1477,17 @@ const areRequiredFieldsFilled = () => {
             <Picker.Item label="Female" value="female" />
             <Picker.Item label="Non-binary" value="non-binary" />
             <Picker.Item label="Transgender" value="transgender" />
-            <Picker.Item label="Other" value="other" />
+            <Picker.Item label="Other" value="Other" />
             <Picker.Item label="Prefer not to say" value="not-say" />
           </Picker>
+          {gender === 'Other' && (
+        <TextInput
+          value={otherGender}
+          onChangeText={(text) => setOtherGender(text)}
+          placeholder="Enter Other Gender"
+          style={styles.input}
+        />
+      )}
 
           <Text>
             Race
@@ -1488,9 +1506,18 @@ const areRequiredFieldsFilled = () => {
             <Picker.Item label="Hispanic" value="hispanic" />
             <Picker.Item label="Native Hawaiian" value="native-hawaiian" />
             <Picker.Item label="Native American" value="native-american" />
-            <Picker.Item label="Other" value="other" />
+            <Picker.Item label="Other" value="Other" />
             <Picker.Item label="Two or more races" value="two-or-more" />
           </Picker>
+          {race === 'Other' && (
+        <TextInput
+          value={otherRace}
+          onChangeText={(text) => setOtherRace(text)}
+          placeholder="Enter Other Race"
+          style={styles.input}
+        />
+      )}
+
           <Text style={styles.subHeader}>Basic Information</Text>
 
           <Text>
@@ -1534,8 +1561,42 @@ const areRequiredFieldsFilled = () => {
             <Picker.Item label="2024" value="2024" />
             <Picker.Item label="2025" value="2025" />
             <Picker.Item label="2026" value="2026" />
-            <Picker.Item label="Other" value="other" />
+            <Picker.Item label="Other" value="Other" />
           </Picker>
+          {selectYear === 'Other' && (
+        <TextInput
+          value={otherYear}
+          onChangeText={(text) => setOtherYear(text)}
+          placeholder="Enter Other Graduation Year"
+          style={styles.input}
+        />
+      )}
+
+          <Text>
+            Dietary Restrictions
+            <Text style={styles.required}> *</Text>
+          </Text>
+          <Picker
+            selectedValue={dietary}
+            onValueChange={(itemValue, itemIndex) => setDietary(itemValue)}
+            prompt="Dietary"
+            style={styles.picker}
+          >
+            <Picker.Item label="Select" value="Select" />
+            <Picker.Item label="Vegetarian" value="Vegetarian" />
+            <Picker.Item label="Vegan" value="Vegan" />
+            <Picker.Item label="Gluten Free" value="GlutenFree" />
+            <Picker.Item label="Other" value="Other" />
+          </Picker>
+          {dietary === 'Other' && (
+        <TextInput
+          value={otherDietary}
+          onChangeText={(text) => setOtherDietary(text)}
+          placeholder="Enter Other Dietary Restrictions"
+          style={styles.input}
+        />
+      )}
+
           <Pressable style={styles.button} onPress={() => changeResumeHandle()}>
             <Text style={styles.button_text}>Optional - Upload Resume</Text>
           </Pressable>
