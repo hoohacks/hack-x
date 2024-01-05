@@ -46,7 +46,7 @@ const Application = ({ navigation }: RouterProps) => {
   const [school, setSchool] = useState("");
   const [describe, setDescribe] = useState("");
   const [major, setMajor] = useState("");
-  const [numHackathons, setNumHackathons] = useState(0);
+  const [numHackathons, setNumHackathons] = useState("");
   const [reason, setReason] = useState("");
   const [coinsID, setCoinsID] = useState("");
   const [mlhPrivacyAndTermsNCondition, setMlhPrivacyAndTermsNCondition] =
@@ -54,6 +54,7 @@ const Application = ({ navigation }: RouterProps) => {
   const [mlhCodeofConduct, setMlhCodeofConduct] = useState(false);
   const [mlhAdvertisement, setMlhAdvertisement] = useState(false);
   const schoolNames: string[] = [
+    "Select",
     "The University of Virginia",
     "ABES Engineering College",
     "AGH University of Science and Technology",
@@ -1271,7 +1272,7 @@ const Application = ({ navigation }: RouterProps) => {
   const [loading, setLoading] = useState(false);
 
   // year
-  const [selectYear, setSelectYear] = useState(2024);
+  const [selectYear, setSelectYear] = useState("Select");
   const [otherSelectYear, setOtherSelectYear] = useState("");
   const [otherSelectYearCheck, setOtherSelectYearCheck] = useState("");
 
@@ -1312,6 +1313,25 @@ const Application = ({ navigation }: RouterProps) => {
     setResumeName(result.assets[0].name);
     setIsResumePicked(true);
   };
+
+// Add a function to check whether all required fields are filled
+const areRequiredFieldsFilled = () => {
+    // Add conditions for all required fields
+    return (
+        gender !== "" &&
+        race !== "" &&
+        school !== "" &&
+        selectYear !== "" &&
+        describe !== "" &&
+        major !== "" &&
+        numHackathons !== "" &&
+        reason !== "" &&
+        mlhPrivacyAndTermsNCondition &&
+        mlhCodeofConduct &&
+        mlhAdvertisement
+    );
+
+    };
 
   // add multiple dietary restrictions
   // const selectRestrictions = (event) => {
@@ -1366,6 +1386,7 @@ const Application = ({ navigation }: RouterProps) => {
             prompt="Gender"
             style={styles.picker}
           >
+            <Picker.Item label="Select" value="Select" />
             <Picker.Item label="Male" value="male" />
             <Picker.Item label="Female" value="female" />
             <Picker.Item label="Non-binary" value="non-binary" />
@@ -1384,6 +1405,7 @@ const Application = ({ navigation }: RouterProps) => {
             prompt="Race"
             style={styles.picker}
           >
+            <Picker.Item label="Select" value="Select" />
             <Picker.Item label="African American" value="african-american" />
             <Picker.Item label="White" value="white" />
             <Picker.Item label="Asian" value="asian" />
@@ -1421,6 +1443,7 @@ const Application = ({ navigation }: RouterProps) => {
             style={styles.picker}
           >
             {}
+            <Picker.Item label="Select" value="Select" />
             <Picker.Item label="2023" value="2023" />
             <Picker.Item label="2024" value="2024" />
             <Picker.Item label="2025" value="2025" />
@@ -1459,13 +1482,12 @@ const Application = ({ navigation }: RouterProps) => {
             How many hackathons have you attended?
             <Text style={styles.required}> *</Text>
           </Text>
-          <NumberInput
+          <TextInput
             style={styles.input}
-            // placeholder="How many hackathons have you attended?"
-            // keyboardType="numeric"
-            // placeholderTextColor="#121A6A"
-            // autoCapitalize="none"
-            // onChangeText={(text) => setNumHackathons(parseInt(text.replace(/[^0-9]/g, '')))}
+            placeholder="How many hackathons have you attended?"
+            placeholderTextColor="#121A6A"
+            autoCapitalize="none"
+            onChangeText={(text) => setNumHackathons(text)}
           />
 
           <Text>
@@ -1567,10 +1589,11 @@ const Application = ({ navigation }: RouterProps) => {
             </Text>
           </View>
           {loading ? (
+            /* Disable the Apply button if required fields are not filled */
             <ActivityIndicator size="large" color="#121A6A" />
           ) : (
             <>
-              <Pressable style={styles.button} onPress={() => apply()}>
+              <Pressable style={[styles.button, areRequiredFieldsFilled() ? null : { opacity: 0.5 }]} onPress={() => areRequiredFieldsFilled() && apply()} disabled={!areRequiredFieldsFilled()}>
                 <Text style={styles.button_text}>Apply</Text>
               </Pressable>
             </>
