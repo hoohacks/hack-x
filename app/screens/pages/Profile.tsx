@@ -2,6 +2,7 @@ import React, {useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button, Image, TouchableOpacity } from 'react-native';
 import pfp from '../../../assets/Profile.png'; // Importing the profile picture
 import arrow from '../../../assets/arrow_back_ios_new.png'; // Importing the back arrow
+import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
 
 import ProfileEditPage from './ProfileEditPage'; // Update the path accordingly
 
@@ -59,31 +60,35 @@ const ProfilePage: React.FC<Props> = () => {
 
 
    return (
-       <View style={styles.container}>
-           
-           <View style={styles.header}>
-               <Image
-                   source={pfp}
-                   style={styles.profileImage}
-               />
-               <View style={styles.userInfo}>
-                   <View style={{flexDirection: 'row'}}><Text style={styles.title}>Name: </Text><Text style={styles.name}>{userData.name}</Text></View>
-                   <View style={{flexDirection: 'row'}}><Text style={styles.title}>Email: </Text><Text style={styles.email}>{userData.email}</Text></View>
-                   {/* <View style={{flexDirection: 'row'}}><Text style={styles.title}>Hoocoins: </Text><Text style={styles.hoocoins}>{userData.hoocoins}</Text></View> */}
-                   <View style={{flexDirection: 'row'}}><Text style={styles.title}>Food Wave: </Text><Text style={styles.foodWave}>{userData.foodWave}</Text></View>
-               </View>
-           </View>
-           <TouchableOpacity style={styles.editButton} onPress={handleEditProfilePress}>
-               <Text style={styles.editButtonText}>EDIT ACCOUNT</Text>
-           </TouchableOpacity>
 
-           <Button 
-        title="SignOut"
-        onPress={
-          () => signOut(auth)
-        }
-      />
-       </View>
+    <Text style={styles.comingSoon}>Coming Soon...</Text>
+
+    //    <View style={styles.container}>
+           
+    //        <View style={styles.header}>
+    //            <Image
+    //                source={pfp}
+    //                style={styles.profileImage}
+    //            />
+    //            <View style={styles.userInfo}>
+    //                <View style={{flexDirection: 'row'}}><Text style={styles.title}>Name: </Text><Text style={styles.name}>{userData.name}</Text></View>
+    //                <View style={{flexDirection: 'row'}}><Text style={styles.title}>Email: </Text><Text style={styles.email}>{userData.email}</Text></View>
+    //                {/* <View style={{flexDirection: 'row'}}><Text style={styles.title}>Hoocoins: </Text><Text style={styles.hoocoins}>{userData.hoocoins}</Text></View> */}
+    //                <View style={{flexDirection: 'row'}}><Text style={styles.title}>Food Wave: </Text><Text style={styles.foodWave}>{userData.foodWave}</Text></View>
+    //            </View>
+    //        </View>
+    //        <TouchableOpacity style={styles.editButton} onPress={handleEditProfilePress}>
+    //            <Text style={styles.editButtonText}>EDIT ACCOUNT</Text>
+    //        </TouchableOpacity>
+
+    //        <Button 
+    //     title="SignOut"
+    //     onPress={
+    //       () => signOut(auth)
+    //     }
+    //   />
+    //    </View>
+
    );
 };
 
@@ -94,6 +99,17 @@ const styles = StyleSheet.create({
        backgroundColor: '#FFFFFF',
        paddingTop: 50,
    },
+   comingSoon: {
+    fontWeight: "700",
+    fontFamily: FontFamily.chakraPetchBold,
+    fontSize: FontSize.size_5xl,
+    textAlign: "center",
+    color: Color.colorBlack,
+    lineHeight: 22,
+    top: 10,
+    left: 0,
+    position: "absolute",
+  },
    backButton: {
        position: 'absolute',
        top: 10,
