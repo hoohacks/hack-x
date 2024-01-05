@@ -14,6 +14,7 @@ import Details from "./app/screens/Details";
 import Login from "./app/screens/auth/Login";
 import SignUp from "./app/screens/auth/SignUp";
 import PasswordReset from "./app/screens/auth/PasswordReset.web";
+import Application from "./app/screens/Application";
 
 const Stack = createNativeStackNavigator();
 const MenuStack = createNativeStackNavigator();
@@ -22,15 +23,25 @@ const AuthStack = createNativeStackNavigator();
 function MenuLayout() {
   return (
     // add your own screen here in same format 
-    <MenuStack.Navigator>
+    <MenuStack.Navigator
+      initialRouteName="detail"
+    >
       <MenuStack.Screen 
-        name="Detail" 
+        name="detail" 
         component={Details} 
+        options={{ 
+          headerShown:false, 
+          title: "HooHacks - Details"
+        }}
       />
-      {/* <UserStack.Screen
-        name="Application"
+      <MenuStack.Screen
+        name="application"
         component={Application}
-      /> */}
+        options={{ 
+          headerShown:false, 
+          title: "HooHacks - Application"
+        }}
+      />
     </MenuStack.Navigator>
   );
 };
@@ -45,7 +56,7 @@ function AuthLayout() {
         component={SignUp} 
         options={{ 
           headerShown:false, 
-          title: "HackX - Sign Up"
+          title: "HooHacks - Sign Up"
         }}
       />
       <AuthStack.Screen 
@@ -53,7 +64,7 @@ function AuthLayout() {
         component={Login} 
         options={{ 
           headerShown:false, 
-          title: "HackX - Login"
+          title: "HooHacks - Login"
         }}
       />
       <AuthStack.Screen
@@ -61,7 +72,7 @@ function AuthLayout() {
         component={PasswordReset}
         options={{
           headerShown:false, 
-          title: "HackX - Password Reset"
+          title: "HooHacks - Password Reset"
         }}
       />
     </AuthStack.Navigator>
@@ -86,6 +97,7 @@ const App = () => {
         Search: 'search',
         Login: '/login',
         SignUp: '/sign-up',
+        Application: '/application',
         Detail: '/detail',
         NotFound: '/404'
       },
