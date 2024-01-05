@@ -1,40 +1,41 @@
 import { StyleSheet, Platform } from "react-native";
 
 export const styles = StyleSheet.create({
+    webContainer: {
+        alignSelf: 'stretch',
+        backgroundColor: '#fff',
+    },
     container: {
         justifyContent: 'center',
         alignItems: 'center',
+        alignSelf: 'center',
         flex: 1,
         gap: 8,
+        height: "100%",
         ...Platform.select({
             web: {
-                backgroundColor: '#fff'
-            }, 
-            default: { // mobile
-                backgroundColor: '#121A6A'
+                width: "60%",
             },
+            default: {
+                width: 316,
+            }
         })
     },
-    rowContainer: {
-        justifyContent: 'center',
-        flexDirection: 'row',
-        width: 'auto',
-        height: 'auto',
-        gap: 8,
+    subHeader: {
+        fontSize: 24,
+        color: "#121A6A",
+        alignSelf: "flex-start",
     },
-    userContainer: {
-        width: 317,
-        flexDirection: "row",
-        alignSelf: "center",
-        overflow: "hidden",
-        gap: 8,
-        justifyContent: "center"
+    picker: {
+        width: "100%",
+        backgroundColor: "#fff",
+        height: 52,
+        marginVertical: 8,
     },
     input: {
         alignSelf: 'center',
         fontSize: 16,
         height: 52,
-        width: 316,
         borderWidth: 1,
         borderRadius: 4,
         backfaceVisibility: "hidden",
@@ -42,39 +43,22 @@ export const styles = StyleSheet.create({
         marginVertical: 8,
         ...Platform.select({
             web: {
+                width: '100%',
                 color: '#121A6A',
                 backgroundColor: '#fff',
                 borderColor: 'grey',
             }, 
             default: { // mobile
+                width: 316,
                 color: '#fff',
                 backgroundColor: 'rgba(255, 255, 255, 0.3)',
                 borderColor: "#fff",
             },
         })
     },
-    inputRow: {
-        alignSelf: 'center',
-        fontSize: 16,
-        height: 52,
-        width: 154,
-        borderWidth: 1,
-        borderRadius: 4,
-        backfaceVisibility: "hidden",
-        padding: 10,
-        marginVertical: 8,
-        ...Platform.select({
-            web: {
-                color: '#121A6A',
-                backgroundColor: '#fff',
-                borderColor: 'grey',
-            }, 
-            default: { // mobile
-                color: '#fff',
-                backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                borderColor: "#fff",
-            },
-        })
+    link: {
+        color: '#121A6A',
+        textDecorationLine: "underline",
     },
     button: {
         alignSelf: 'center',
@@ -99,19 +83,16 @@ export const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
     },
-    link: {
-        textDecorationLine: 'underline',
-        fontSize: 12,
-        ...Platform.select({
-            web: {
-                color: '#808080',
-            },
-            default: {
-                color: '#fff',
-            }
-        })
+    required: {
+        color: 'red',
     },
-    logo: {
-        alignSelf: "center",
+    containerCheckBox: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10,
     },
+    checkbox: {
+        color:'#121A6A', 
+    }
 });

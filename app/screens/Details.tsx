@@ -19,6 +19,12 @@ const Details = ({ navigation }: RouterProps) => {
           () => signOut(auth)
         }
       />
+      <Button 
+        title="Application"
+        onPress={
+          () => navigation.navigate("application")
+        }
+      />
     </View>
   );
 };

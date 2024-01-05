@@ -68,6 +68,7 @@ import SignUp from "./app/screens/auth/SignUp";
 import PasswordReset from "./app/screens/auth/PasswordReset.web";
 import ViewParticipants from "./app/screens/pages/ViewParticipants";
 import ReferFriend from "./app/screens/pages/ReferFriend";
+import Application from "./app/screens/Application";
 
 // const MenuStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
@@ -131,19 +132,20 @@ const App = () => {
         });
     }, []);
 
-    const linking = {
-        prefixes: ['http://localhost:19006', 'project://'],
-        config: {
-            screens: {
-                Test: '/test',
-                Search: 'search',
-                Login: '/login',
-                SignUp: '/sign-up',
-                Detail: '/detail',
-                NotFound: '/404'
-            },
-        },
-    };
+  const linking = {
+    prefixes: ['http://localhost:19006', 'project://'],
+    config: {
+      screens: {
+        Test: '/test',
+        Search: 'search',
+        Login: '/login',
+        SignUp: '/sign-up',
+        Application: '/application',
+        Detail: '/detail',
+        NotFound: '/404'
+      },
+    },
+  };
 
     return (
         <NavigationContainer
