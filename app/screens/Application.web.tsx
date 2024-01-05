@@ -31,6 +31,7 @@ interface RouterProps {
 
 const Application = ({ navigation }: RouterProps) => {
   const [birthdate, setBirthdate] = useState(new Date());
+  const [chosenBirthdate, setChosenBirthdate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [gender, setGender] = useState("");
   const [otherGender,setOtherGender] = useState("");
@@ -1400,7 +1401,7 @@ const areRequiredFieldsFilled = () => {
 
         } else {
             await setDoc(doc(FIRESTORE_DB, "applications", user.uid), {
-                birthdate: birthdate,
+                birthdate: chosenBirthdate,
                 gender: finalGender,
                 race: finalRace,
                 school: finalSchool,
@@ -1459,7 +1460,8 @@ const areRequiredFieldsFilled = () => {
         <KeyboardAvoidingView behavior="padding">
           <Text style={styles.subHeader}>Basic Information</Text>
           <DatePicker
-          // onChange={choice => setDate(choice)}
+            value={chosenBirthdate}
+            onChange={(newDate: any) => setChosenBirthdate(newDate)}
           />
 
           <Text>

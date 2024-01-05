@@ -4,8 +4,11 @@ export default function DatePicker({ value, onChange }: any) {
 
     return createElement('input', {
         type: 'date',
-        value: value,
-        onInput: onChange,
+        value: value.toISOString().split('T')[0], // Ensure the correct format
+        onChange: (e: any) => {
+            const selectedDate = new Date(e.target.value + 'T00:00:00'); // Convert to Date object
+            onChange(selectedDate);
+        },
         defaultValue: "Birthday",
         style: {
             width: "100%",
