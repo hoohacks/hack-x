@@ -25,6 +25,7 @@ const Application = ({ navigation }: RouterProps) => {
   const [gender, setGender] = useState("");
   const [race, setRace] = useState("");
   const [school, setSchool] = useState("");
+  const [otherSchool,setOtherSchool] = useState("");
   const [describe, setDescribe] = useState("");
   const [major, setMajor] = useState("");
   const [numHackathons, setNumHackathons] = useState(0);
@@ -88,6 +89,14 @@ const Application = ({ navigation }: RouterProps) => {
             <Picker.Item value={name} label={name} />
           ))}
         </Picker>
+        {school === 'Other' && (
+        <TextInput
+          value={otherSchool}
+          onChangeText={(text) => setOtherSchool(text)}
+          placeholder="Enter Other School"
+          style={styles.input}
+        />
+      )}
         <TextInput
           style={styles.input}
           placeholder="I would describe myself as a..."
