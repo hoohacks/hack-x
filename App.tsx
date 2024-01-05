@@ -39,6 +39,8 @@ const WebLayout = () => {
                     <Stack.Screen name="ViewParticipants" component={ViewParticipants} />
                     <Stack.Screen name="ReferFriend" component={ReferFriend} />
                     <Stack.Screen name="QRCode" component={QRCode} />
+                    <Stack.Screen name="Application" component={Application} />
+
                 </Stack.Navigator>
             </View>
         </View>
@@ -56,7 +58,7 @@ function UserLayout() {
             <Tab.Screen name="ProfileEditPage" component={ProfileEditPage} />
             <Stack.Screen name="ReferFriend" component={ReferFriend} options={{headerShown:false}}/>
             <Stack.Screen name="ViewParticipants" component={ViewParticipants} />
-
+            <Stack.Screen name="Application" component={Application} />
         </Tab.Navigator>
     );
 }

@@ -17,6 +17,9 @@ const sec = calculateTime();
 const NavReferFriend = () => {
   navigation.navigate("ReferFriend");
 }
+const NavApplication = () => {
+  navigation.navigate("Application");
+}
 const NavViewPart = () => {
   navigation.navigate("ViewParticipants");
 }
@@ -24,6 +27,7 @@ const NavViewPart = () => {
     <View style={styles.homescreenParticipants}>
       
       <View style={[styles.rectangleParent, styles.groupChildLayout]}>
+        <TouchableOpacity onPress={NavApplication}>
         <View style={[styles.groupChild, styles.childPosition]} />
         <Text
           style={[styles.deadlineToRegister, styles.loremIpsumDolorFlexBox]}
@@ -45,6 +49,7 @@ const NavViewPart = () => {
             INCOMPLETE
           </Text>
         </View>
+        </TouchableOpacity>
       </View>
       <View style={styles.heading}>
         <Text style={styles.welcomeToHoohacks}>Welcome to HooHacks!</Text>
