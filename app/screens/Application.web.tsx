@@ -1,5 +1,8 @@
 // firebase
-import { Timestamp, doc, setDoc } from "firebase/firestore";
+import { runTransaction, Timestamp, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { UploadTask, getDownloadURL, ref as storageRef, uploadBytesResumable } from 'firebase/storage';
+import { FIREBASE_STORAGE, FIRESTORE_DB, FIREBASE_AUTH } from "../../firebase/FirebaseConfig";
+import { User } from "firebase/auth";
 
 // react
 import { useEffect, useState } from "react";
@@ -17,20 +20,8 @@ import { Picker } from "@react-native-picker/picker";
 import * as DocumentPicker from "expo-document-picker";
 import Checkbox from "expo-checkbox";
 
-// firebase
-import {
-  UploadTask,
-  getDownloadURL,
-  ref as storageRef,
-  uploadBytesResumable,
-} from "firebase/storage";
-import { FIREBASE_STORAGE, FIRESTORE_DB } from "../../firebase/FirebaseConfig";
-import { User, onAuthStateChanged } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../firebase/FirebaseConfig";
-
 // static
 import { styles } from "../../assets/style/ApplicationStyle";
-import schoolData from "../../assets/data/schools.txt";
 import NumberInput from "../../assets/components/NumberInput";
 import DatePicker from "../../assets/components/DatePicker";
 
@@ -49,11 +40,11 @@ const Application = ({ navigation }: RouterProps) => {
   const [major, setMajor] = useState("");
   const [numHackathons, setNumHackathons] = useState(0);
   const [reason, setReason] = useState("");
-  const [coinsID, setCoinsID] = useState("");
   const [mlhPrivacyAndTermsNCondition, setMlhPrivacyAndTermsNCondition] =
     useState(false);
   const [mlhCodeofConduct, setMlhCodeofConduct] = useState(false);
   const [mlhAdvertisement, setMlhAdvertisement] = useState(false);
+
   const schoolNames: string[] = [
     "The University of Virginia",
     "ABES Engineering College",
@@ -1263,13 +1254,20 @@ const Application = ({ navigation }: RouterProps) => {
 
   // user
   const [user, setUser] = useState<User | null>(null);
+  const [coinsID, setCoinsID] = useState("");
+    const [verifyReferral, setVerifyReferral] = useState(false);
 
   useEffect(() => {
     setUser(FIREBASE_AUTH.currentUser);
   }, []);
 
-  // loading
-  const [loading, setLoading] = useState(false);
+    // loading
+    const [loading, setLoading] = useState(false);
+
+    // dietary restrictions
+    const [dietaryRestriction, setDietaryRestriction] = useState<string[]>([]);
+    const [otherDietaryRestriction, setOtherDietaryRestriction] = useState('');
+    const [otherDietaryRestrictionCheck, setOtherDietaryRestrictionCheck] = useState(false);
 
   // year
   const [selectYear, setSelectYear] = useState(2024);
@@ -1314,39 +1312,117 @@ const Application = ({ navigation }: RouterProps) => {
     setIsResumePicked(true);
   };
 
-  // add multiple dietary restrictions
-  // const selectRestrictions = (event) => {
+    // add multiple dietary restrictions
+    const selectRestrictions = (event: any) => {
 
-  //     if (dietaryRestriction.includes(event.target.value)) {
-  //         setDietaryRestriction(current => current.filter(diet => diet !== event.target.value))
-  //     }
-  //     else {
-  //         setDietaryRestriction(current => [...current, event.target.value]);
-  //     }
+        if (dietaryRestriction.includes(event.target.value)) {
+            setDietaryRestriction(current => current.filter(diet => diet !== event.target.value))
+        }
+        else {
+            setDietaryRestriction(current => [...current, event.target.value]);
+        }
 
-  // };
+    };
 
-  useEffect(() => {
-    fetch(schoolData)
-      .then((data) => {
-        // for (let i = 0; i < data.text.length; i++) {
-        //     console.log(data.text.toString());
-        // }
-        console.log(data.text.toString());
-        console.log(data.text);
-      })
-      .then();
-  }, []);
 
-  const apply = async () => {
-    if (user == null) {
-      return;
+    const apply = async () => {
+
+        if (user == null) {
+            return;
+        }
+
+        // update dietary restrictions with other value
+        var dietRestriction = dietaryRestriction;
+        if (otherDietaryRestriction !== '') {
+            dietRestriction.push(otherDietaryRestriction);
+        }
+
+        // check if refferal id is correct or not
+        if (coinsID !== "") {
+            await getDoc(doc(FIRESTORE_DB, "users", coinsID))
+                .then((docSnapshot) => {
+                    setVerifyReferral(docSnapshot.exists);
+                })
+        }
+
+        // checks if resume has been uploaded yet or not
+        if (progress === 100 && isResumePicked && uploadResume !== null) {
+
+            // download url
+            const url = await getDownloadURL(uploadResume.snapshot.ref);
+
+            await setDoc(doc(FIRESTORE_DB, "applications", user.uid), {
+                birthdate: birthdate,
+                gender: gender,
+                race: race,
+                school: school,
+                describe: describe,
+                dietaryRestriction: dietaryRestriction,
+                major: major,
+                resume: url,
+                numHackathons: numHackathons,
+                reason: reason,
+                mlhPrivacyAndTermsNCondition: mlhPrivacyAndTermsNCondition,
+                mlhCodeofConduct: mlhCodeofConduct,
+                mlhAdvertisement: mlhAdvertisement,
+                createdAt: Timestamp.now(),
+                updatedAt: Timestamp.now(),
+            });
+
+        } else {
+            await setDoc(doc(FIRESTORE_DB, "applications", user.uid), {
+                birthdate: birthdate,
+                gender: gender,
+                race: race,
+                school: school,
+                describe: describe,
+                dietaryRestriction: dietaryRestriction,
+                major: major,
+                resume: "none",
+                numHackathons: numHackathons,
+                reason: reason,
+                mlhPrivacyAndTermsNCondition: mlhPrivacyAndTermsNCondition,
+                mlhCodeofConduct: mlhCodeofConduct,
+                mlhAdvertisement: mlhAdvertisement,
+                createdAt: Timestamp.now(),
+                updatedAt: Timestamp.now(),
+            });
+
+        }
+
+        try {
+            await runTransaction(FIRESTORE_DB, async (transaction) => {
+                const userDoc = await transaction.get(doc(FIRESTORE_DB, "users", user.uid));
+                if (!userDoc.exists()) {
+                    throw "User does not exist!";
+                }
+                const newHoocoins = userDoc.data().hoocoins + 5;
+                transaction.update(doc(FIRESTORE_DB, "users", user.uid), { hoocoins: newHoocoins });
+            });
+            console.log("Transaction successfully committed!");
+        } catch (e) {
+            alert("Transaction failed: " + e);
+        }
+
+        if (verifyReferral) {
+            try {
+                await runTransaction(FIRESTORE_DB, async (transaction) => {
+                    const userDoc = await transaction.get(doc(FIRESTORE_DB, "users", coinsID));
+                    if (!userDoc.exists()) {
+                        throw "User does not exist!";
+                    }
+                    const newHoocoins = userDoc.data().hoocoins + 5;
+                    transaction.update(doc(FIRESTORE_DB, "users", coinsID), { hoocoins: newHoocoins });
+                });
+                console.log("Transaction successfully committed!");
+            } catch (e) {
+                alert("Transaction failed: " + e);
+            }
+        }
+
     }
 
-    await setDoc(doc(FIRESTORE_DB, "applications", user.uid), {
-      birthdate: birthdate,
-    });
-  };
+
 
   return (
     <View style={styles.webContainer}>
