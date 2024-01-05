@@ -1276,7 +1276,6 @@ const Application = ({ navigation }: RouterProps) => {
 
   // school
   const [schools, setSchools] = useState([]);
-
   // resume upload
   const [resumeName, setResumeName] = useState("");
   const [uploadResume, setUploadResume] = useState<UploadTask | null>(null);
@@ -1326,6 +1325,7 @@ const Application = ({ navigation }: RouterProps) => {
 
 
     const apply = async () => {
+        const finalSchool = school === 'Other' ? otherSchool : school;
 
         if (user == null) {
             return;
@@ -1344,18 +1344,18 @@ const Application = ({ navigation }: RouterProps) => {
                     setVerifyReferral(docSnapshot.exists);
                 })
         }
-
+        
         // checks if resume has been uploaded yet or not
         if (progress === 100 && isResumePicked && uploadResume !== null) {
 
             // download url
             const url = await getDownloadURL(uploadResume.snapshot.ref);
-
+            
             await setDoc(doc(FIRESTORE_DB, "applications", user.uid), {
                 birthdate: birthdate,
                 gender: gender,
                 race: race,
-                school: school,
+                school: finalSchool,
                 describe: describe,
                 dietaryRestriction: dietaryRestriction,
                 major: major,
@@ -1374,7 +1374,7 @@ const Application = ({ navigation }: RouterProps) => {
                 birthdate: birthdate,
                 gender: gender,
                 race: race,
-                school: school,
+                school: finalSchool,
                 describe: describe,
                 dietaryRestriction: dietaryRestriction,
                 major: major,
@@ -1494,6 +1494,7 @@ const Application = ({ navigation }: RouterProps) => {
           style={styles.input}
         />
       )}
+      
       
 
           <Text>
