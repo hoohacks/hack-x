@@ -1311,28 +1311,27 @@ const Application = ({ navigation }: RouterProps) => {
     setResumeName(result.assets[0].name);
     setIsResumePicked(true);
   };
-
-// Add a function to check whether all required fields are filled
+  // Add a function to check whether all required fields are filled
 const areRequiredFieldsFilled = () => {
-    // Add conditions for all required fields
-    return (
-        gender !== "" &&
-        race !== "" &&
-        school !== "" &&
-        selectYear !== "" &&
-        describe !== "" &&
-        major !== "" &&
-        numHackathons !== "" &&
-        reason !== "" &&
-        mlhPrivacyAndTermsNCondition &&
-        mlhCodeofConduct &&
-        mlhAdvertisement
-    );
+  // Add conditions for all required fields
+  return (
+      gender !== "" &&
+      race !== "" &&
+      school !== "" &&
+      selectYear !== "" &&
+      describe !== "" &&
+      major !== "" &&
+      numHackathons !== "" &&
+      reason !== "" &&
+      mlhPrivacyAndTermsNCondition &&
+      mlhCodeofConduct &&
+      mlhAdvertisement
+  );
 
-    };
+  };
 
-  // add multiple dietary restrictions
-  // const selectRestrictions = (event) => {
+    // add multiple dietary restrictions
+    const selectRestrictions = (event: any) => {
 
         if (dietaryRestriction.includes(event.target.value)) {
             setDietaryRestriction(current => current.filter(diet => diet !== event.target.value))
