@@ -1583,6 +1583,7 @@ const areRequiredFieldsFilled = () => {
             style={styles.picker}
           >
             <Picker.Item label="Select" value="Select" />
+            <Picker.Item label="None" value="None" />
             <Picker.Item label="Vegetarian" value="Vegetarian" />
             <Picker.Item label="Vegan" value="Vegan" />
             <Picker.Item label="Gluten Free" value="GlutenFree" />
