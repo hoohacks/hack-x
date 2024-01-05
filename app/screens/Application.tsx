@@ -7,13 +7,13 @@ import { NavigationProp } from "@react-navigation/native";
 import { View, Text, TextInput, KeyboardAvoidingView } from "react-native";
 import DatePicker from "../../assets/components/DatePicker";
 import { Picker } from "@react-native-picker/picker";
-import * as RNFS from 'react-native-fs';
+import * as RNFS from "react-native-fs";
 
 // import CheckBox from 'react-native-check-box';
 
 // static
 import { styles } from "../../assets/style/ApplicationStyle";
-import schoolData from "../../assets/data/schools.txt";
+// import schoolData from "../../assets/data/schools.txt";
 
 interface RouterProps {
   navigation: NavigationProp<any, any>;
@@ -31,16 +31,14 @@ const Application = ({ navigation }: RouterProps) => {
   const [schoolNames, setSchoolNames] = useState<string[]>([]);
   useEffect(() => {
     const fetchSchoolNames = async () => {
-        RNFS.readDir("C:\Users\param\mobileapp\assets\data\schools.txt")
-    //   try {
-    //     const response = await fetch(schoolData);
-    //     const data = await response.text();
-    //     const namesArray = data.split("\n").map((name) => name);
-    //     console.log(namesArray)
-    //     setSchoolNames(namesArray);
-    //   } catch (error) {
-    //     console.error("Error fetching school names:", error);
-    //   }
+        try {
+            const filePath = RNFS.DocumentDirectoryPath + '/schools.txt';
+            const fileContent = await RNFS.readFile(filePath);
+            const namesArray = fileContent.split('\n').map((name) => name.trim());
+            setSchoolNames(namesArray);
+          } catch (error) {
+            console.error('Error fetching school names:', error);
+          }
     };
 
     fetchSchoolNames();
@@ -87,9 +85,8 @@ const Application = ({ navigation }: RouterProps) => {
           style={styles.picker}
         >
           {schoolNames.map((name, index) => (
-            <Picker.Item value={index} label= {name}/>
+            <Picker.Item value={index} label={name} />
           ))}
-         
         </Picker>
         <TextInput
           style={styles.input}
