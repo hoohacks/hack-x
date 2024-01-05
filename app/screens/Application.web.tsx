@@ -1448,7 +1448,7 @@ const areRequiredFieldsFilled = () => {
                 alert("Transaction failed: " + e);
             }
         }
-
+        navigation.navigate('Completion')
     }
 
 
