@@ -1,0 +1,75 @@
+/* Leaderboard.css */
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap');
+
+/* Leaderboard.css */
+.leaderboard-container {
+ padding: 0 30px;
+max-width: 100vw;
+overflow-x: hidden;
+display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+     font-family: 'Chakra Petch', sans-serif;
+        color: #121A6A;
+        background-color: #FFFFFF;
+        overflow-y: auto; /* Ensure scrolling is enabled */
+
+         height: '100vh'
+}
+
+.leaderboard-container h1, .leaderboard-container h2 {
+    color: #121A6A;
+}
+
+
+.heading-1 {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.heading-2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.heading-3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.body-1 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.body-2 {
+    font-size: 14px;
+    font-weight: 400;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+     padding: 10px;
+
+}
+
+.chart-container {
+    display: flex;
+        justify-content: center; /* Centers children horizontally */
+        align-items: center; /* Aligns children vertically */
+        flex-wrap: nowrap; /* Allows items to wrap to the next line */
+        margin-bottom: 20px; /* Space below each row */
+}
+
+
+.chart {
+    display: flex; /* Enables flex layout for each chart */
+        flex-direction: column; /* Stacks items vertically */
+        align-items: center; /* Centers items vertically within each chart */
+        margin: 10px;
+         flex-basis: 30%;
+            text-align: center;
+}
+
+

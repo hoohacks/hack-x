@@ -1,0 +1,41 @@
+/* LiveCounter.css */
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap');
+.live-counter {
+  font-family: 'Chakra Petch', sans-serif;
+  color: #121A6A;
+  text-align: center;
+}
+
+.live-counter .label {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.live-counter .count {
+  font-size: 48px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+}
+
+.digit {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  height: 1em;
+  width: 0.6em;
+}
+
+.digit::after {
+  content: attr(data-next);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transition: transform 0.7s ease-in-out;
+}
+
+
+.digit[data-flip="true"]::after {
+  transform: translateY(-100%);
+}
