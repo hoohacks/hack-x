@@ -79,6 +79,24 @@ export const styles = StyleSheet.create({
             }
         })
     },
+    resume_button: {
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 4,
+        width: "100%",
+        ...Platform.select({
+            web: {
+                backgroundColor: '#121A6A',
+            },
+            default: {
+                borderColor: '#fff',
+                borderWidth: 4,
+            }
+        })
+    },
     button_text: {
         color: 'white',
         fontSize: 20,
