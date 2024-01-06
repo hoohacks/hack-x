@@ -4,14 +4,15 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
+  Pressable,
   Button,
 } from "react-native";
 import { Color, Border, FontFamily, FontSize } from "../../../assets/style/GlobalStyles";
 import CountDown from "react-native-countdown-component";
 import { useNavigation } from "@react-navigation/native";
-import { getAuth, signOut } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../../firebase/FirebaseConfig";
+import { User, getAuth } from "firebase/auth";
+import { FIREBASE_AUTH, FIRESTORE_DB } from "../../../firebase/FirebaseConfig";
+import { doc, runTransaction } from "@firebase/firestore";
 
 const Home = () => {
   const navigation = useNavigation();
@@ -21,13 +22,9 @@ const Home = () => {
     const num = Number(
       Math.round(Math.abs(today.getTime() - endDate.getTime()) / 1000)
     );
-    console.log(typeof num);
     return num;
   };
   const sec = calculateTime();
-  const NavReferFriend = () => {
-    navigation.navigate("ReferFriend");
-  };
   const NavApplication = () => {
     navigation.navigate("Application");
   };
@@ -39,8 +36,34 @@ const Home = () => {
   const auth = getAuth();
   const [user, setUser] = React.useState<User | null>(null);
 
+  // user information
+  const [status, setStatus] = React.useState("");
+
   React.useEffect(() => {
     setUser(FIREBASE_AUTH.currentUser);
+
+    const fetchData = async () => {
+      try {
+        await runTransaction(FIRESTORE_DB, async (transaction) => {
+          const userDoc = await transaction.get(doc(FIRESTORE_DB, "users", FIREBASE_AUTH.currentUser?.uid));
+          if (!userDoc.exists()) {
+            alert("User does not exist!");
+            return;
+          }
+          console.log(userDoc.data().applicationComplete);
+          if (userDoc.data().applicationComplete) {
+            setStatus("submitted");
+          } else {
+            setStatus("incomplete")
+          } 
+        });
+        console.log("User transaction successfully committed!");
+      } catch (e) {
+        alert("Transaction failed: " + e);
+      }
+    }
+
+    fetchData();
   }, []);
 
   return (
@@ -71,15 +94,23 @@ const Home = () => {
       </View>
 
       <View style={styles.cards_view}>
-        <TouchableOpacity onPress={NavApplication}>
+        <Pressable onPress={NavApplication}>
           <View style={styles.registration_card}>
             <View style={styles.card_header}>
               <Text style={styles.card_title}>
                 Check Application
               </Text>
-              <Text style={styles.app_status}>
-                INCOMPLETE
-              </Text>
+              {/* status of their application and CONFIRMATiON TO DO */}
+              {status === "incomplete" && (
+                <Text style={styles.app_status_incomplete}>
+                  INCOMPLETE
+                </Text>
+              )} 
+              {status === "submitted" && (
+                <Text style={styles.app_status_submitted}>
+                  AWAITING APPROVAL
+                </Text>
+              )}
             </View>
 
             <View style={styles.space} />
@@ -99,7 +130,7 @@ const Home = () => {
               We will start accepting applications during mid to late February.
             </Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
 
         <View style={styles.refer_card}>
           <View style={styles.card_header}>
@@ -125,9 +156,9 @@ const Home = () => {
       </View>
 
 
-      {/* <TouchableOpacity style={styles.editButton} onPress={NavViewPart}>
+      {/* <Pressable style={styles.editButton} onPress={NavViewPart}>
                <Text style={styles.editButtonText}>View Participants</Text>
-           </TouchableOpacity> */}
+           </Pressable> */}
     </View>
   );
 };
@@ -172,9 +203,17 @@ const styles = StyleSheet.create({
   italic_text: {
     fontStyle: 'italic',
   },
-  app_status: {
+  app_status_incomplete: {
     padding: '0.5rem',
     backgroundColor: 'red',
+    color: 'white',
+    fontFamily: FontFamily.chakraPetchRegular,
+    textAlign: 'center',
+    textAlignVertical: 'center'
+  },
+  app_status_submitted: {
+    padding: '0.5rem',
+    backgroundColor: '#E7B400',
     color: 'white',
     fontFamily: FontFamily.chakraPetchRegular,
     textAlign: 'center',

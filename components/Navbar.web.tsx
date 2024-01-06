@@ -101,7 +101,7 @@ const NavBar: React.FC = () => {
                 <NavItem icon={LeaderBoardIcon} label="Leaderboard" onPress={() => navigation.navigate('Leaderboard')} isActive={route.name === 'Leaderboard'} iconWidth={20} iconHeight={20}/>
                 <NavItem icon={ProfileIcon} label="Profile" onPress={() => navigation.navigate('Profile')} isActive={route.name === 'Profile'} iconWidth={20} iconHeight={20}/>
                 <NavItem icon={QRCodeIcon} label="QRcode" onPress={() => navigation.navigate('QRCode')} isActive={route.name === 'QRCode'} iconWidth={20} iconHeight={20}/>
-                <NavItem icon={SignOut} label="SignOut" onPress={() => logOut()} iconWidth={20} iconHeight={20}/>
+                <NavItem icon={SignOut} label="Sign Out" onPress={() => logOut()} iconWidth={20} iconHeight={20}/>
             </View>
         </View>
     );

@@ -1,5 +1,5 @@
 // firebase
-import { runTransaction, Timestamp, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { runTransaction, Timestamp, doc, getDoc, setDoc } from "firebase/firestore";
 import { UploadTask, getDownloadURL, ref as storageRef, uploadBytesResumable } from 'firebase/storage';
 import { FIREBASE_STORAGE, FIRESTORE_DB, FIREBASE_AUTH } from "../../firebase/FirebaseConfig";
 import { User } from "firebase/auth";
@@ -53,10 +53,6 @@ const Application = ({ navigation }: RouterProps) => {
     const [coinsID, setCoinsID] = useState("");
     const [verifyReferral, setVerifyReferral] = useState(false);
 
-    useEffect(() => {
-        setUser(FIREBASE_AUTH.currentUser);
-    }, []);
-
     // loading
     const [loading, setLoading] = useState(false);
 
@@ -71,8 +67,6 @@ const Application = ({ navigation }: RouterProps) => {
     const [otherYear, setOtherYear] = useState("");
     const [otherSelectYearCheck, setOtherSelectYearCheck] = useState("");
 
-    // school
-    const [schools, setSchools] = useState([]);
     // resume upload
     const [resumeName, setResumeName] = useState("");
     const [uploadResume, setUploadResume] = useState<UploadTask | null>(null);
@@ -107,6 +101,7 @@ const Application = ({ navigation }: RouterProps) => {
         setResumeName(result.assets[0].name);
         setIsResumePicked(true);
     };
+
     // Add a function to check whether all required fields are filled
     const areRequiredFieldsFilled = () => {
         // Add conditions for all required fields
@@ -120,10 +115,75 @@ const Application = ({ navigation }: RouterProps) => {
             numHackathons !== "" &&
             reason !== "" &&
             mlhPrivacyAndTermsNCondition &&
-            mlhCodeofConduct 
+            mlhCodeofConduct
         );
 
     };
+
+    // check if application has already been completed and fill data if true
+    useEffect(() => {
+
+        setUser(FIREBASE_AUTH.currentUser);
+
+        const fetchApplication = async () => {
+
+            let currUser = FIREBASE_AUTH.currentUser;
+            if (currUser === null) {
+                return;
+            }
+
+            let applicationComplete;
+
+            try {
+                await runTransaction(FIRESTORE_DB, async (transaction) => {
+                    const userDoc = await transaction.get(doc(FIRESTORE_DB, "users", currUser.uid));
+                    if (!userDoc.exists()) {
+                        alert("User does not exist!");
+                        return;
+                    }
+                    alert("did we get here");
+                    if (userDoc.data().applicationComplete) {
+                        applicationComplete = true;
+                    } else {
+                        applicationComplete = false;
+                    }
+                });
+                console.log("User transaction successfully committed!");
+            } catch (e) {
+                alert("Transaction failed: " + e);
+            }
+
+            if (applicationComplete) {
+                try {
+                    await runTransaction(FIRESTORE_DB, async (transaction) => {
+                        const applicationDoc = await transaction.get(doc(FIRESTORE_DB, "applications", currUser.uid));
+                        if (!applicationDoc.exists()) {
+                            alert("Application does not exist!");
+                            return;
+                        }
+                        const data = applicationDoc.data();
+                        setBirthdate(data.birthdate);
+                        setGender(data.gender);
+                        setRace(data.race);
+                        setSchool(data.school);
+                        setDescribe(data.describe);
+                        setDietary(data.dietary);
+                        setMajor(data.major);
+                        setNumHackathons(data.numHackathons);
+                        setReason(data.reason);
+                        setMlhPrivacyAndTermsNCondition(data.mlhPrivacyAndTermsNCondition);
+                        setMlhCodeofConduct(data.mlhCodeofConduct);
+                        setMlhAdvertisement(data.mlhAdvertisement);
+                    });
+                    console.log("Application transaction successfully committed!");
+                } catch (e) {
+                    alert("Transaction failed: " + e);
+                }
+            }
+        }
+
+        fetchApplication();
+    }, []);
 
     // add multiple restrictions
     /*
@@ -162,7 +222,7 @@ const Application = ({ navigation }: RouterProps) => {
         let finalVerifyReferral = verifyReferral;
 
         if (coinsID !== "") {
-            const docSnap =  await getDoc(doc(FIRESTORE_DB, "users", coinsID));
+            const docSnap = await getDoc(doc(FIRESTORE_DB, "users", coinsID));
 
             if (docSnap.exists()) {
                 finalVerifyReferral = true;
@@ -229,7 +289,7 @@ const Application = ({ navigation }: RouterProps) => {
 
                 // calculate hoocoins bonus
                 let bonus: number;
-                if (userDoc.data().applicationComplete) { // only able to get bonus if application is new 
+                if (!userDoc.data().applicationComplete) { // only able to get bonus if application is new 
                     if (Date.now() < Date.parse("2024-03-01T08:00:00+01:00") && finalVerifyReferral) {
                         bonus = 10;
                     } else if (verifyReferral || Date.now() < Date.parse("2024-03-01T08:00:00+01:00")) {
@@ -242,7 +302,7 @@ const Application = ({ navigation }: RouterProps) => {
                 }
 
                 let newHoocoins = userDoc.data().hoocoins + bonus;
-                transaction.update(doc(FIRESTORE_DB, "users", user.uid), { 
+                transaction.update(doc(FIRESTORE_DB, "users", user.uid), {
                     hoocoins: newHoocoins,
                     applicationComplete: true,
                     updatedAt: Timestamp.now()
@@ -433,8 +493,9 @@ const Application = ({ navigation }: RouterProps) => {
                     <TextInput
                         style={styles.input}
                         placeholder="Innovator who enjoys..."
-                        placeholderTextColor="#121A6A"
+                        placeholderTextColor="#808080"
                         autoCapitalize="none"
+                        value={describe}
                         onChangeText={(text) => setDescribe(text)}
                     />
 
@@ -445,8 +506,9 @@ const Application = ({ navigation }: RouterProps) => {
                     <TextInput
                         style={styles.input}
                         placeholder="Computer Science"
-                        placeholderTextColor="#121A6A"
+                        placeholderTextColor="#808080"
                         autoCapitalize="none"
+                        value={major}
                         onChangeText={(text) => setMajor(text)}
                     />
 
@@ -456,9 +518,10 @@ const Application = ({ navigation }: RouterProps) => {
                     </Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="How many hackathons have you attended?"
-                        placeholderTextColor="#121A6A"
+                        placeholder="2 / 3 / 4 ..."
+                        placeholderTextColor="#808080"
                         autoCapitalize="none"
+                        value={numHackathons}
                         onChangeText={(text) => setNumHackathons(text)}
                     />
 
@@ -469,8 +532,9 @@ const Application = ({ navigation }: RouterProps) => {
                     <TextInput
                         style={styles.input}
                         placeholder="Interactive workshops, community, ..."
-                        placeholderTextColor="#121A6A"
+                        placeholderTextColor="#808080"
                         autoCapitalize="none"
+                        value={reason}
                         onChangeText={(text) => setReason(text)}
                     />
                     <Text>
@@ -481,7 +545,7 @@ const Application = ({ navigation }: RouterProps) => {
                     <TextInput
                         style={styles.input}
                         placeholder="HooCoins ID"
-                        placeholderTextColor="#121A6A"
+                        placeholderTextColor="#808080"
                         autoCapitalize="none"
                         onChangeText={(text) => setCoinsID(text)}
                     />
