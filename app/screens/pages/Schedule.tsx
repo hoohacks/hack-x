@@ -6,15 +6,20 @@ const Schedule = () => {
   const [starredEvents, setStarredEvents] = useState({});
   const [selectedDay, setSelectedDay] = useState('Saturday');
 
-  const events = [
-    { id: 'check-in-sat', day: 'Saturday', time: '9:00 AM - 9:30 AM', title: 'Check In', location: 'Rice Hall', required: true },
-    { id: 'breakfast-sat', day: 'Saturday', time: '10:00 AM - 11:00 AM', title: 'Breakfast', location: 'Rice Hall' },
+const events = [
 
-    { id: 'breakfast-sun', day: 'Sunday', time: '9:00 AM - 10:00 AM', title: 'Breakfast 2', location: 'Rice Hall' },
-    { id: 'presentation-sun', day: 'Sunday', time: '10:00 AM - 11:00 AM', title: 'Presentation', location: 'Rice Hall' },
-    { id: 'presentation-sun', day: 'Sunday', time: '11:00 AM - 1:00 PM', title: 'Bus Arrives', location: 'Rice Hall' },
+// make sure that the event id is unique for each event
 
-  ];
+  { id: 'check-in-sat', day: 'Saturday', time: '9:00 AM - 9:30 AM', title: 'Check In', location: 'Rice Hall', required: true },
+  { id: 'breakfast-sat', day: 'Saturday', time: '10:00 AM - 11:00 AM', title: 'Breakfast', location: 'Rice Hall' },
+  { id: 'opening', day: 'Saturday', time: '10:30 AM - 11:00 AM', title: 'Opening Ceremony', location: 'Rice Hall' },
+  { id: 'begin', day: 'Saturday', time: '12:00 PM - 1:00 AM', title: 'Hacking Begins', location: 'Rice Hall' },
+
+
+  { id: 'breakfast-sun', day: 'Sunday', time: '9:00 AM - 10:00 AM', title: 'Breakfast 2', location: 'Rice Hall' },
+  { id: 'presentation-sun', day: 'Sunday', time: '10:00 AM - 11:00 AM', title: 'Presentation', location: 'Rice Hall' },
+  { id: 'bus-sun', day: 'Sunday', time: '11:00 AM - 1:00 PM', title: 'Bus Arrives', location: 'Rice Hall' }
+];
 
   const onToggleStar = (id) => {
     setStarredEvents((prevStarredEvents) => ({
@@ -23,9 +28,9 @@ const Schedule = () => {
     }));
   };
 
-const renderEventsForDay = () => (
+  const renderEventsForDay = (day) => (
     events
-      .filter(event => event.day === selectedDay)
+      .filter(event => event.day === day)
       .map(event => (
         <Box
           key={event.id}
@@ -35,8 +40,6 @@ const renderEventsForDay = () => (
         />
       ))
   );
-
-
 
   return (
     <View style={styles.container}>
@@ -55,12 +58,11 @@ const renderEventsForDay = () => (
         </TouchableOpacity>
       </View>
       <ScrollView>
-        {renderEventsForDay()}
+        {renderEventsForDay(selectedDay)}
       </ScrollView>
     </View>
   );
 };
-
 
 
 const styles = StyleSheet.create({
