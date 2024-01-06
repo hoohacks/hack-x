@@ -7,10 +7,11 @@ import {
   TouchableOpacity,
   Button,
 } from "react-native";
-import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
+import { Color, Border, FontFamily, FontSize } from "../../../assets/style/GlobalStyles";
 import CountDown from "react-native-countdown-component";
 import { useNavigation } from "@react-navigation/native";
-import { getAuth, signOut } from "firebase/auth";
+import { User, getAuth, signOut } from "firebase/auth";
+import { FIREBASE_AUTH } from "../../../firebase/FirebaseConfig";
 
 const Home = () => {
   const navigation = useNavigation();
@@ -33,7 +34,15 @@ const Home = () => {
   const NavViewPart = () => {
     navigation.navigate("ViewParticipants");
   };
+
+  // authentication
   const auth = getAuth();
+  const [user, setUser] = React.useState<User | null>(null);
+
+  React.useEffect(() => {
+    setUser(FIREBASE_AUTH.currentUser);
+  }, []);
+
 
   return (
     <View style={styles.homescreenParticipants}>
@@ -86,22 +95,23 @@ const Home = () => {
           />
         </View>
       </View>
-      <TouchableOpacity onPress={NavReferFriend}>
-        <View style={[styles.referAFriend, styles.referLayout]}>
-          <View style={[styles.referAFriendChild, styles.referLayout]} />
-          <Text style={[styles.referAFriend1, styles.referAFriend1Clr]}>
-            Refer a Friend!
-          </Text>
-          <Text style={[styles.getAdditionalHoocoins, styles.referAFriend1Clr]}>
-            Get additional HooCoins!
-          </Text>
-          <Image
-            style={[styles.vectorIcon, styles.iconLayout]}
-            resizeMode="cover"
-            source={require("../../../assets/Vector.jpg")}
-          />
-        </View>
-      </TouchableOpacity>
+      <View style={[styles.referAFriend, styles.referLayout]}>
+        <View style={[styles.referAFriendChild, styles.referLayout]} />
+        <Text style={[styles.referAFriend1, styles.referAFriend1Clr]}>
+          Refer a Friend!
+        </Text>
+        <Text style={[styles.getAdditionalHoocoins, styles.referAFriend1Clr]}>
+          Get additional HooCoins!
+        </Text>
+        <Text style={[[styles.getAdditionalHoocoins, styles.referAFriend1Clr]]}>
+          Please forward your HooCoin ID to your friend for their application: {user?.uid}
+        </Text>
+        <Image
+          style={[styles.vectorIcon, styles.iconLayout]}
+          resizeMode="cover"
+          source={require("../../../assets/Vector.jpg")}
+        />
+      </View>
       {/* <TouchableOpacity style={styles.editButton} onPress={NavViewPart}>
                <Text style={styles.editButtonText}>View Participants</Text>
            </TouchableOpacity> */}
@@ -131,13 +141,13 @@ const styles = StyleSheet.create({
     marginTop: 76,
     borderRadius: 28,
     borderColor: 'white',
-    backgroundColor:Color.colorMidnightblue,
+    backgroundColor: Color.colorMidnightblue,
     borderWidth: 4,
     elevation: 3,
-},
-btntext:{
-  color:'white'
-},
+  },
+  btntext: {
+    color: 'white'
+  },
   childPosition: {
     backgroundColor: Color.colorLavender,
     borderRadius: Border.br_3xs,

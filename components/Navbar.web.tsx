@@ -5,11 +5,13 @@ import ScheduleIcon from '../assets/svg/schedule.web.svg';
 import LeaderBoardIcon from '../assets/svg/leaderboard.web.svg';
 import ProfileIcon from '../assets/svg/profile.web.svg';
 import OwlIcon from '../assets/svg/hoohacks-owl-logo.svg'; // Replace with the actual path to your owl icon image
+import SignOut from '../assets/svg/logout.svg';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Font from 'expo-font';
 import Schedule from "../app/screens/pages/Schedule";
 import QRCode from '../app/screens/pages/QRCode';
 import QRCodeIcon from '../assets/svg/qr_code.svg'
+import { getAuth, signOut } from 'firebase/auth';
 interface NavItemProps {
     icon: any;
     label: string;
@@ -54,9 +56,11 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, onPress, iconWidth, icon
 };
 
 const NavBar: React.FC = () => {
+
     const navigation = useNavigation();
     const [fontsLoaded, setFontsLoaded] = useState(false);
 
+    const auth = getAuth();
 
     useEffect(() => {
         const loadFonts = async () => {
@@ -76,6 +80,11 @@ const NavBar: React.FC = () => {
         loadFonts();
     }, []);
 
+    const logOut = async () => {
+        await signOut(auth);
+        navigation.navigate('auth');
+    };
+
     if (!fontsLoaded) {
         // You may want to return a loading indicator instead of null
         return null;
@@ -92,6 +101,7 @@ const NavBar: React.FC = () => {
                 <NavItem icon={LeaderBoardIcon} label="Leaderboard" onPress={() => navigation.navigate('Leaderboard')} isActive={route.name === 'Leaderboard'} iconWidth={20} iconHeight={20}/>
                 <NavItem icon={ProfileIcon} label="Profile" onPress={() => navigation.navigate('Profile')} isActive={route.name === 'Profile'} iconWidth={20} iconHeight={20}/>
                 <NavItem icon={QRCodeIcon} label="QRcode" onPress={() => navigation.navigate('QRCode')} isActive={route.name === 'QRCode'} iconWidth={20} iconHeight={20}/>
+                <NavItem icon={SignOut} label="SignOut" onPress={() => logOut()} iconWidth={20} iconHeight={20}/>
             </View>
         </View>
     );

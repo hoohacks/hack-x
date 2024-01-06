@@ -7,10 +7,11 @@ import {
   TouchableOpacity,
   Button,
 } from "react-native";
-import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
+import { Color, Border, FontFamily, FontSize } from "../../../assets/style/GlobalStyles";
 import CountDown from "react-native-countdown-component";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth, signOut } from "firebase/auth";
+import { FIREBASE_AUTH } from "../../../firebase/FirebaseConfig";
 
 const Home = () => {
   const navigation = useNavigation();
@@ -33,7 +34,14 @@ const Home = () => {
   const NavViewPart = () => {
     navigation.navigate("ViewParticipants");
   };
+
+  // authentication
   const auth = getAuth();
+  const [user, setUser] = React.useState<User | null>(null);
+
+  React.useEffect(() => {
+    setUser(FIREBASE_AUTH.currentUser);
+  }, []);
 
   return (
     <View style={styles.body}>
@@ -92,47 +100,40 @@ const Home = () => {
             </Text>
           </View>
         </TouchableOpacity>
- 
-        <TouchableOpacity onPress={NavReferFriend}>
-          <View style={styles.refer_card}>
-            <View style={styles.card_header}>
-              <Text style={styles.card_title}>
-                Refer a Friend!
-              </Text>
 
-              <Image
-                style={[styles.vectorIcon]}
-                resizeMode="contain"
-                source={require("../../../assets/Vector.jpg")}
-            />
-            </View>
-
-            <View style={styles.space} />
-
-            <Text style={styles.card_text}>
-              If you refer a friend, you will get additional HooCoins, which will be used to win raffle prizes during the event!
+        <View style={styles.refer_card}>
+          <View style={styles.card_header}>
+            <Text style={styles.card_title}>
+              Refer a Friend!
             </Text>
+
+            <Image
+              style={[styles.vectorIcon]}
+              resizeMode="contain"
+              source={require("../../../assets/Vector.jpg")}
+            />
           </View>
-        </TouchableOpacity>
+
+          <View style={styles.space} />
+
+          <Text style={styles.card_text}>
+            If you refer a friend, you will get additional HooCoins, which will be used to win raffle prizes during the event!
+            Please forward your HooCoin ID to your friend for their application: <Text style={styles.bold_text}>{user?.uid}</Text>
+          </Text>
+        </View>
 
       </View>
-      
-      
+
+
       {/* <TouchableOpacity style={styles.editButton} onPress={NavViewPart}>
                <Text style={styles.editButtonText}>View Participants</Text>
            </TouchableOpacity> */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => signOut(auth)}
-      >
-        <Text style={styles.btntext}>Signout</Text>
-      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  body:{
+  body: {
     flexDirection: 'column',
   },
   title: {
@@ -148,12 +149,12 @@ const styles = StyleSheet.create({
     padding: '1rem',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width:'100%' // add width 
+    width: '100%' // add width 
   },
   card_header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width:'100%' // add width 
+    width: '100%' // add width 
   },
   cards_view: {
     flexDirection: 'row',
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
   bold_text: {
     fontWeight: 'bold',
   },
-  italic_text:{
+  italic_text: {
     fontStyle: 'italic',
   },
   app_status: {
@@ -179,7 +180,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center'
   },
-  registration_card:{
+  registration_card: {
     margin: '0.5rem',
     padding: '0.75rem',
     width: 400,
@@ -187,11 +188,11 @@ const styles = StyleSheet.create({
     boxShadow: "10px 10px 17px -12px rgba(0,0,0,0.75)",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
-    borderBottomLeftRadius : 10,
+    borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     backgroundColor: 'white'
   },
-  refer_card:{
+  refer_card: {
     margin: '0.5rem',
     padding: '0.75rem',
     width: 400,
@@ -199,7 +200,7 @@ const styles = StyleSheet.create({
     boxShadow: "10px 10px 17px -12px rgba(0,0,0,0.75)",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
-    borderBottomLeftRadius : 10,
+    borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     backgroundColor: 'white'
   },
@@ -222,12 +223,12 @@ const styles = StyleSheet.create({
     height: 30,
     width: 100,
     borderRadius: 28,
-    backgroundColor:Color.colorMidnightblue,
+    backgroundColor: Color.colorMidnightblue,
     elevation: 3,
   },
-  btntext:{
-    color:'white',
-    textAlign:'center',
+  btntext: {
+    color: 'white',
+    textAlign: 'center',
     fontSize: '1rem',
     fontFamily: FontFamily.chakraPetchRegular,
   },

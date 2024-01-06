@@ -23,8 +23,8 @@ import Checkbox from "expo-checkbox";
 // static
 import { styles } from "../../assets/style/ApplicationStyle";
 import { schoolNames } from "../../assets/data/schools";
-import NumberInput from "../../assets/components/NumberInput";
-import DatePicker from "../../assets/components/DatePicker";
+import NumberInput from "../../components/NumberInput";
+import DatePicker from "../../components/DatePicker";
 
 interface RouterProps {
     navigation: NavigationProp<any, any>;

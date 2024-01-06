@@ -1,7 +1,7 @@
 import { View, Text, Button,StyleSheet } from "react-native"
 import { getAuth } from "firebase/auth";
 import { NavigationProp } from "@react-navigation/native";
-import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
+import { Color, Border, FontFamily, FontSize } from "../../../assets/style/GlobalStyles";
 
 interface RouterProps {
   navigation: NavigationProp<any, any>;

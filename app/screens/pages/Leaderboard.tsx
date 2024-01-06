@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
-import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
+import { Color, Border, FontFamily, FontSize } from "../../../assets/style/GlobalStyles";
 
 interface User {
     name: string;

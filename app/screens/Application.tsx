@@ -5,7 +5,7 @@ import { Timestamp, doc, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { NavigationProp } from "@react-navigation/native";
 import { View, Text, TextInput, KeyboardAvoidingView } from "react-native";
-import DatePicker from "../../assets/components/DatePicker";
+import DatePicker from "../../components/DatePicker";
 import { Picker } from "@react-native-picker/picker";
 // import * as RNFS from "react-native-fs";
 
