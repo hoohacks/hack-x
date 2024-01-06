@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Box from './Box';
-import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
 
 const Schedule = () => {
   const [starredEvents, setStarredEvents] = useState({});
   const [selectedDay, setSelectedDay] = useState('Saturday');
 
-  const events = [
-    { id: 'check-in-sat', day: 'Saturday', time: '9:00 AM - 9:30 AM', title: 'Check In', location: 'Rice Hall', required: true },
-    { id: 'breakfast-sat', day: 'Saturday', time: '10:00 AM - 11:00 AM', title: 'Breakfast', location: 'Rice Hall' },
+const events = [
 
-    { id: 'breakfast-sun', day: 'Sunday', time: '9:00 AM - 10:00 AM', title: 'Breakfast 2', location: 'Rice Hall' },
-    { id: 'presentation-sun', day: 'Sunday', time: '10:00 AM - 11:00 AM', title: 'Presentation', location: 'Rice Hall' },
-    { id: 'presentation-sun', day: 'Sunday', time: '11:00 AM - 1:00 PM', title: 'Bus Arrives', location: 'Rice Hall' },
+// make sure that the event id is unique for each event
 
-  ];
+  { id: 'check-in-sat', day: 'Saturday', time: '9:00 AM - 9:30 AM', title: 'Check In', location: 'Rice Hall', required: true },
+  { id: 'breakfast-sat', day: 'Saturday', time: '10:00 AM - 11:00 AM', title: 'Breakfast', location: 'Rice Hall' },
+  { id: 'opening', day: 'Saturday', time: '10:30 AM - 11:00 AM', title: 'Opening Ceremony', location: 'Rice Hall' },
+  { id: 'begin', day: 'Saturday', time: '12:00 PM - 1:00 AM', title: 'Hacking Begins', location: 'Rice Hall' },
+
+
+  { id: 'breakfast-sun', day: 'Sunday', time: '9:00 AM - 10:00 AM', title: 'Breakfast 2', location: 'Rice Hall' },
+  { id: 'presentation-sun', day: 'Sunday', time: '10:00 AM - 11:00 AM', title: 'Presentation', location: 'Rice Hall' },
+  { id: 'bus-sun', day: 'Sunday', time: '11:00 AM - 1:00 PM', title: 'Bus Arrives', location: 'Rice Hall' }
+];
 
   const onToggleStar = (id) => {
     setStarredEvents((prevStarredEvents) => ({
@@ -24,9 +28,9 @@ const Schedule = () => {
     }));
   };
 
-const renderEventsForDay = () => (
+  const renderEventsForDay = (day) => (
     events
-      .filter(event => event.day === selectedDay)
+      .filter(event => event.day === day)
       .map(event => (
         <Box
           key={event.id}
@@ -37,12 +41,9 @@ const renderEventsForDay = () => (
       ))
   );
 
-
-
   return (
     <View style={styles.container}>
-        <Text style={styles.comingSoon}>Coming Soon...</Text>
-       {/* <View style={styles.dayTabs}>
+      <View style={styles.dayTabs}>
         <TouchableOpacity
           style={[styles.dayTab, selectedDay === 'Saturday' && styles.dayTabActive]}
           onPress={() => setSelectedDay('Saturday')}
@@ -57,29 +58,17 @@ const renderEventsForDay = () => (
         </TouchableOpacity>
       </View>
       <ScrollView>
-        {renderEventsForDay()}
-      </ScrollView>  */}
+        {renderEventsForDay(selectedDay)}
+      </ScrollView>
     </View>
   );
 };
-
 
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5F5F5',
-  },
-  comingSoon: {
-    fontWeight: "700",
-    fontFamily: FontFamily.chakraPetchBold,
-    fontSize: FontSize.size_5xl,
-    textAlign: "center",
-    color: Color.colorBlack,
-    lineHeight: 22,
-    top: 0,
-    left: 0,
-    position: "absolute",
   },
   dayTabs: {
     flexDirection: 'row',
