@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
-import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
+import { Color, Border, FontFamily, FontSize } from "../../../assets/style/GlobalStyles";
 
 interface User {
     name: string;
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: Color.colorBlack,
         lineHeight: 22,
-        top: 0,
+        top: 10,
         left: 0,
         position: "absolute",
       },

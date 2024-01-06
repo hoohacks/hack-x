@@ -19,6 +19,7 @@ import Navbar from "./components/Navbar";
 import NavbarWeb from "./components/Navbar.web";
 import ProfileEditPage from './app/screens/pages/ProfileEditPage';
 import QRCode from './app/screens/pages/QRCode';
+import Completion from './app/screens/pages/Completion';
 const isWeb = Platform.OS === 'web';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -39,6 +40,8 @@ const WebLayout = () => {
                     <Stack.Screen name="ViewParticipants" component={ViewParticipants} />
                     <Stack.Screen name="ReferFriend" component={ReferFriend} />
                     <Stack.Screen name="QRCode" component={QRCode} />
+                    <Stack.Screen name="Application" component={Application} />
+                    <Stack.Screen name="Completion" component={Completion} />
                 </Stack.Navigator>
             </View>
         </View>
@@ -56,7 +59,8 @@ function UserLayout() {
             <Tab.Screen name="ProfileEditPage" component={ProfileEditPage} />
             <Stack.Screen name="ReferFriend" component={ReferFriend} options={{headerShown:false}}/>
             <Stack.Screen name="ViewParticipants" component={ViewParticipants} />
-
+            <Stack.Screen name="Application" component={Application} />
+            <Stack.Screen name="Completion" component={Completion} />
         </Tab.Navigator>
     );
 }
@@ -68,6 +72,7 @@ import SignUp from "./app/screens/auth/SignUp";
 import PasswordReset from "./app/screens/auth/PasswordReset.web";
 import ViewParticipants from "./app/screens/pages/ViewParticipants";
 import ReferFriend from "./app/screens/pages/ReferFriend";
+import Application from "./app/screens/Application";
 
 // const MenuStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
@@ -131,19 +136,20 @@ const App = () => {
         });
     }, []);
 
-    const linking = {
-        prefixes: ['http://localhost:19006', 'project://'],
-        config: {
-            screens: {
-                Test: '/test',
-                Search: 'search',
-                Login: '/login',
-                SignUp: '/sign-up',
-                Detail: '/detail',
-                NotFound: '/404'
-            },
-        },
-    };
+  const linking = {
+    prefixes: ['http://localhost:19006', 'project://'],
+    config: {
+      screens: {
+        Test: '/test',
+        Search: 'search',
+        Login: '/login',
+        SignUp: '/sign-up',
+        Application: '/application',
+        Detail: '/detail',
+        NotFound: '/404'
+      },
+    },
+  };
 
     return (
         <NavigationContainer

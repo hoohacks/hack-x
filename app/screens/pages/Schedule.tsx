@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Box from './Box';
+import { Color, Border, FontFamily, FontSize } from "../../../assets/style/GlobalStyles";
 
 const Schedule = () => {
   const [starredEvents, setStarredEvents] = useState({});

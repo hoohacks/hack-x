@@ -1,50 +1,75 @@
 import * as React from "react";
-import { Image, StyleSheet, View, Text, TouchableOpacity, Button } from "react-native";
-import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
-import CountDown from 'react-native-countdown-component';
+import {
+  Image,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Button,
+} from "react-native";
+import { Color, Border, FontFamily, FontSize } from "../../../assets/style/GlobalStyles";
+import CountDown from "react-native-countdown-component";
 import { useNavigation } from "@react-navigation/native";
+import { User, getAuth, signOut } from "firebase/auth";
+import { FIREBASE_AUTH } from "../../../firebase/FirebaseConfig";
+
 const Home = () => {
   const navigation = useNavigation();
-  const calculateTime = ()=>{
+  const calculateTime = () => {
     const today = new Date();
-    var endDate = new Date('2024-03-23T09:00:00');
-    const num = Number(Math.round(Math.abs((today.getTime() - endDate.getTime()))/1000));
-    console.log(typeof(num))
+    var endDate = new Date("2024-03-23T09:00:00");
+    const num = Number(
+      Math.round(Math.abs(today.getTime() - endDate.getTime()) / 1000)
+    );
+    console.log(typeof num);
     return num;
-  
-  }
-const sec = calculateTime();
-const NavReferFriend = () => {
-  navigation.navigate("ReferFriend");
-}
-const NavViewPart = () => {
-  navigation.navigate("ViewParticipants");
-}
+  };
+  const sec = calculateTime();
+  const NavReferFriend = () => {
+    navigation.navigate("ReferFriend");
+  };
+  const NavApplication = () => {
+    navigation.navigate("Application");
+  };
+  const NavViewPart = () => {
+    navigation.navigate("ViewParticipants");
+  };
+
+  // authentication
+  const auth = getAuth();
+  const [user, setUser] = React.useState<User | null>(null);
+
+  React.useEffect(() => {
+    setUser(FIREBASE_AUTH.currentUser);
+  }, []);
+
+
   return (
     <View style={styles.homescreenParticipants}>
-      
       <View style={[styles.rectangleParent, styles.groupChildLayout]}>
-        <View style={[styles.groupChild, styles.childPosition]} />
-        <Text
-          style={[styles.deadlineToRegister, styles.loremIpsumDolorFlexBox]}
-        >
-          Deadline to Register:
-        </Text>
-        <Text style={[styles.checkRegistration, styles.march12024Typo]}>
-          Check Registration
-        </Text>
-        <Text style={[styles.march12024, styles.march12024Typo]}>
-          March 1, 2024
-        </Text>
-        <Text
-          style={[styles.loremIpsumDolor, styles.incomplete1Typo]}
-        >{`Lorem ipsum dolor sit amet consectetur. Tellus ultrices tellus gravida blandit sociis integer a sed mauris. Ac nisi morbi donec donec nunc. Nunc ac quam integer in eget adipiscing. Quam metus nisi eget dolor vitae pharetra. `}</Text>
-        <View style={[styles.incomplete, styles.incompleteLayout]}>
-          <View style={[styles.incompleteChild, styles.incompleteLayout]} />
-          <Text style={[styles.incomplete1, styles.incomplete1Typo]}>
-            INCOMPLETE
+        <TouchableOpacity onPress={NavApplication}>
+          <View style={[styles.groupChild, styles.childPosition]} />
+          <Text
+            style={[styles.deadlineToRegister, styles.loremIpsumDolorFlexBox]}
+          >
+            Deadline to Register:
           </Text>
-        </View>
+          <Text style={[styles.checkRegistration, styles.march12024Typo]}>
+            Check Registration
+          </Text>
+          <Text style={[styles.march12024, styles.march12024Typo]}>
+            March 1, 2024
+          </Text>
+          <Text
+            style={[styles.loremIpsumDolor, styles.incomplete1Typo]}
+          >{`Lorem ipsum dolor sit amet consectetur. Tellus ultrices tellus gravida blandit sociis integer a sed mauris. Ac nisi morbi donec donec nunc. Nunc ac quam integer in eget adipiscing. Quam metus nisi eget dolor vitae pharetra. `}</Text>
+          <View style={[styles.incomplete, styles.incompleteLayout]}>
+            <View style={[styles.incompleteChild, styles.incompleteLayout]} />
+            <Text style={[styles.incomplete1, styles.incomplete1Typo]}>
+              INCOMPLETE
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
       <View style={styles.heading}>
         <Text style={styles.welcomeToHoohacks}>Welcome to HooHacks!</Text>
@@ -52,21 +77,24 @@ const NavViewPart = () => {
           Time till hackathon:
         </Text>
         <View style={styles.timer}>
-        <CountDown
-        size={16}
-        until={sec}
-        onFinish={() => alert('Finished')}
-        digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: '#B1CCFF'}}
-        digitTxtStyle={{color: '#000000'}}
-        timeLabelStyle={{color: 'black', fontWeight: 'bold'}}
-        separatorStyle={{color: '#B1CCFF'}}
-        timeToShow={['D','H', 'M', 'S']}
-        timeLabels={{d: 'Days', h: 'Hours', m: 'Minutes', s: 'Seconds'}}
-        showSeparator
-      />
+          <CountDown
+            size={16}
+            until={sec}
+            onFinish={() => alert("Finished")}
+            digitStyle={{
+              backgroundColor: "#FFF",
+              borderWidth: 2,
+              borderColor: "#B1CCFF",
+            }}
+            digitTxtStyle={{ color: "#000000" }}
+            timeLabelStyle={{ color: "black", fontWeight: "bold" }}
+            separatorStyle={{ color: "#B1CCFF" }}
+            timeToShow={["D", "H", "M", "S"]}
+            timeLabels={{ d: "Days", h: "Hours", m: "Minutes", s: "Seconds" }}
+            showSeparator
+          />
         </View>
       </View>
-      <TouchableOpacity onPress={NavReferFriend}>
       <View style={[styles.referAFriend, styles.referLayout]}>
         <View style={[styles.referAFriendChild, styles.referLayout]} />
         <Text style={[styles.referAFriend1, styles.referAFriend1Clr]}>
@@ -75,16 +103,24 @@ const NavViewPart = () => {
         <Text style={[styles.getAdditionalHoocoins, styles.referAFriend1Clr]}>
           Get additional HooCoins!
         </Text>
+        <Text style={[[styles.getAdditionalHoocoins, styles.referAFriend1Clr]]}>
+          Please forward your HooCoin ID to your friend for their application: {user?.uid}
+        </Text>
         <Image
           style={[styles.vectorIcon, styles.iconLayout]}
           resizeMode="cover"
           source={require("../../../assets/Vector.jpg")}
         />
       </View>
-      </TouchableOpacity>
       {/* <TouchableOpacity style={styles.editButton} onPress={NavViewPart}>
                <Text style={styles.editButtonText}>View Participants</Text>
            </TouchableOpacity> */}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => signOut(auth)}
+      >
+        <Text style={styles.btntext}>Signout</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -94,6 +130,23 @@ const styles = StyleSheet.create({
     height: 201,
     width: 353,
     position: "absolute",
+  },
+  button: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    width: 138,
+    paddingVertical: 8,
+    paddingHorizontal: 32,
+    marginTop: 76,
+    borderRadius: 28,
+    borderColor: 'white',
+    backgroundColor: Color.colorMidnightblue,
+    borderWidth: 4,
+    elevation: 3,
+  },
+  btntext: {
+    color: 'white'
   },
   childPosition: {
     backgroundColor: Color.colorLavender,
@@ -106,27 +159,26 @@ const styles = StyleSheet.create({
     left: 21,
   },
   editButton: {
-    width: '90%',
-    alignSelf: 'center',
-    backgroundColor: '#FFFFFF',
+    width: "90%",
+    alignSelf: "center",
+    backgroundColor: "#FFFFFF",
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginTop: 20,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 1, height: 3 },
     shadowOpacity: 0.6,
     shadowRadius: 2.5,
     elevation: 3,
-},
-editButtonText: {
-    textAlign: 'center',
-    color: '#121A6A',
+  },
+  editButtonText: {
+    textAlign: "center",
+    color: "#121A6A",
     fontSize: 16,
-    fontWeight: 'bold',
-    fontFamily: 'ChakraPetch-Bold',
-
-},
+    fontWeight: "bold",
+    fontFamily: "ChakraPetch-Bold",
+  },
   march12024Typo: {
     fontFamily: FontFamily.chakraPetchSemiBold,
     textAlign: "center",

@@ -24,6 +24,8 @@ const SignUp = ({ navigation }: RouterProps) => {
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const passwordformat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,30}$/;
 
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [password, setPassword] = useState('');
@@ -54,6 +56,8 @@ const SignUp = ({ navigation }: RouterProps) => {
             const { user } = await createUserWithEmailAndPassword(auth, email, password);
 
             await setDoc(doc(FIRESTORE_DB, "users", user.uid), {
+                firstName: firstName,
+                lastName: lastName,
                 email: user.email,
                 type: select,
                 createdAt: Timestamp.now(),
@@ -134,7 +138,24 @@ const SignUp = ({ navigation }: RouterProps) => {
                             Sponsor
                         </Text>
                     </Pressable>
-
+                </View>
+                <View
+                    style={styles.rowContainer}
+                >
+                    <TextInput
+                        style={styles.inputRow}
+                        placeholder="First Name"
+                        placeholderTextColor="#fff"
+                        autoCapitalize="none"
+                        onChangeText={(text) => setFirstName(text)}
+                    />
+                    <TextInput
+                        style={styles.inputRow}
+                        placeholder="Last Name"
+                        placeholderTextColor="#fff"
+                        autoCapitalize="none"
+                        onChangeText={(text) => setLastName(text)}
+                    />
                 </View>
                 <TextInput
                     style={styles.input}

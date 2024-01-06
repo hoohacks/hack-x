@@ -6,28 +6,23 @@ interface RouterProps {
   navigation: NavigationProp<any, any>;
 }
 
-const Details = ({ navigation }: RouterProps) => {
+const Completion = ({ navigation }: RouterProps) => {
 
   const auth = getAuth();
 
   return (
     <View>
-      <Text>Hello</Text>
+      <Text>Your application has been submitted!</Text>
+      
       <Button 
-        title="SignOut"
+        title="Go Back to home"
         onPress={
-          () => signOut(auth)
-        }
-      />
-      <Button 
-        title="Application"
-        onPress={
-          () => navigation.navigate("application")
+          () => navigation.navigate("Home")
         }
       />
     </View>
   );
 };
 
-export default Details;
+export default Completion;
 
