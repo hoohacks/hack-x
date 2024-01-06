@@ -20,6 +20,7 @@ import NavbarWeb from "./components/Navbar.web";
 import ProfileEditPage from './app/screens/pages/ProfileEditPage';
 import QRCode from './app/screens/pages/QRCode';
 import Completion from './app/screens/pages/Completion';
+import ParticipantView from './app/screens/pages/ParticipantView';
 const isWeb = Platform.OS === 'web';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -42,6 +43,7 @@ const WebLayout = () => {
                     <Stack.Screen name="QRCode" component={QRCode} />
                     <Stack.Screen name="Application" component={Application} />
                     <Stack.Screen name="Completion" component={Completion} />
+                    <Stack.Screen name="ParticipantView" component={ParticipantView} />
                 </Stack.Navigator>
             </View>
         </View>
@@ -61,7 +63,8 @@ function UserLayout() {
             <Stack.Screen name="ViewParticipants" component={ViewParticipants} />
             <Stack.Screen name="Application" component={Application} />
             <Stack.Screen name="Completion" component={Completion} />
-        </Tab.Navigator>
+            <Stack.Screen name="ParticipantView" component={ParticipantView} />
+</Tab.Navigator>
     );
 }
 

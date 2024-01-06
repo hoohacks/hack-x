@@ -32,7 +32,7 @@ const Home = () => {
     navigation.navigate("Application");
   };
   const NavViewPart = () => {
-    navigation.navigate("ViewParticipants");
+    navigation.navigate("ParticipantView");
   };
 
   // authentication
@@ -124,8 +124,8 @@ const Home = () => {
 
       </View>
 
-
-      {/* <TouchableOpacity style={styles.editButton} onPress={NavViewPart}>
+{/* 
+      <TouchableOpacity style={styles.editButton} onPress={NavViewPart}>
                <Text style={styles.editButtonText}>View Participants</Text>
            </TouchableOpacity> */}
     </View>
