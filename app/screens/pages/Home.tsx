@@ -32,7 +32,7 @@ const Home = () => {
     navigation.navigate("Application");
   };
   const NavViewPart = () => {
-    navigation.navigate("ViewParticipants");
+    navigation.navigate("ParticipantView");
   };
 
   // authentication
