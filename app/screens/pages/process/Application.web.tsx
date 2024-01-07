@@ -510,7 +510,9 @@ const Application = ({ navigation }: RouterProps) => {
                                 style={styles.input}
                             />
                         )}
-
+                        <Text>
+                            PDF or docx file only
+                        </Text>
                         <Pressable style={styles.resume_button} onPress={() => changeResumeHandle()}>
                             {resumeName !== "none" && 
                                 <Text style={styles.button_text}>Resume: {resumeName}</Text>
