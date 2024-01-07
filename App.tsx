@@ -28,10 +28,8 @@ const Tab = createBottomTabNavigator();
 const WebLayout = () => {
     return (
         <View style={styles.webContainer}>
-            <View style={styles.navbarContainer}>
-                <NavbarWeb />
-            </View>
-            <View style={styles.contentContainer}>
+            <NavbarWeb/>
+            <View>
                 <Stack.Navigator>
                     <Stack.Screen name="Home" component={Home} />
                     <Stack.Screen name="Schedule" component={Schedule} />
@@ -185,21 +183,9 @@ const App = () => {
 const styles = StyleSheet.create({
     webContainer: {
         flex: 1,
-        flexDirection: 'row',
+        flexDirection: 'column', // Changed from 'row' to 'column'
+        backgroundColor: 'white',
     },
-    navbarContainer: {
-        width: 250,
-        backgroundColor: '#FFF',
-        position: 'fixed',
-        height: '100vh',
-        overflowY: 'hidden'
-    },
-    contentContainer: {
-        flex: 1,
-        marginLeft: 250,
-        height: '100vh',
-        overflowY: 'auto'
-    }
 });
 
 export default App;

@@ -25,10 +25,10 @@ const styles= StyleSheet.create({
         textAlign: "center",
         color: Color.colorBlack,
         lineHeight: 22,
-        top: 0,
-        left: 0,
         position: "absolute",
-      },
+        marginTop: 50,
+        width: '100%', // Full width of the screen
+    },
 })
 export default QRCode;
 

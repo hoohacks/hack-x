@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import HomeIcon from '../assets/svg/home.web.svg';
 import ScheduleIcon from '../assets/svg/schedule.web.svg';
 import LeaderBoardIcon from '../assets/svg/leaderboard.web.svg';
@@ -12,6 +12,7 @@ import Schedule from "../app/screens/pages/Schedule";
 import QRCode from '../app/screens/pages/QRCode';
 import QRCodeIcon from '../assets/svg/qr_code.svg'
 import { getAuth, signOut } from 'firebase/auth';
+
 interface NavItemProps {
     icon: any;
     label: string;
@@ -55,10 +56,45 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, onPress, iconWidth, icon
     );
 };
 
+const NavItemBottom: React.FC<NavItemProps> = ({ icon, label, onPress, iconWidth, iconHeight, isActive }) => {
+
+    const navigation = useNavigation();
+
+    const handlePress = () => {
+        if (onPress) {
+            onPress();
+        } else {
+            navigation.navigate(label);
+        }
+    };
+
+    // Define a consistent icon container size
+    const iconContainerSize = Math.max(iconWidth ?? 0, iconHeight ?? 0, 30); // Use 30 or your largest icon size as a fallback
+
+    const iconColor = isActive ? '#87A2FC' : '#121A6A'; // Active screen color vs inactive
+    return (
+        <TouchableOpacity style={styles.navItemBottom} onPress={handlePress}>
+            <View style={{ width: iconContainerSize, height: iconContainerSize, justifyContent: 'center', alignItems: 'center' }}>
+                <Image
+                    source={icon}
+                    style={[
+                        styles.icon,
+                        { tintColor: iconColor }, // Set the icon color based on active status
+                        iconWidth && { width: iconWidth },
+                        iconHeight && { height: iconHeight }
+                    ]}
+                />
+            </View>
+            <Text style={styles.label}>{label}</Text>
+        </TouchableOpacity>
+    );
+};
+
 const NavBar: React.FC = () => {
 
     const navigation = useNavigation();
     const [fontsLoaded, setFontsLoaded] = useState(false);
+    const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
 
     const auth = getAuth();
 
@@ -78,6 +114,18 @@ const NavBar: React.FC = () => {
         };
 
         loadFonts();
+
+        const onChange = () => {
+            setScreenWidth(Dimensions.get('window').width);
+        };
+
+        const subscription = Dimensions.addEventListener('change', onChange);
+
+        // Return a cleanup function that removes the event listener
+        return () => {
+            subscription.remove();
+        };
+
     }, []);
 
     const logOut = async () => {
@@ -91,23 +139,81 @@ const NavBar: React.FC = () => {
     }
 
     const route = useRoute();
-
-    return (
-        <View style={styles.sidebarContainer}>
-            <View style={styles.navBarContainer}>
-                <Image source={OwlIcon} style={styles.owlIcon} />
-                <NavItem icon={HomeIcon} label="Home" onPress={() => navigation.navigate('Home')} isActive={route.name === 'Home'} iconWidth={20} iconHeight={20}/>
-                <NavItem icon={ScheduleIcon} label="Schedule" onPress={() => navigation.navigate('Schedule')} isActive={route.name === 'Schedule'} iconWidth={20} iconHeight={20}/>
-                <NavItem icon={LeaderBoardIcon} label="Leaderboard" onPress={() => navigation.navigate('Leaderboard')} isActive={route.name === 'Leaderboard'} iconWidth={20} iconHeight={20}/>
-                <NavItem icon={ProfileIcon} label="Profile" onPress={() => navigation.navigate('Profile')} isActive={route.name === 'Profile'} iconWidth={20} iconHeight={20}/>
-                <NavItem icon={QRCodeIcon} label="QRcode" onPress={() => navigation.navigate('QRCode')} isActive={route.name === 'QRCode'} iconWidth={20} iconHeight={20}/>
-                <NavItem icon={SignOut} label="Sign Out" onPress={() => logOut()} iconWidth={20} iconHeight={20}/>
+    if (screenWidth <= 768) {
+        return (
+            <View style={styles.bottomNavBarContainer}>
+                        <NavItemBottom icon={HomeIcon} onPress={() => navigation.navigate('Home')}
+                                 isActive={route.name === 'Home'} iconWidth={20} iconHeight={20}/>
+                        <NavItemBottom icon={ScheduleIcon} onPress={() => navigation.navigate('Schedule')}
+                                 isActive={route.name === 'Schedule'} iconWidth={20} iconHeight={20}/>
+                        <NavItemBottom icon={LeaderBoardIcon}
+                                 onPress={() => navigation.navigate('Leaderboard')}
+                                 isActive={route.name === 'Leaderboard'} iconWidth={20} iconHeight={20}/>
+                        <NavItemBottom icon={ProfileIcon}  onPress={() => navigation.navigate('Profile')}
+                                 isActive={route.name === 'Profile'} iconWidth={20} iconHeight={20}/>
+                        <NavItemBottom icon={QRCodeIcon} onPress={() => navigation.navigate('QRCode')}
+                                 isActive={route.name === 'QRCode'} iconWidth={20} iconHeight={20}/>
+                        <NavItemBottom icon={SignOut} onPress={() => logOut()} iconWidth={20}
+                                 iconHeight={20}/>
             </View>
-        </View>
-    );
+        );
+    }
+    else {
+        return (
+            <View style={{
+                marginRight: 250,
+            }}>
+            <View style={styles.container}>
+                <View style={styles.sidebarContainer}>
+                    <View style={styles.navBarContainer}>
+                        <Image source={OwlIcon} style={styles.owlIcon}/>
+                        <NavItem icon={HomeIcon} label="Home" onPress={() => navigation.navigate('Home')}
+                                 isActive={route.name === 'Home'} iconWidth={20} iconHeight={20}/>
+                        <NavItem icon={ScheduleIcon} label="Schedule" onPress={() => navigation.navigate('Schedule')}
+                                 isActive={route.name === 'Schedule'} iconWidth={20} iconHeight={20}/>
+                        <NavItem icon={LeaderBoardIcon} label="Leaderboard"
+                                 onPress={() => navigation.navigate('Leaderboard')}
+                                 isActive={route.name === 'Leaderboard'} iconWidth={20} iconHeight={20}/>
+                        <NavItem icon={ProfileIcon} label="Profile" onPress={() => navigation.navigate('Profile')}
+                                 isActive={route.name === 'Profile'} iconWidth={20} iconHeight={20}/>
+                        <NavItem icon={QRCodeIcon} label="QRcode" onPress={() => navigation.navigate('QRCode')}
+                                 isActive={route.name === 'QRCode'} iconWidth={20} iconHeight={20}/>
+                        <NavItem icon={SignOut} label="Sign Out" onPress={() => logOut()} iconWidth={20}
+                                 iconHeight={20}/>
+                    </View>
+                </View>
+            </View>
+            </View>
+        );
+    }
 };
 
 const styles = StyleSheet.create({
+    bottomNavBarContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around', // Evenly space out items
+        alignItems: 'center', // Align items vertically in the center
+        width: '100%', // Full width
+        position: 'absolute', // Position at the bottom
+        bottom: 0,
+        backgroundColor: '#FFF', // White background
+        // Add other styling as necessary (e.g., height, background color)
+    },
+    navItemBottom: {
+        alignItems: 'center', // Center align items vertically and horizontally
+        paddingVertical: 15, // Adjust vertical padding
+        // paddingLeft removed or reduced, as justifyContent will handle spacing
+        // width removed or adjusted as necessary
+        // Add other styling as needed
+    },
+    container: {
+        width: 250,
+        backgroundColor: '#FFF',
+        position: 'fixed',
+        height: '100vh',
+        overflowY: 'hidden',
+        visible: false,
+    },
     sidebarContainer: {
         flex: 1,
         paddingTop: 60, // Reduced top padding
@@ -127,14 +233,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 4,
         paddingBottom: 20, // Add padding at the bottom of the navbar container
-    },
-    container: {
-        flex: 1,
-        backgroundColor: '#FFF',
-        alignItems: 'flex-start', // Aligns items to the start (left) instead of center
-        justifyContent: 'center',
-        paddingTop: 20,
-        width: '100%', // Ensure the container takes full width
     },
     navItem: {
         flexDirection: 'row',

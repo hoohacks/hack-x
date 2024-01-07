@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button, Image, TouchableOpacity } from 'react-native';
+import {View, Text, StyleSheet, Button, Image, TouchableOpacity, Dimensions} from 'react-native';
 import pfp from '../../../assets/Profile.png'; // Importing the profile picture
 import arrow from '../../../assets/arrow_back_ios_new.png'; // Importing the back arrow
 import { Color, Border, FontFamily, FontSize } from "../../../assets/style/GlobalStyles";
@@ -59,10 +59,8 @@ const ProfilePage: React.FC<Props> = () => {
     }
 
 
-   return (
-
+    return (
     <Text style={styles.comingSoon}>Coming Soon...</Text>
-
     //    <View style={styles.container}>
            
     //        <View style={styles.header}>
@@ -99,17 +97,17 @@ const styles = StyleSheet.create({
        backgroundColor: '#FFFFFF',
        paddingTop: 50,
    },
-   comingSoon: {
-    fontWeight: "700",
-    fontFamily: FontFamily.chakraPetchBold,
-    fontSize: FontSize.size_5xl,
-    textAlign: "center",
-    color: Color.colorBlack,
-    lineHeight: 22,
-    top: 10,
-    left: 0,
-    position: "absolute",
-  },
+    comingSoon: {
+        fontWeight: "700",
+        fontFamily: FontFamily.chakraPetchBold,
+        fontSize: FontSize.size_5xl,
+        textAlign: "center",
+        color: Color.colorBlack,
+        lineHeight: 22,
+        position: "absolute",
+        marginTop: 50,
+        width: '100%', // Full width of the screen
+    },
    backButton: {
        position: 'absolute',
        top: 10,
