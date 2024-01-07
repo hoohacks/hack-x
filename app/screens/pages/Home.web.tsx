@@ -72,11 +72,6 @@ const Home = ({ navigation }: RouterProps) => {
     }, 2000);
   }, []);
 
-  const logOut = async () => {
-    await signOut(auth);
-    navigation.navigate('auth');
-  };
-
   return (
     <View style={styles.body}>
       <View style={styles.header}>
@@ -164,12 +159,6 @@ const Home = ({ navigation }: RouterProps) => {
         </View>
 
       </View>
-
-      <Pressable onPress={() => logOut()} >
-        <Text>Sign Out</Text>
-      </Pressable>
-
-
 
       {/* <Pressable style={styles.editButton} onPress={NavViewPart}>
                <Text style={styles.editButtonText}>View Participants</Text>
