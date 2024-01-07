@@ -221,10 +221,10 @@ const Application = ({ navigation }: RouterProps) => {
     const apply = async () => {
         const finalSchool = school === 'Other' ? otherSchool : school;
         const finalGender = gender === 'Other' ? otherGender : gender;
-        const finalRace = race === 'Other' ? otherRace : race;
+        const finalRace = race === 'Other' ? otherRace : race; 
         const finalYear = selectYear === 'Other' ? otherYear : selectYear;
         const finalDietary = dietary === 'Other' ? otherDietary : dietary;
-        const finalTravel = travel === "other" ? otherTravel : travel;
+        const finalTravel = travel === "Other" ? otherTravel : travel;
 
         if (user == null) {
             return;
@@ -589,10 +589,10 @@ const Application = ({ navigation }: RouterProps) => {
                         >
                             <RadioButtonItem value="car" label="Car" />
                             <RadioButtonItem value="bus" label="Provided Bus (if sent to your school)" />
-                            <RadioButtonItem value="other" label="Other" />
+                            <RadioButtonItem value="Other" label="Other" />
                             <RadioButtonItem value="none" label="None" />
                         </RadioButtonGroup>
-                        {travel === 'other' && (
+                        {travel === 'Other' && (
                             <TextInput
                                 value={otherTravel}
                                 onChangeText={(text) => setOtherTravel(text)}
