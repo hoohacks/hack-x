@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ScrollView, StyleSheet, Text, View, TouchableOpacity, Dimensions} from 'react-native';
 import Box from './Box';
 import { Color, Border, FontFamily, FontSize } from "../../../assets/style/GlobalStyles";
 
@@ -42,7 +42,26 @@ const events = [
       ))
   );
 
+  const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
+
+  useEffect(() => {
+    const onChange = () => {
+      setScreenWidth(Dimensions.get('window').width);
+    };
+    const subscription = Dimensions.addEventListener('change', onChange);
+
+    return () => {
+      subscription.remove();
+    };
+
+  }, []);
+
+
   return (
+      <View style={{
+        marginLeft: screenWidth > 768 ? 250 : 0,
+      }}
+      >
     <View style={styles.container}>
       <View style={styles.dayTabs}>
         <TouchableOpacity
@@ -62,6 +81,7 @@ const events = [
         {renderEventsForDay(selectedDay)}
       </ScrollView>
     </View>
+      </View>
   );
 };
 

@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         backgroundColor: '#f5f5f5',
-    }, 
+    },
     comingSoon: {
         fontWeight: "700",
         fontFamily: FontFamily.chakraPetchBold,
@@ -89,10 +89,10 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: Color.colorBlack,
         lineHeight: 22,
-        top: 10,
-        left: 0,
         position: "absolute",
-      },
+        marginTop: 50,
+        width: '100%', // Full width of the screen
+    },
     card: {
         backgroundColor: 'white',
         borderRadius: 10,
