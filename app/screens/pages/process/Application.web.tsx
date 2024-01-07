@@ -5,7 +5,7 @@ import { FIREBASE_STORAGE, FIRESTORE_DB, FIREBASE_AUTH } from "../../../../fireb
 import { User } from "firebase/auth";
 
 // react
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { NavigationProp } from "@react-navigation/native";
 import {
     View,
@@ -20,6 +20,7 @@ import { Picker } from "@react-native-picker/picker";
 import * as DocumentPicker from "expo-document-picker";
 import Checkbox from "expo-checkbox";
 import * as Progress from 'react-native-progress';
+import RadioButtonGroup, { RadioButtonItem } from "expo-radio-button";
 
 // static
 import { styles } from "../../../../assets/style/ApplicationStyle";
@@ -34,7 +35,6 @@ interface RouterProps {
 const Application = ({ navigation }: RouterProps) => {
     const [birthdate, setBirthdate] = useState(new Date());
     const [chosenBirthdate, setChosenBirthdate] = useState(new Date());
-    const [open, setOpen] = useState(false);
     const [gender, setGender] = useState("");
     const [otherGender, setOtherGender] = useState("");
     const [race, setRace] = useState("");
@@ -55,6 +55,10 @@ const Application = ({ navigation }: RouterProps) => {
     const [referred, setReferred] = useState(false);
     const [verifyReferral, setVerifyReferral] = useState(false);
 
+    // travel
+    const [travel, setTravel] = useState("");
+    const [otherTravel, setOtherTravel] = useState("");
+
     // loading
     const [loading, setLoading] = useState(false);
     const [screenLoading, setScreenLoading] = useState(false);
@@ -66,12 +70,12 @@ const Application = ({ navigation }: RouterProps) => {
     const [otherDietaryRestrictionCheck, setOtherDietaryRestrictionCheck] = useState(false);
 
     // year
-    const [selectYear, setSelectYear] = useState("Select");
+    const [selectYear, setSelectYear] = useState("");
     const [otherYear, setOtherYear] = useState("");
     const [otherSelectYearCheck, setOtherSelectYearCheck] = useState("");
 
     // resume upload
-    const [resumeName, setResumeName] = useState("");
+    const [resumeName, setResumeName] = useState("none");
     const [uploadResume, setUploadResume] = useState<UploadTask | null>(null);
     const [resumeUrl, setResumeUrl] = useState("");
     const [isResumePicked, setIsResumePicked] = useState(false);
@@ -183,7 +187,7 @@ const Application = ({ navigation }: RouterProps) => {
                             setNumHackathons(data.numHackathons);
                             setReason(data.reason);
                             setCoinsID(data.hooCoinsReferralID);
-                            setReferred(data.reffered);
+                            setReferred(data.referred);
                             setMlhPrivacyAndTermsNCondition(data.mlhPrivacyAndTermsNCondition);
                             setMlhCodeofConduct(data.mlhCodeofConduct);
                             setMlhAdvertisement(data.mlhAdvertisement);
@@ -220,6 +224,7 @@ const Application = ({ navigation }: RouterProps) => {
         const finalRace = race === 'Other' ? otherRace : race;
         const finalYear = selectYear === 'Other' ? otherYear : selectYear;
         const finalDietary = dietary === 'Other' ? otherDietary : dietary;
+        const finalTravel = travel === "other" ? otherTravel : travel;
 
         if (user == null) {
             return;
@@ -267,6 +272,7 @@ const Application = ({ navigation }: RouterProps) => {
                 reason: reason,
                 hooCoinsReferralID: coinsID,
                 referred: finalVerifyReferral,
+                travel: finalTravel,
                 mlhPrivacyAndTermsNCondition: mlhPrivacyAndTermsNCondition,
                 mlhCodeofConduct: mlhCodeofConduct,
                 mlhAdvertisement: mlhAdvertisement,
@@ -290,6 +296,7 @@ const Application = ({ navigation }: RouterProps) => {
                 reason: reason,
                 hooCoinsReferralID: coinsID,
                 referred: finalVerifyReferral,
+                travel: finalTravel,
                 mlhPrivacyAndTermsNCondition: mlhPrivacyAndTermsNCondition,
                 mlhCodeofConduct: mlhCodeofConduct,
                 mlhAdvertisement: mlhAdvertisement,
@@ -505,12 +512,13 @@ const Application = ({ navigation }: RouterProps) => {
                         )}
 
                         <Pressable style={styles.resume_button} onPress={() => changeResumeHandle()}>
-                            {resumeName !== "" && (
-                                <Text style={styles.button_text}>{resumeName}</Text>
-                            )}
-                            {resumeName === "" && (
+                            {resumeName !== "none" && 
+                                <Text style={styles.button_text}>Resume: {resumeName}</Text>
+                            }
+                            {resumeName === "none" && 
                                 <Text style={styles.button_text}>Optional - Upload Resume</Text>
-                            )}
+                                
+                            }
                         </Pressable>
                         <Progress.Bar 
                             progress={progress / 100} 
@@ -570,6 +578,30 @@ const Application = ({ navigation }: RouterProps) => {
                             value={reason}
                             onChangeText={(text) => setReason(text)}
                         />
+
+                        <Text>
+                            Do you require any transportation?
+                            <Text style={styles.required}> *</Text>
+                        </Text>
+                        <RadioButtonGroup
+                            selected={travel}
+                            onSelected={(value: SetStateAction<string>) => setTravel(value)}
+                        >
+                            <RadioButtonItem value="car" label="Car" />
+                            <RadioButtonItem value="bus" label="Provided Bus (if sent to your school)" />
+                            <RadioButtonItem value="other" label="Other" />
+                            <RadioButtonItem value="none" label="None" />
+                        </RadioButtonGroup>
+                        {travel === 'other' && (
+                            <TextInput
+                                value={otherTravel}
+                                onChangeText={(text) => setOtherTravel(text)}
+                                placeholderTextColor="#808080"
+                                placeholder="Please specify other travel options"
+                                style={styles.input}
+                            />
+                        )}
+
                         <Text>
                             Did someone tell you to register for HooHacks? If so, enter their
                             raffle ID so that they can get an extra coins in our raffle! Their
