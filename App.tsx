@@ -19,7 +19,7 @@ import Navbar from "./components/Navbar";
 import NavbarWeb from "./components/Navbar.web";
 import ProfileEditPage from './app/screens/pages/ProfileEditPage';
 import QRCode from './app/screens/pages/QRCode';
-import Completion from './app/screens/pages/Completion';
+import Completion from './app/screens/pages/process/Completion';
 import ParticipantView from './app/screens/pages/ParticipantView';
 const isWeb = Platform.OS === 'web';
 const Stack = createNativeStackNavigator();
@@ -75,7 +75,7 @@ import SignUp from "./app/screens/auth/SignUp";
 import PasswordReset from "./app/screens/auth/PasswordReset.web";
 import ViewParticipants from "./app/screens/pages/ViewParticipants";
 import ReferFriend from "./app/screens/pages/ReferFriend";
-import Application from "./app/screens/Application";
+import Application from "./app/screens/pages/process/Application";
 
 // const MenuStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
@@ -148,6 +148,7 @@ const App = () => {
         Login: '/login',
         SignUp: '/sign-up',
         Application: '/application',
+        Completion: '/completion',
         Detail: '/detail',
         NotFound: '/404'
       },

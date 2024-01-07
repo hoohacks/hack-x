@@ -1,7 +1,7 @@
 // firebase
 import { runTransaction, Timestamp, doc, getDoc, setDoc } from "firebase/firestore";
 import { UploadTask, getDownloadURL, ref as storageRef, uploadBytesResumable } from 'firebase/storage';
-import { FIREBASE_STORAGE, FIRESTORE_DB, FIREBASE_AUTH } from "../../firebase/FirebaseConfig";
+import { FIREBASE_STORAGE, FIRESTORE_DB, FIREBASE_AUTH } from "../../../../firebase/FirebaseConfig";
 import { User } from "firebase/auth";
 
 // react
@@ -22,10 +22,10 @@ import Checkbox from "expo-checkbox";
 import * as Progress from 'react-native-progress';
 
 // static
-import { styles } from "../../assets/style/ApplicationStyle";
-import { schoolNames } from "../../assets/data/schools";
-import NumberInput from "../../components/NumberInput";
-import DatePicker from "../../components/DatePicker";
+import { styles } from "../../../../assets/style/ApplicationStyle";
+import { schoolNames } from "../../../../assets/data/schools";
+import NumberInput from "../../../../components/NumberInput";
+import DatePicker from "../../../../components/DatePicker";
 
 interface RouterProps {
     navigation: NavigationProp<any, any>;

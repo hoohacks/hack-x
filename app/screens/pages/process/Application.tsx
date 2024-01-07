@@ -5,14 +5,14 @@ import { Timestamp, doc, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { NavigationProp } from "@react-navigation/native";
 import { View, Text, TextInput, KeyboardAvoidingView } from "react-native";
-import DatePicker from "../../components/DatePicker";
+import DatePicker from "../../../../components/DatePicker";
 import { Picker } from "@react-native-picker/picker";
 // import * as RNFS from "react-native-fs";
 
 // import CheckBox from 'react-native-check-box';
 
 // static
-import { styles } from "../../assets/style/ApplicationStyle";
+import { styles } from "../../../../assets/style/ApplicationStyle";
 // import schoolData from "../../assets/data/schools.txt";
 
 interface RouterProps {
