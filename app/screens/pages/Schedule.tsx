@@ -43,30 +43,44 @@ const events = [
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.dayTabs}>
-        <TouchableOpacity
-          style={[styles.dayTab, selectedDay === 'Saturday' && styles.dayTabActive]}
-          onPress={() => setSelectedDay('Saturday')}
-        >
-          <Text style={styles.dayTabText}>Saturday</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.dayTab, selectedDay === 'Sunday' && styles.dayTabActive]}
-          onPress={() => setSelectedDay('Sunday')}
-        >
-          <Text style={styles.dayTabText}>Sunday</Text>
-        </TouchableOpacity>
-      </View>
-      <ScrollView>
-        {renderEventsForDay(selectedDay)}
-      </ScrollView>
+    <View>
+      <Text style={styles.comingSoon}>Coming Soon...</Text>
     </View>
+    // <View style={styles.container}>
+    //   <View style={styles.dayTabs}>
+    //     <TouchableOpacity
+    //       style={[styles.dayTab, selectedDay === 'Saturday' && styles.dayTabActive]}
+    //       onPress={() => setSelectedDay('Saturday')}
+    //     >
+    //       <Text style={styles.dayTabText}>Saturday</Text>
+    //     </TouchableOpacity>
+    //     <TouchableOpacity
+    //       style={[styles.dayTab, selectedDay === 'Sunday' && styles.dayTabActive]}
+    //       onPress={() => setSelectedDay('Sunday')}
+    //     >
+    //       <Text style={styles.dayTabText}>Sunday</Text>
+    //     </TouchableOpacity>
+    //   </View>
+    //   <ScrollView>
+    //     {renderEventsForDay(selectedDay)}
+    //   </ScrollView>
+    // </View>
   );
 };
 
 
 const styles = StyleSheet.create({
+  comingSoon: {
+    fontWeight: "700",
+    fontFamily: FontFamily.chakraPetchBold,
+    fontSize: FontSize.size_5xl,
+    textAlign: "center",
+    color: Color.colorBlack,
+    lineHeight: 22,
+    top: 0,
+    left: 0,
+    position: "absolute",
+  },
   container: {
     flex: 1,
     backgroundColor: '#F5F5F5',
