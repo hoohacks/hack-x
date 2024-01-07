@@ -94,12 +94,11 @@ const Home = () => {
       </View>
 
       <View style={styles.cards_view}>
-        <Pressable onPress={NavApplication}>
+        {/* <Pressable onPress={NavApplication}> */}
           <View style={styles.registration_card}>
             <View style={styles.card_header}>
-              <Text style={styles.card_title}>
-                Check Application
-              </Text>
+              <Button style={styles.card_title} title="Check Application" color="#121A6A" onPress={NavApplication}>
+              </Button>
               {/* status of their application and CONFIRMATiON TO DO */}
               {status === "incomplete" && (
                 <Text style={styles.app_status_incomplete}>
@@ -130,7 +129,7 @@ const Home = () => {
               We will start accepting applications during mid to late February.
             </Text>
           </View>
-        </Pressable>
+        {/* </Pressable> */}
 
         <View style={styles.refer_card}>
           <View style={styles.card_header}>
@@ -175,6 +174,13 @@ const styles = StyleSheet.create({
   countdownText: {
     fontFamily: FontFamily.chakraPetchRegular,
     fontSize: '1.5rem',
+  },
+  appBtn:{
+    padding: '0.5rem',
+    fontFamily: FontFamily.chakraPetchRegular,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    justifyContent:'flex-end'
   },
   header: {
     padding: '1rem',
