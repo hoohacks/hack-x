@@ -15,6 +15,7 @@ import {
     Linking,
     Pressable,
     ActivityIndicator,
+    StyleSheet,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import * as DocumentPicker from "expo-document-picker";
@@ -86,10 +87,11 @@ const Application = ({ navigation }: RouterProps) => {
 
     const changeResumeHandle = async () => {
         let result = await DocumentPicker.getDocumentAsync({
-            type: "*/*",
+            type: "application/msword,application/pdf",
             multiple: false,
             copyToCacheDirectory: true,
         });
+
 
         if (result.canceled) {
             return;
@@ -364,7 +366,13 @@ const Application = ({ navigation }: RouterProps) => {
 
     if (!screenLoading) {
         return (
-            <ActivityIndicator size="large" color="#121A6A" />
+            <View
+                style={{
+
+                }}
+            >
+                <ActivityIndicator size="large" color="#121A6A" />
+            </View>
         );
     } else {
         return (
@@ -617,6 +625,7 @@ const Application = ({ navigation }: RouterProps) => {
                             value={coinsID}
                             onChangeText={(text) => setCoinsID(text)}
                             editable={!referred}
+                            readOnly={referred}
                         />
                         <View style={styles.containerCheckBox}>
                             <Checkbox
@@ -722,3 +731,7 @@ const Application = ({ navigation }: RouterProps) => {
 };
 
 export default Application;
+
+const fontStyles = StyleSheet.create({
+
+});

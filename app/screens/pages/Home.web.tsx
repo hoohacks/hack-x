@@ -9,13 +9,16 @@ import {
 } from "react-native";
 import { Color, Border, FontFamily, FontSize } from "../../../assets/style/GlobalStyles";
 import CountDown from "react-native-countdown-component";
-import { useNavigation } from "@react-navigation/native";
-import { User, getAuth } from "firebase/auth";
+import { NavigationProp } from "@react-navigation/native";
+import { User, getAuth, signOut } from "firebase/auth";
 import { FIREBASE_AUTH, FIRESTORE_DB } from "../../../firebase/FirebaseConfig";
 import { doc, runTransaction } from "@firebase/firestore";
 
-const Home = () => {
-  const navigation = useNavigation();
+interface RouterProps {
+  navigation: NavigationProp<any, any>;
+}
+
+const Home = ({ navigation }: RouterProps) => {
   const calculateTime = () => {
     const today = new Date();
     var endDate = new Date("2024-03-23T09:00:00");
@@ -40,31 +43,39 @@ const Home = () => {
   const [status, setStatus] = React.useState("");
 
   React.useEffect(() => {
-    setUser(FIREBASE_AUTH.currentUser);
+    setTimeout(() => {
+      setUser(FIREBASE_AUTH.currentUser);
 
-    const fetchData = async () => {
-      try {
-        await runTransaction(FIRESTORE_DB, async (transaction) => {
-          const userDoc = await transaction.get(doc(FIRESTORE_DB, "users", FIREBASE_AUTH.currentUser?.uid));
-          if (!userDoc.exists()) {
-            alert("User does not exist!");
-            return;
-          }
-          console.log(userDoc.data().applicationComplete);
-          if (userDoc.data().applicationComplete) {
-            setStatus("submitted");
-          } else {
-            setStatus("incomplete")
-          } 
-        });
-        console.log("User transaction successfully committed!");
-      } catch (e) {
-        alert("Transaction failed: " + e);
+      const fetchData = async () => {
+        try {
+          await runTransaction(FIRESTORE_DB, async (transaction) => {
+            const userDoc = await transaction.get(doc(FIRESTORE_DB, "users", FIREBASE_AUTH.currentUser?.uid));
+            if (!userDoc.exists()) {
+              alert("User does not exist!");
+              return;
+            }
+            console.log(userDoc.data().applicationComplete);
+            if (userDoc.data().applicationComplete) {
+              setStatus("submitted");
+            } else {
+              setStatus("incomplete")
+            }
+          });
+          console.log("User transaction successfully committed!");
+        } catch (e) {
+          alert("Transaction failed: " + e);
+        }
       }
-    }
 
-    fetchData();
+      fetchData();
+
+    }, 2000);
   }, []);
+
+  const logOut = async () => {
+    await signOut(auth);
+    navigation.navigate('auth');
+  };
 
   return (
     <View style={styles.body}>
@@ -95,40 +106,40 @@ const Home = () => {
 
       <View style={styles.cards_view}>
         {/* <Pressable onPress={NavApplication}> */}
-          <View style={styles.registration_card}>
-            <View style={styles.card_header}>
-              <Button style={styles.card_title} title="Check Application" color="#121A6A" onPress={NavApplication}>
-              </Button>
-              {/* status of their application and CONFIRMATiON TO DO */}
-              {status === "incomplete" && (
-                <Text style={styles.app_status_incomplete}>
-                  INCOMPLETE
-                </Text>
-              )} 
-              {status === "submitted" && (
-                <Text style={styles.app_status_submitted}>
-                  AWAITING APPROVAL
-                </Text>
-              )}
-            </View>
-
-            <View style={styles.space} />
-
-            <Text><Text style={styles.card_text}>Application Deadline: </Text><Text style={[styles.card_text, styles.bold_text]}>February 28, 2024</Text></Text>
-            <Text><Text style={styles.card_text}>Confirmation Deadline: </Text><Text style={[styles.card_text, styles.bold_text]}>March 1, 2024</Text></Text>
-
-            <View style={styles.space} />
-
-            <Text style={styles.card_text}>
-              You must fill out an application, and if it is accepted, fill out a confirmation to guarantee your spot!
-            </Text>
-
-            <View style={styles.space} />
-
-            <Text style={[styles.card_text, styles.italic_text]}>
-              We will start accepting applications during mid to late February.
-            </Text>
+        <View style={styles.registration_card}>
+          <View style={styles.card_header}>
+            <Button style={styles.card_title} title="Check Application" color="#121A6A" onPress={NavApplication}>
+            </Button>
+            {/* status of their application and CONFIRMATiON TO DO */}
+            {status === "incomplete" && (
+              <Text style={styles.app_status_incomplete}>
+                INCOMPLETE
+              </Text>
+            )}
+            {status === "submitted" && (
+              <Text style={styles.app_status_submitted}>
+                AWAITING APPROVAL
+              </Text>
+            )}
           </View>
+
+          <View style={styles.space} />
+
+          <Text><Text style={styles.card_text}>Application Deadline: </Text><Text style={[styles.card_text, styles.bold_text]}>February 28, 2024</Text></Text>
+          <Text><Text style={styles.card_text}>Confirmation Deadline: </Text><Text style={[styles.card_text, styles.bold_text]}>March 1, 2024</Text></Text>
+
+          <View style={styles.space} />
+
+          <Text style={styles.card_text}>
+            You must fill out an application, and if it is accepted, fill out a confirmation to guarantee your spot!
+          </Text>
+
+          <View style={styles.space} />
+
+          <Text style={[styles.card_text, styles.italic_text]}>
+            We will start accepting applications during mid to late February.
+          </Text>
+        </View>
         {/* </Pressable> */}
 
         <View style={styles.refer_card}>
@@ -154,6 +165,11 @@ const Home = () => {
 
       </View>
 
+      <Pressable onPress={() => logOut()} >
+        <Text>Sign Out</Text>
+      </Pressable>
+
+
 
       {/* <Pressable style={styles.editButton} onPress={NavViewPart}>
                <Text style={styles.editButtonText}>View Participants</Text>
@@ -168,19 +184,19 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: FontFamily.chakraPetchBold,
-    fontSize: '3rem',
+    fontSize: 48,
     textAlign: 'left',
   },
   countdownText: {
     fontFamily: FontFamily.chakraPetchRegular,
-    fontSize: '1.5rem',
+    fontSize: 24,
   },
-  appBtn:{
+  appBtn: {
     padding: '0.5rem',
     fontFamily: FontFamily.chakraPetchRegular,
     textAlign: 'center',
     textAlignVertical: 'center',
-    justifyContent:'flex-end'
+    justifyContent: 'flex-end'
   },
   header: {
     padding: '1rem',
@@ -198,7 +214,7 @@ const styles = StyleSheet.create({
   },
   card_title: {
     fontFamily: FontFamily.chakraPetchBold,
-    fontSize: '1.5rem'
+    fontSize: 20,
   },
   card_text: {
     fontSize: '1rem',
