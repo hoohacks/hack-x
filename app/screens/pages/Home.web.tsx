@@ -55,7 +55,7 @@ const Home = () => {
 
   // user information
   const [status, setStatus] = React.useState("");
-
+  const [btnTitle,setBtnTitle] = React.useState("");
   React.useEffect(() => {
     setUser(FIREBASE_AUTH.currentUser);
 
@@ -70,8 +70,10 @@ const Home = () => {
           console.log(userDoc.data().applicationComplete);
           if (userDoc.data().applicationComplete) {
             setStatus("submitted");
+            setBtnTitle("Check Application")
           } else {
             setStatus("incomplete")
+            setBtnTitle("Apply")
           } 
         });
         console.log("User transaction successfully committed!");
@@ -156,7 +158,7 @@ const Home = () => {
         {/* <Pressable onPress={NavApplication}> */}
           <View style={styles.registration_card, responsiveStyles.card}>
             <View style={styles.card_header}>
-              <Button style={responsiveStyles.cardTitle} title="Check Application" color="#121A6A" onPress={NavApplication}>
+              <Button style={responsiveStyles.cardTitle} title={btnTitle} color="#121A6A" onPress={NavApplication}>
               </Button>
               {/* status of their application and CONFIRMATiON TO DO */}
               {status === "incomplete" && (
