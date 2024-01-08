@@ -58,30 +58,32 @@ const events = [
 
 
   return (
-      <View style={{
-        marginLeft: screenWidth > 768 ? 250 : 0,
-      }}
-      >
-    <View style={styles.container}>
-      <View style={styles.dayTabs}>
-        <TouchableOpacity
-          style={[styles.dayTab, selectedDay === 'Saturday' && styles.dayTabActive]}
-          onPress={() => setSelectedDay('Saturday')}
-        >
-          <Text style={styles.dayTabText}>Saturday</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.dayTab, selectedDay === 'Sunday' && styles.dayTabActive]}
-          onPress={() => setSelectedDay('Sunday')}
-        >
-          <Text style={styles.dayTabText}>Sunday</Text>
-        </TouchableOpacity>
-      </View>
-      <ScrollView>
-        {renderEventsForDay(selectedDay)}
-      </ScrollView>
-    </View>
-      </View>
+    <Text style={styles.comingSoon}>Coming Soon...</Text>
+
+    //   <View style={{
+    //     marginLeft: screenWidth > 768 ? 250 : 0,
+    //   }}
+    //   >
+    // <View style={styles.container}>
+    //   <View style={styles.dayTabs}>
+    //     <TouchableOpacity
+    //       style={[styles.dayTab, selectedDay === 'Saturday' && styles.dayTabActive]}
+    //       onPress={() => setSelectedDay('Saturday')}
+    //     >
+    //       <Text style={styles.dayTabText}>Saturday</Text>
+    //     </TouchableOpacity>
+    //     <TouchableOpacity
+    //       style={[styles.dayTab, selectedDay === 'Sunday' && styles.dayTabActive]}
+    //       onPress={() => setSelectedDay('Sunday')}
+    //     >
+    //       <Text style={styles.dayTabText}>Sunday</Text>
+    //     </TouchableOpacity>
+    //   </View>
+    //   <ScrollView>
+    //     {renderEventsForDay(selectedDay)}
+    //   </ScrollView>
+    // </View>
+    //   </View>
   );
 };
 
@@ -90,7 +92,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5F5F5',
-  },
+  }, 
+  comingSoon: {
+    fontWeight: "700",
+    fontFamily: FontFamily.chakraPetchBold,
+    fontSize: FontSize.size_5xl,
+    textAlign: "center",
+    color: Color.colorBlack,
+    lineHeight: 22,
+    position: "absolute",
+    marginTop: 50,
+    width: '100%', // Full width of the screen
+},
   dayTabs: {
     flexDirection: 'row',
     paddingTop: 10,
