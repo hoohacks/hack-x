@@ -5,7 +5,7 @@ import {
   View,
   Text,
   Pressable,
-  Button, Dimensions,
+  Button, Dimensions, ScrollView,
 } from "react-native";
 import { Color, Border, FontFamily, FontSize } from "../../../assets/style/GlobalStyles";
 import CountDown from "react-native-countdown-component";
@@ -19,9 +19,23 @@ import * as Font from "expo-font";
 const Home = () => {
   const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
 
+  const [screenHeight, setScreenHeight] = useState(Dimensions.get('window').height);
+
   useEffect(() => {
     const onChange = () => {
       setScreenWidth(Dimensions.get('window').width);
+    };
+    const subscription = Dimensions.addEventListener('change', onChange);
+
+    return () => {
+      subscription.remove();
+    };
+
+  }, []);
+
+  useEffect(() => {
+    const onChange = () => {
+      setScreenHeight(Dimensions.get('window').height);
     };
     const subscription = Dimensions.addEventListener('change', onChange);
 
@@ -130,9 +144,10 @@ const Home = () => {
   return (
     <View style={{
       marginLeft: screenWidth > 768 ? 250 : 0,
+      maxHeight: screenHeight - 60,
     }}
     >
-      <View style={styles.body, responsiveStyles}>
+      <ScrollView style={styles.body, responsiveStyles}>
         <View style={styles.header, responsiveStyles.header}>
           <Text style={styles.title}>Welcome to HooHacks!</Text>
           <Text style={styles.countdownText}>
@@ -216,7 +231,7 @@ const Home = () => {
             </Text>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
