@@ -15,7 +15,7 @@ import {
     Linking,
     Pressable,
     ActivityIndicator,
-    Dimensions,
+    Dimensions, ScrollView, StyleSheet, Platform,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import * as DocumentPicker from "expo-document-picker";
@@ -380,14 +380,12 @@ const Application = ({ navigation }: RouterProps) => {
 
     }
 
-
     if (!screenLoading) {
         return (
             <View
-                style={styles.container}
+                style={styles.loadingContainer}
             >
                 <ActivityIndicator size="large" color="#121A6A" />
-
             </View>
         );
     } else {
@@ -397,7 +395,9 @@ const Application = ({ navigation }: RouterProps) => {
                     marginLeft: screenWidth > 768 ? 250 : 0,
                 }}
             >
+                <ScrollView style={{ flex: 1 }}>
                 <View style={styles.container}>
+                    <ScrollView style={{ flex: 1 }}>
                     <KeyboardAvoidingView behavior="padding">
                         <Text style={styles.subHeader}>Basic Information</Text>
                         <DatePicker
@@ -498,10 +498,10 @@ const Application = ({ navigation }: RouterProps) => {
                         >
                             { }
                             <Picker.Item label="Select" value="Select" />
-                            <Picker.Item label="2023" value="2023" />
                             <Picker.Item label="2024" value="2024" />
                             <Picker.Item label="2025" value="2025" />
                             <Picker.Item label="2026" value="2026" />
+                            <Picker.Item label="2027" value="2027" />
                             <Picker.Item label="Other" value="Other" />
                         </Picker>
                         {selectYear === 'Other' && (
@@ -744,7 +744,9 @@ const Application = ({ navigation }: RouterProps) => {
 
                         )}
                     </KeyboardAvoidingView>
+                    </ScrollView>
                 </View>
+                    </ScrollView>
             </View>
         );
     }

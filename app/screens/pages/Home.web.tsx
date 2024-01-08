@@ -93,7 +93,7 @@ const Home = () => {
       padding: screenWidth > 768 ? '1rem' : '0.5rem',
     },
     card: {
-      margin: screenWidth > 768 ? '0.5rem' : '0.30rem',
+      margin: '0.50rem',
       padding: screenWidth > 768 ? '0.75rem' : '0.5rem', // Reduce padding on smaller screens
       width: screenWidth > 768 ? 400 : screenWidth > 480 ? screenWidth - 50 : screenWidth - 30, // More dynamic width adjustment
       shadowColor: '#000',

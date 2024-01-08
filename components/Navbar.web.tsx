@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         position: 'absolute', // Position at the bottom
         bottom: 0,
         backgroundColor: '#FFF', // White background
-        // Add other styling as necessary (e.g., height, background color)
+        zIndex: 1000,
     },
     navItemBottom: {
         alignItems: 'center', // Center align items vertically and horizontally

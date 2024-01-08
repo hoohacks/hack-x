@@ -39,9 +39,9 @@ const WebLayout = () => {
                     <Stack.Screen name="ViewParticipants" component={ViewParticipants} />
                     <Stack.Screen name="ReferFriend" component={ReferFriend} />
                     <Stack.Screen name="QRCode" component={QRCode} />
-                    <Stack.Screen name="Application" component={Application} />
                     <Stack.Screen name="Completion" component={Completion} />
                     <Stack.Screen name="ParticipantView" component={ParticipantView} />
+                    <Stack.Screen name="Application" component={Application} />
                 </Stack.Navigator>
             </View>
         </View>
@@ -74,6 +74,7 @@ import PasswordReset from "./app/screens/auth/PasswordReset.web";
 import ViewParticipants from "./app/screens/pages/ViewParticipants";
 import ReferFriend from "./app/screens/pages/ReferFriend";
 import Application from "./app/screens/pages/process/Application";
+import ApplicationWeb from "./app/screens/pages/process/Application.web";
 
 // const MenuStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();

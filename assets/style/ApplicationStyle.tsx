@@ -5,8 +5,26 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        paddingVertical: 20,
         flex: 1,
+        paddingTop: 20,
+        gap: 8,
+        maxHeight: 780,
+        overflow: 'auto', // Enable scrolling for overflow
+        ...Platform.select({
+            web: {
+                width: "65%",
+            },
+            default: {
+                width: 316,
+            }
+        })
+    },
+    loadingContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        flex: 1,
+        paddingTop: 30,
         gap: 8,
         ...Platform.select({
             web: {
@@ -43,7 +61,7 @@ export const styles = StyleSheet.create({
                 color: '#121A6A',
                 backgroundColor: '#fff',
                 borderColor: 'grey',
-            }, 
+            },
             default: { // mobile
                 width: 316,
                 color: '#fff',
@@ -107,6 +125,6 @@ export const styles = StyleSheet.create({
         gap: 10,
     },
     checkbox: {
-        color:'#121A6A', 
+        color:'#121A6A',
     }
 });
