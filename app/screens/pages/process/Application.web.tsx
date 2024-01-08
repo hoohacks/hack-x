@@ -53,8 +53,9 @@ const Application = ({ navigation }: RouterProps) => {
     const [mlhCodeofConduct, setMlhCodeofConduct] = useState(false);
     const [mlhAdvertisement, setMlhAdvertisement] = useState(false);
 
-    // screen width
+    // screen width and height
     const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
+    const [screenHeight, setScreenHeight] = useState(Dimensions.get('window').height);
 
     // user
     const [user, setUser] = useState<User | null>(null);
@@ -143,6 +144,19 @@ const Application = ({ navigation }: RouterProps) => {
     useEffect(() => {
         const onChange = () => {
             setScreenWidth(Dimensions.get('window').width);
+        };
+        const subscription = Dimensions.addEventListener('change', onChange);
+
+        return () => {
+            subscription.remove();
+        };
+
+    }, [])
+
+    // screen height
+    useEffect(() => {
+        const onChange = () => {
+            setScreenHeight(Dimensions.get('window').height);
         };
         const subscription = Dimensions.addEventListener('change', onChange);
 
@@ -385,6 +399,134 @@ const Application = ({ navigation }: RouterProps) => {
         navigation.navigate('Completion')
 
     }
+
+    const styles = StyleSheet.create({
+        container: {
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+            flex: 1,
+            paddingTop: 20,
+            gap: 8,
+            maxHeight: screenHeight - 60,
+            ...Platform.select({
+                web: {
+                    width: "65%",
+                },
+                default: {
+                    width: 316,
+                }
+            })
+        },
+        loadingContainer: {
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+            flex: 1,
+            paddingTop: 30,
+            gap: 8,
+            ...Platform.select({
+                web: {
+                    width: "60%",
+                },
+                default: {
+                    width: 316,
+                }
+            })
+        },
+        subHeader: {
+            fontSize: 24,
+            color: "#121A6A",
+            alignSelf: "flex-start",
+        },
+        picker: {
+            width: "100%",
+            backgroundColor: "#fff",
+            height: 52,
+            marginVertical: 8,
+        },
+        input: {
+            alignSelf: 'center',
+            fontSize: 16,
+            height: 52,
+            borderWidth: 1,
+            borderRadius: 4,
+            backfaceVisibility: "hidden",
+            padding: 10,
+            marginVertical: 8,
+            ...Platform.select({
+                web: {
+                    width: '100%',
+                    color: '#121A6A',
+                    backgroundColor: '#fff',
+                    borderColor: 'grey',
+                },
+                default: { // mobile
+                    width: 316,
+                    color: '#fff',
+                    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                    borderColor: "#fff",
+                },
+            })
+        },
+        link: {
+            color: '#121A6A',
+            textDecorationLine: "underline",
+        },
+        button: {
+            alignSelf: 'center',
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingVertical: 8,
+            paddingHorizontal: 16,
+            borderRadius: 28,
+            marginVertical: 16,
+            elevation: 3,
+            ...Platform.select({
+                web: {
+                    backgroundColor: '#121A6A',
+                },
+                default: {
+                    borderColor: '#fff',
+                    borderWidth: 4,
+                }
+            })
+        },
+        resume_button: {
+            alignSelf: 'center',
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingVertical: 8,
+            paddingHorizontal: 16,
+            borderRadius: 4,
+            width: "100%",
+            ...Platform.select({
+                web: {
+                    backgroundColor: '#121A6A',
+                },
+                default: {
+                    borderColor: '#fff',
+                    borderWidth: 4,
+                }
+            })
+        },
+        button_text: {
+            color: 'white',
+            fontSize: 20,
+        },
+        required: {
+            color: 'red',
+        },
+        containerCheckBox: {
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 10,
+        },
+        checkbox: {
+            color:'#121A6A',
+        }
+    });
 
     if (!screenLoading) {
         return (
