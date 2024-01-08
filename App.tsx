@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { User, onAuthStateChanged } from "firebase/auth";
 import { FIREBASE_AUTH } from "./firebase/FirebaseConfig";
 
+//EDITED FIRST LINE BELOW FOR TESTING
 import Home from "./app/screens/pages/Home";
 import Leaderboard from "./app/screens/pages/Leaderboard";
 import Profile from "./app/screens/pages/Profile";
