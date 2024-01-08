@@ -85,7 +85,7 @@ const Home = () => {
       }
 
       fetchData();
-    })
+    }, 2000);
   }, []);
 
   const responsiveStyles = StyleSheet.create({
