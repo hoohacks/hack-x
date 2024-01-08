@@ -36,7 +36,7 @@ interface RouterProps {
 const Application = ({ navigation }: RouterProps) => {
 
     // application
-    const [birthdate, setBirthdate] = useState(new Date());
+    //const [birthdate, setBirthdate] = useState(new Date());
     const [chosenBirthdate, setChosenBirthdate] = useState(new Date());
     //const [chosenBirthdate, setChosenBirthdate] = useState("");
     const [gender, setGender] = useState("");
@@ -133,6 +133,7 @@ const Application = ({ navigation }: RouterProps) => {
             major !== "" &&
             numHackathons !== "" &&
             reason !== "" &&
+            travel !== "" &&
             mlhPrivacyAndTermsNCondition &&
             mlhCodeofConduct
         );
@@ -194,7 +195,7 @@ const Application = ({ navigation }: RouterProps) => {
                                 return;
                             }
                             const data = applicationDoc.data();
-                            setBirthdate(data.chosenBirthdate);
+                            setChosenBirthdate(data.chosenBirthdate);
                             setGender(data.gender);
                             setRace(data.race);
                             setSchool(data.school);
@@ -203,6 +204,7 @@ const Application = ({ navigation }: RouterProps) => {
                             setResumeName(data.resumeName)
                             setDescribe(data.describe);
                             setDietary(data.dietary);
+                            setTravel(data.travel);
                             setMajor(data.major);
                             setNumHackathons(data.numHackathons);
                             setReason(data.reason);
@@ -278,7 +280,7 @@ const Application = ({ navigation }: RouterProps) => {
         if (progress === 100 && isResumePicked && uploadResume !== null) {
 
             await setDoc(doc(FIRESTORE_DB, "applications", user.uid), {
-                birthdate: chosenBirthdate,
+                chosenBirthdate: chosenBirthdate,
                 gender: finalGender,
                 race: finalRace,
                 school: finalSchool,
@@ -302,7 +304,7 @@ const Application = ({ navigation }: RouterProps) => {
 
         } else {
             await setDoc(doc(FIRESTORE_DB, "applications", user.uid), {
-                birthdate: chosenBirthdate,
+                chosenBirthdate: chosenBirthdate,
                 gender: finalGender,
                 race: finalRace,
                 school: finalSchool,
