@@ -71,9 +71,6 @@ const SignUp = ({ navigation }: RouterProps) => {
                 hoocoins: 0,
             });
 
-            // sends email verification to user
-            await sendEmailVerification(user);
-
         } catch (error) {
             alert("Sign up failed: " + error);
         } finally {
