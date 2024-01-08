@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { User, getAuth } from "firebase/auth";
 import { FIREBASE_AUTH, FIRESTORE_DB } from "../../../firebase/FirebaseConfig";
 import { doc, runTransaction } from "@firebase/firestore";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import * as Font from "expo-font";
 
 const Home = () => {
@@ -55,34 +55,37 @@ const Home = () => {
 
   // user information
   const [status, setStatus] = React.useState("");
-  const [btnTitle,setBtnTitle] = React.useState("");
+  const [btnTitle, setBtnTitle] = React.useState("");
   React.useEffect(() => {
-    setUser(FIREBASE_AUTH.currentUser);
 
-    const fetchData = async () => {
-      try {
-        await runTransaction(FIRESTORE_DB, async (transaction) => {
-          const userDoc = await transaction.get(doc(FIRESTORE_DB, "users", FIREBASE_AUTH.currentUser?.uid));
-          if (!userDoc.exists()) {
-            alert("User does not exist!");
-            return;
-          }
-          console.log(userDoc.data().applicationComplete);
-          if (userDoc.data().applicationComplete) {
-            setStatus("submitted");
-            setBtnTitle("Check Application")
-          } else {
-            setStatus("incomplete")
-            setBtnTitle("Apply")
-          } 
-        });
-        console.log("User transaction successfully committed!");
-      } catch (e) {
-        alert("Transaction failed: " + e);
+    setTimeout(() => {
+      setUser(FIREBASE_AUTH.currentUser);
+
+      const fetchData = async () => {
+        try {
+          await runTransaction(FIRESTORE_DB, async (transaction) => {
+            const userDoc = await transaction.get(doc(FIRESTORE_DB, "users", FIREBASE_AUTH.currentUser?.uid));
+            if (!userDoc.exists()) {
+              alert("User does not exist!");
+              return;
+            }
+            console.log(userDoc.data().applicationComplete);
+            if (userDoc.data().applicationComplete) {
+              setStatus("submitted");
+              setBtnTitle("Check Application")
+            } else {
+              setStatus("incomplete")
+              setBtnTitle("Apply")
+            }
+          });
+          console.log("User transaction successfully committed!");
+        } catch (e) {
+          alert("Transaction failed: " + e);
+        }
       }
-    }
 
-    fetchData();
+      fetchData();
+    })
   }, []);
 
   const responsiveStyles = StyleSheet.create({
@@ -125,18 +128,18 @@ const Home = () => {
   });
 
   return (
-      <View style={{
-            marginLeft: screenWidth > 768 ? 250 : 0,
-          }}
-      >
-    <View style={styles.body, responsiveStyles}>
-      <View style={styles.header, responsiveStyles.header}>
-        <Text style={styles.title}>Welcome to HooHacks!</Text>
-        <Text style={styles.countdownText}>
-          Countdown to HooHacks:
-        </Text>
-        <View style={responsiveStyles.countdownContainer}>
-          <CountDown
+    <View style={{
+      marginLeft: screenWidth > 768 ? 250 : 0,
+    }}
+    >
+      <View style={styles.body, responsiveStyles}>
+        <View style={styles.header, responsiveStyles.header}>
+          <Text style={styles.title}>Welcome to HooHacks!</Text>
+          <Text style={styles.countdownText}>
+            Countdown to HooHacks:
+          </Text>
+          <View style={responsiveStyles.countdownContainer}>
+            <CountDown
               size={16}
               until={sec}
               onFinish={() => alert("Finished")}
@@ -151,11 +154,11 @@ const Home = () => {
               timeToShow={["D", "H", "M", "S"]}
               timeLabels={{ d: "Days", h: "Hours", m: "Minutes", s: "Seconds" }}
               showSeparator
-          /></View>
-      </View>
+            /></View>
+        </View>
 
-      <View style={responsiveStyles.cards_view}>
-        {/* <Pressable onPress={NavApplication}> */}
+        <View style={responsiveStyles.cards_view}>
+          {/* <Pressable onPress={NavApplication}> */}
           <View style={styles.registration_card, responsiveStyles.card}>
             <View style={styles.card_header}>
               <Button style={responsiveStyles.cardTitle} title={btnTitle} color="#121A6A" onPress={NavApplication}>
@@ -165,7 +168,7 @@ const Home = () => {
                 <Text style={styles.app_status_incomplete}>
                   INCOMPLETE
                 </Text>
-              )} 
+              )}
               {status === "submitted" && (
                 <Text style={styles.app_status_submitted}>
                   AWAITING APPROVAL
@@ -190,31 +193,31 @@ const Home = () => {
               We will start accepting applications during mid to late February.
             </Text>
           </View>
-        {/* </Pressable> */}
+          {/* </Pressable> */}
 
-        <View style={styles.refer_card, responsiveStyles.card}>
-          <View style={styles.card_header}>
-            <Text style={styles.card_title, responsiveStyles.cardTitle}>
-              Refer a Friend!
+          <View style={styles.refer_card, responsiveStyles.card}>
+            <View style={styles.card_header}>
+              <Text style={styles.card_title, responsiveStyles.cardTitle}>
+                Refer a Friend!
+              </Text>
+
+              <Image
+                style={[responsiveStyles.vectorIcon]}
+                resizeMode="contain"
+                source={require("../../../assets/Vector.jpg")}
+              />
+            </View>
+
+            <View style={styles.space} />
+
+            <Text style={responsiveStyles.cardText}>
+              If you refer a friend, you will get additional HooCoins, which will be used to win raffle prizes during the event!
+              Please forward your HooCoin ID to your friend for their application: <Text style={styles.bold_text}>{user?.uid}</Text>
             </Text>
-
-            <Image
-              style={[responsiveStyles.vectorIcon]}
-              resizeMode="contain"
-              source={require("../../../assets/Vector.jpg")}
-            />
           </View>
-
-          <View style={styles.space} />
-
-          <Text style={responsiveStyles.cardText}>
-            If you refer a friend, you will get additional HooCoins, which will be used to win raffle prizes during the event!
-            Please forward your HooCoin ID to your friend for their application: <Text style={styles.bold_text}>{user?.uid}</Text>
-          </Text>
         </View>
       </View>
     </View>
-      </View>
   );
 };
 
@@ -231,12 +234,12 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.chakraPetchRegular,
     fontSize: '1.5rem',
   },
-  appBtn:{
+  appBtn: {
     padding: '0.5rem',
     fontFamily: FontFamily.chakraPetchRegular,
     textAlign: 'center',
     textAlignVertical: 'center',
-    justifyContent:'flex-end'
+    justifyContent: 'flex-end'
   },
   header: {
     padding: '1rem',
