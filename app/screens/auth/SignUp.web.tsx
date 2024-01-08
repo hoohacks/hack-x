@@ -109,7 +109,7 @@ const SignUp = ({ navigation }: RouterProps) => {
                     }}
                 >
                     <Pressable
-                        style={styles.button}
+                        style={[styles.button, select === "participant" && styles.selectedButton]}
                         onPress={() => setSelect("participant")}
                     >
                         <Text
@@ -121,7 +121,7 @@ const SignUp = ({ navigation }: RouterProps) => {
                         </Text>
                     </Pressable>
                     <Pressable
-                        style={styles.button}
+                        style={[styles.button, select === "admin" && styles.selectedButton]}
                         onPress={() => setSelect("admin")}
                     >
                         <Text
@@ -133,7 +133,7 @@ const SignUp = ({ navigation }: RouterProps) => {
                         </Text>
                     </Pressable>
                     <Pressable
-                        style={styles.button}
+                        style={[styles.button, select === "sponsor" && styles.selectedButton]}
                         onPress={() => setSelect("sponsor")}
                     >
                         <Text

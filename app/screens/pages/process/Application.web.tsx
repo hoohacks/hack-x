@@ -36,8 +36,9 @@ interface RouterProps {
 const Application = ({ navigation }: RouterProps) => {
 
     // application
-    const [birthdate, setBirthdate] = useState(new Date());
+    //const [birthdate, setBirthdate] = useState(new Date());
     const [chosenBirthdate, setChosenBirthdate] = useState(new Date());
+    //const [chosenBirthdate, setChosenBirthdate] = useState("");
     const [gender, setGender] = useState("");
     const [otherGender, setOtherGender] = useState("");
     const [race, setRace] = useState("");
@@ -132,6 +133,7 @@ const Application = ({ navigation }: RouterProps) => {
             major !== "" &&
             numHackathons !== "" &&
             reason !== "" &&
+            travel !== "" &&
             mlhPrivacyAndTermsNCondition &&
             mlhCodeofConduct
         );
@@ -193,7 +195,10 @@ const Application = ({ navigation }: RouterProps) => {
                                 return;
                             }
                             const data = applicationDoc.data();
-                            setBirthdate(data.birthdate);
+                            //setBirthdate(data.chosenBirthdate);
+                            //console.log(data.chosenBirthdate.toDate())
+                            //console.log(data.chosenBirthdate)
+                            setChosenBirthdate(data.chosenBirthdate.toDate());
                             setGender(data.gender);
                             setRace(data.race);
                             setSchool(data.school);
@@ -202,6 +207,7 @@ const Application = ({ navigation }: RouterProps) => {
                             setResumeName(data.resumeName)
                             setDescribe(data.describe);
                             setDietary(data.dietary);
+                            setTravel(data.travel);
                             setMajor(data.major);
                             setNumHackathons(data.numHackathons);
                             setReason(data.reason);
@@ -277,7 +283,7 @@ const Application = ({ navigation }: RouterProps) => {
         if (progress === 100 && isResumePicked && uploadResume !== null) {
 
             await setDoc(doc(FIRESTORE_DB, "applications", user.uid), {
-                birthdate: birthdate,
+                chosenBirthdate: chosenBirthdate,
                 gender: finalGender,
                 race: finalRace,
                 school: finalSchool,
@@ -301,7 +307,7 @@ const Application = ({ navigation }: RouterProps) => {
 
         } else {
             await setDoc(doc(FIRESTORE_DB, "applications", user.uid), {
-                birthdate: chosenBirthdate,
+                chosenBirthdate: chosenBirthdate,
                 gender: finalGender,
                 race: finalRace,
                 school: finalSchool,
@@ -400,10 +406,24 @@ const Application = ({ navigation }: RouterProps) => {
                     <ScrollView style={{ flex: 1 }}>
                     <KeyboardAvoidingView behavior="padding">
                         <Text style={styles.subHeader}>Basic Information</Text>
+                        <Text>
+                            Birthdate
+                            <Text style={styles.required}> *</Text>
+                        </Text>
+                        
                         <DatePicker
                             value={chosenBirthdate}
                             onChange={(newDate: any) => setChosenBirthdate(newDate)}
                         />
+                        {/*
+                        <TextInput
+                            style={styles.input}
+                            placeholder="mm/dd/yyyy"
+                            placeholderTextColor="#808080"
+                            autoCapitalize="none"
+                            value={numHackathons}
+                            onChangeText={(text) => setNumHackathons(text)}
+            /> */}
 
                         <Text>
                             Gender
