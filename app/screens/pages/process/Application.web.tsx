@@ -644,6 +644,7 @@ const Application = ({ navigation }: RouterProps) => {
                             autoCapitalize="none"
                             value={coinsID}
                             onChangeText={(text) => setCoinsID(text)}
+                            readOnly={referred}
                             editable={!referred}
                         />
                         <View style={styles.containerCheckBox}>
