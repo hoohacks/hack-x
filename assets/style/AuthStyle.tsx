@@ -95,6 +95,25 @@ export const styles = StyleSheet.create({
             }
         })
     },
+    selectedButton:{
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 28,
+        marginVertical: 16,
+        elevation: 3,
+        ...Platform.select({
+            web: {
+                backgroundColor: '#9fa7ef',
+            },
+            default: {
+                borderColor: '#fff',
+                borderWidth: 4,
+            }
+        })
+    },
     button_text: {
         color: 'white',
         fontSize: 20,
