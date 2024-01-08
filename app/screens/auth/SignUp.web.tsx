@@ -120,7 +120,7 @@ const SignUp = ({ navigation }: RouterProps) => {
                                 color: "#fff"
                             }}
                         >
-                            Member
+                            Participant
                         </Text>
                     </Pressable>
                     <Pressable

@@ -82,7 +82,7 @@ const SignUp = ({ navigation }: RouterProps) => {
     }
 
     // handle user type selection 
-    const [select, setSelect] = useState("member");
+    const [select, setSelect] = useState("participant");
     const [adminPassword, setAdminPassword] = useState('');
     const [sponsorPassword, setSponsorPassword] = useState('');
 
@@ -106,14 +106,14 @@ const SignUp = ({ navigation }: RouterProps) => {
                 >
                     <Pressable
                         style={styles.button}
-                        onPress={() => setSelect("member")}
+                        onPress={() => setSelect("participant")}
                     >
                         <Text
                             style={{
                                 color: "#fff"
                             }}
                         >
-                            Member
+                            Participant
                         </Text>
                     </Pressable>
                     <Pressable
