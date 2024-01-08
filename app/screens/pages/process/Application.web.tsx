@@ -336,9 +336,9 @@ const Application = ({ navigation }: RouterProps) => {
                 // calculate hoocoins bonus
                 let bonus: number;
                 if (!userDoc.data().applicationComplete) { // only able to get bonus if application is new 
-                    if (Date.now() < Date.parse("2024-03-01T08:00:00+01:00") && finalVerifyReferral) {
+                    if (Date.now() < Date.parse("2024-01-20T08:00:00+01:00") && finalVerifyReferral) {
                         bonus = 10;
-                    } else if (verifyReferral || Date.now() < Date.parse("2024-03-01T08:00:00+01:00")) {
+                    } else if (finalVerifyReferral || Date.now() < Date.parse("2024-01-20T08:00:00+01:00")) {
                         bonus = 5;
                     } else {
                         bonus = 0;
