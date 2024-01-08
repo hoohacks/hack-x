@@ -8,8 +8,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 20,
         gap: 8,
-        maxHeight: 780,
-        overflow: 'auto', // Enable scrolling for overflow
+        maxHeight: 775,
         ...Platform.select({
             web: {
                 width: "65%",

@@ -186,6 +186,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column', // Changed from 'row' to 'column'
         backgroundColor: 'white',
+        overflow: 'hidden',
     },
 });
 
