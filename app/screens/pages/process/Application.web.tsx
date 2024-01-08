@@ -195,7 +195,10 @@ const Application = ({ navigation }: RouterProps) => {
                                 return;
                             }
                             const data = applicationDoc.data();
-                            setChosenBirthdate(data.chosenBirthdate);
+                            //setBirthdate(data.chosenBirthdate);
+                            //console.log(data.chosenBirthdate.toDate())
+                            //console.log(data.chosenBirthdate)
+                            setChosenBirthdate(data.chosenBirthdate.toDate());
                             setGender(data.gender);
                             setRace(data.race);
                             setSchool(data.school);
