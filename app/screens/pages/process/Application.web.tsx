@@ -15,6 +15,7 @@ import {
     Linking,
     Pressable,
     ActivityIndicator,
+    Dimensions,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import * as DocumentPicker from "expo-document-picker";
@@ -33,6 +34,8 @@ interface RouterProps {
 }
 
 const Application = ({ navigation }: RouterProps) => {
+
+    // application
     const [birthdate, setBirthdate] = useState(new Date());
     const [chosenBirthdate, setChosenBirthdate] = useState(new Date());
     const [gender, setGender] = useState("");
@@ -48,6 +51,9 @@ const Application = ({ navigation }: RouterProps) => {
     const [mlhPrivacyAndTermsNCondition, setMlhPrivacyAndTermsNCondition] = useState(false);
     const [mlhCodeofConduct, setMlhCodeofConduct] = useState(false);
     const [mlhAdvertisement, setMlhAdvertisement] = useState(false);
+
+    // screen width
+    const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
 
     // user
     const [user, setUser] = useState<User | null>(null);
@@ -86,7 +92,7 @@ const Application = ({ navigation }: RouterProps) => {
 
     const changeResumeHandle = async () => {
         let result = await DocumentPicker.getDocumentAsync({
-            type: "*/*",
+            type: "application/msword,application/pdf",
             multiple: false,
             copyToCacheDirectory: true,
         });
@@ -130,6 +136,19 @@ const Application = ({ navigation }: RouterProps) => {
             mlhCodeofConduct
         );
     };
+
+    // screen width
+    useEffect(() => {
+        const onChange = () => {
+            setScreenWidth(Dimensions.get('window').width);
+        };
+        const subscription = Dimensions.addEventListener('change', onChange);
+
+        return () => {
+            subscription.remove();
+        };
+
+    }, []);
 
     // check if application has already been completed and fill data if true
     useEffect(() => {
@@ -221,7 +240,7 @@ const Application = ({ navigation }: RouterProps) => {
     const apply = async () => {
         const finalSchool = school === 'Other' ? otherSchool : school;
         const finalGender = gender === 'Other' ? otherGender : gender;
-        const finalRace = race === 'Other' ? otherRace : race; 
+        const finalRace = race === 'Other' ? otherRace : race;
         const finalYear = selectYear === 'Other' ? otherYear : selectYear;
         const finalDietary = dietary === 'Other' ? otherDietary : dietary;
         const finalTravel = travel === "Other" ? otherTravel : travel;
@@ -364,11 +383,20 @@ const Application = ({ navigation }: RouterProps) => {
 
     if (!screenLoading) {
         return (
-            <ActivityIndicator size="large" color="#121A6A" />
+            <View
+                style={styles.container}
+            >
+                <ActivityIndicator size="large" color="#121A6A" />
+
+            </View>
         );
     } else {
         return (
-            <View style={styles.webContainer}>
+            <View
+                style={{
+                    marginLeft: screenWidth > 768 ? 250 : 0,
+                }}
+            >
                 <View style={styles.container}>
                     <KeyboardAvoidingView behavior="padding">
                         <Text style={styles.subHeader}>Basic Information</Text>
@@ -514,19 +542,19 @@ const Application = ({ navigation }: RouterProps) => {
                             PDF or docx file only
                         </Text>
                         <Pressable style={styles.resume_button} onPress={() => changeResumeHandle()}>
-                            {resumeName !== "none" && 
+                            {resumeName !== "none" &&
                                 <Text style={styles.button_text}>Resume: {resumeName}</Text>
                             }
-                            {resumeName === "none" && 
+                            {resumeName === "none" &&
                                 <Text style={styles.button_text}>Optional - Upload Resume</Text>
-                                
+
                             }
                         </Pressable>
-                        <Progress.Bar 
-                            progress={progress / 100} 
-                            width={null} 
-                            color="#192596" 
-                            style={{marginBottom: 8}} 
+                        <Progress.Bar
+                            progress={progress / 100}
+                            width={null}
+                            color="#192596"
+                            style={{ marginBottom: 8 }}
                         />
 
                         <Text>

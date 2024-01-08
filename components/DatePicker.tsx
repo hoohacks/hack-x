@@ -20,8 +20,8 @@ export default function DatePicker({ value, onChange }: any) {
         },
         defaultValue: "Birthday",
         style: {
-            width: "100%",
-            height: 52,
+            width: "97%",
+            height: 34,
             padding: 10,
             fontSize: 16,
             color: "#121A6A",            

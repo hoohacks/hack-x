@@ -1,17 +1,13 @@
 import { StyleSheet, Platform } from "react-native";
 
 export const styles = StyleSheet.create({
-    webContainer: {
-        alignSelf: 'stretch',
-        backgroundColor: '#fff',
-    },
     container: {
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
+        paddingVertical: 20,
         flex: 1,
         gap: 8,
-        height: "100%",
         ...Platform.select({
             web: {
                 width: "60%",
