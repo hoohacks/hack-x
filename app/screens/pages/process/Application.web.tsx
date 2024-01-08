@@ -38,6 +38,7 @@ const Application = ({ navigation }: RouterProps) => {
     // application
     const [birthdate, setBirthdate] = useState(new Date());
     const [chosenBirthdate, setChosenBirthdate] = useState(new Date());
+    //const [chosenBirthdate, setChosenBirthdate] = useState("");
     const [gender, setGender] = useState("");
     const [otherGender, setOtherGender] = useState("");
     const [race, setRace] = useState("");
@@ -193,7 +194,7 @@ const Application = ({ navigation }: RouterProps) => {
                                 return;
                             }
                             const data = applicationDoc.data();
-                            setBirthdate(data.birthdate);
+                            setBirthdate(data.chosenBirthdate);
                             setGender(data.gender);
                             setRace(data.race);
                             setSchool(data.school);
@@ -277,7 +278,7 @@ const Application = ({ navigation }: RouterProps) => {
         if (progress === 100 && isResumePicked && uploadResume !== null) {
 
             await setDoc(doc(FIRESTORE_DB, "applications", user.uid), {
-                birthdate: birthdate,
+                birthdate: chosenBirthdate,
                 gender: finalGender,
                 race: finalRace,
                 school: finalSchool,
@@ -400,10 +401,24 @@ const Application = ({ navigation }: RouterProps) => {
                 <View style={styles.container}>
                     <KeyboardAvoidingView behavior="padding">
                         <Text style={styles.subHeader}>Basic Information</Text>
+                        <Text>
+                            Birthdate
+                            <Text style={styles.required}> *</Text>
+                        </Text>
+                        
                         <DatePicker
                             value={chosenBirthdate}
                             onChange={(newDate: any) => setChosenBirthdate(newDate)}
                         />
+                        {/*
+                        <TextInput
+                            style={styles.input}
+                            placeholder="mm/dd/yyyy"
+                            placeholderTextColor="#808080"
+                            autoCapitalize="none"
+                            value={numHackathons}
+                            onChangeText={(text) => setNumHackathons(text)}
+            /> */}
 
                         <Text>
                             Gender
