@@ -583,7 +583,7 @@ const Application = ({ navigation }: RouterProps) => {
 
                         <Text>
                             Do you require any transportation?
-                            <Text style={styles.required}> *</Text>
+                            <Text style={styles.required}> *</Text> (bus information will be released shortly but let us know your preference here)
                         </Text>
                         <RadioButtonGroup
                             selected={travel}
